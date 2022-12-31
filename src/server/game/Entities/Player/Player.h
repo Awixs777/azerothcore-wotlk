@@ -2857,9 +2857,7 @@ public:
 
     bool m_needZoneUpdate;
 
-    [[nodiscard]] AchievementMgr* GetAchievementMgr() const { return m_achievementMgr; }
-
-            // Played rewards
+    // Played rewards
         uint32 m_PlayedRewardsTimer;
 
 private:

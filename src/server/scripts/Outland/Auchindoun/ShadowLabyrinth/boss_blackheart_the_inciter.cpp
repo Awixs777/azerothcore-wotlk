@@ -25,6 +25,7 @@ enum BlackheartTheInciter
     SPELL_INCITE_CHAOS_B    = 33684,                         //debuff applied to each member of party
     SPELL_CHARGE            = 33709,
     SPELL_WAR_STOMP         = 33707,
+    SPELL_SARONITE = 633650,
 
     SAY_INTRO               = 0,
     SAY_AGGRO               = 1,
@@ -103,6 +104,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

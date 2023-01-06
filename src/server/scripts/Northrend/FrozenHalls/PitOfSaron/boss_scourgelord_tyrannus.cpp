@@ -42,6 +42,7 @@ enum Spells
     RIMEFANG_SPELL_ICY_BLAST            = 69232,
     SPELL_MARK_OF_RIMEFANG              = 69275,
     RIMEFANG_SPELL_HOARFROST            = 69246,
+    SPELL_SARONITE                      = 633650,
 };
 
 enum Events
@@ -131,6 +132,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

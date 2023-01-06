@@ -35,6 +35,7 @@ enum Murmur
     SPELL_SONIC_BOOM_EFFECT_H       = 33666,
     SPELL_MURMURS_TOUCH_N           = 33711,
     SPELL_MURMURS_TOUCH_H           = 38794,
+    SPELL_SARONITE = 633650,
 
     EVENT_SPELL_SONIC_BOOM          = 1,
     EVENT_SPELL_SONIC_BOOM_EFFECT   = 2,
@@ -69,7 +70,7 @@ public:
         void Reset() override
         {
             events.Reset();
-            me->SetHealth(me->CountPctFromMaxHealth(40));
+            me->SetHealth(me->CountPctFromMaxHealth(90));
             me->ResetPlayerDamageReq();
 
             if (instance)
@@ -100,6 +101,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING))
                 return;
 
@@ -179,7 +181,7 @@ public:
 
         void RecalculateDamage()
         {
-            SetHitDamage(GetHitUnit()->CountPctFromMaxHealth(90));
+            SetHitDamage(GetHitUnit()->CountPctFromMaxHealth(30));
         }
 
         void Register() override

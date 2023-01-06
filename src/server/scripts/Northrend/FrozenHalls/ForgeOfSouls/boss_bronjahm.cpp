@@ -44,6 +44,7 @@ enum eSpells
 
     SPELL_TELEPORT                  = 68988,
     SPELL_TELEPORT_VISUAL           = 52096,
+    SPELL_SARONITE = 633650,
 
     SPELL_SOULSTORM_VISUAL          = 68870,
     SPELL_SOULSTORM                 = 68872,
@@ -129,6 +130,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

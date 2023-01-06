@@ -59,6 +59,7 @@ enum Spells
     SPELL_AUTO_GROW                     = 69020,
     SPELL_HASTY_GROW                    = 44851,
     SPELL_EXPLOSIVE_BARRAGE_DAMAGE      = 69019,
+    SPELL_SARONITE = 633650,
 };
 
 enum Events
@@ -161,6 +162,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

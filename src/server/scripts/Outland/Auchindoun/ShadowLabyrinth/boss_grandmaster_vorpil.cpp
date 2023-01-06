@@ -43,6 +43,7 @@ enum GrandmasterVorpil
 
     NPC_VOID_PORTAL             = 19224,
     SPELL_VOID_PORTAL_VISUAL    = 33569,
+    SPELL_SARONITE = 633650,
 
     EVENT_SPELL_SHADOWBOLT      = 1,
     EVENT_SPELL_DRAWSHADOWS     = 2,
@@ -164,6 +165,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

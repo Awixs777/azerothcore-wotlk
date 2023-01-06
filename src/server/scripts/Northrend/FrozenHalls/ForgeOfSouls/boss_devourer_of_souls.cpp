@@ -54,6 +54,7 @@ enum eSpells
     SPELL_WAILING_SOULS_TARGETING       = 68912, // target 22.15, aura dummy, 50000yd, cast instant, duration 4 secs
     SPELL_WAILING_SOULS_DMG_N           = 68873, // 100yd, 104.0
     SPELL_WAILING_SOULS_DMG_H           = 70324, // 100yd, 104.0
+    SPELL_SARONITE = 633650,
 };
 
 enum eEvents
@@ -169,6 +170,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

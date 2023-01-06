@@ -491,7 +491,7 @@ public:
         // проверка ледяные залы
         if (newArea == 4862)
         {
-            if (!player->GetQuestRewardStatus(20405) || player->GetSession()->GetSecurity()) {
+            if (!player->GetQuestRewardStatus(20405)) {
                 player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
                 ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо выполнить задание [Доступ в Ледяные Залы]");
             }

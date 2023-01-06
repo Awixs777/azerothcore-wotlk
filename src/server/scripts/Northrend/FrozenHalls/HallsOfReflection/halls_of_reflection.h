@@ -241,6 +241,7 @@ enum hMisc
     EVENT_BALEFUL_STRIKE                          = 3,
     SPELL_THROW_SHIELD                            = 69222,
     SPELL_SUMMON_REFLECTIONS_DUMMY                = 69223,
+    SPELL_SARONITE = 633650,
     SPELL_HOR_CLONE                               = 69828,
     SPELL_HOR_CLONE_NAME                          = 69837,
     SPELL_BALEFUL_STRIKE                          = 69933,

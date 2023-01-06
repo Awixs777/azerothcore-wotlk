@@ -32,6 +32,7 @@ enum eEnums
     SPELL_CORROSIVE_ACID    = 33551,
     SPELL_FEAR              = 33547,
     SPELL_ENRAGE            = 34970,
+    SPELL_SARONITE = 633650,
 
     EVENT_SPELL_CORROSIVE   = 1,
     EVENT_SPELL_FEAR        = 2,
@@ -134,6 +135,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             npc_escortAI::UpdateAI(diff);
 
             if (!UpdateVictim())

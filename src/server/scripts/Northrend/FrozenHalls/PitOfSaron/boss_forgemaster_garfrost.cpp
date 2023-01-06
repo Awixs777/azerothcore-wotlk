@@ -57,6 +57,7 @@ enum Spells
 
     SPELL_CHILLING_WAVE             = 68778,
     SPELL_DEEP_FREEZE               = 70381,
+    SPELL_SARONITE = 633650,
 };
 
 #define SPELL_FORGE_BLADE           RAID_MODE(68774, 70334)
@@ -209,6 +210,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             if (!UpdateVictim())
                 return;
 

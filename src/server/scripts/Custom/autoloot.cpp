@@ -22,7 +22,7 @@ public:
         {
 			// @todo: implement group auto loot
 		}
-		else if ((player->GetMapId() == 230 || player->GetMapId() == 37 || player->GetMapId() == 580 || player->GetAreaId() == 3539 || player->GetZoneId() == 3525 || player->GetAreaId() == 3759 || player->GetMapId() == 624 || player->GetMapId() == 533 || player->GetMapId() == 585 || player->GetMapId() == 615 || player->GetAreaId() == 35 || player->GetZoneId() == 2817 || player->GetAreaId() == 279 || player->GetMapId() == 550) && sConfigMgr->GetOption<bool>("AOE.Enable", true))
+		else if ((player->GetMapId() == 230 || player->GetMapId() == 37 || player->GetMapId() == 580 || player->GetAreaId() == 3539 || player->GetZoneId() == 3525 || player->GetAreaId() == 3759 || player->GetMapId() == 624 || player->GetMapId() == 533 || player->GetMapId() == 585 || player->GetMapId() == 615 || player->GetAreaId() == 35 || player->GetZoneId() == 2817 || player->GetAreaId() == 279 || player->GetMapId() == 550 || player->GetMapId() == 555) && sConfigMgr->GetOption<bool>("AOE.Enable", true))
         {
 			if (player->isAllowedToLoot(creature))
             {

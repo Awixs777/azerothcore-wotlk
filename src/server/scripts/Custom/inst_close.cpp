@@ -353,7 +353,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_WARRIOR:
@@ -367,7 +367,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_HUNTER:
@@ -381,7 +381,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_ROGUE:
@@ -395,7 +395,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_PRIEST:
@@ -409,7 +409,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_DEATH_KNIGHT:
@@ -423,7 +423,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_SHAMAN:
@@ -437,7 +437,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_MAGE:
@@ -451,7 +451,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_WARLOCK:
@@ -465,7 +465,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
             case CLASS_DRUID:
@@ -479,7 +479,7 @@ public:
                 else
                 {
                     player->TeleportTo(530, -3613.614258f, 4932.460938f, -100.278839f, 2.277619f);
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь 3 вещи [Грудь, Руки, Ноги] из сета [Крепости Бурь] и хотя-бы одну [Сумку Захватчика]");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо иметь: Комплект сета [Крепости Бурь] и одну [Сумку Захватчика]");
                 }
                 break;
 
@@ -493,7 +493,7 @@ public:
         {
             if (!player->GetQuestRewardStatus(20405)) {
                 player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
-                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо выполнить задание [Доступ в Ледяные Залы]");
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо выполнить задание [Тайны Лабиринта]\nПодземелье [Темный Лабиринт]");
             }
         }
     }

@@ -437,11 +437,11 @@ public:
                             WaveNumber = 0;
                             DoUpdateWorldState(WORLD_STATE_HOR_COUNTER, 0);
 
-                            // give quest
-                            Map::PlayerList const& pl = instance->GetPlayers();
-                            for (Map::PlayerList::const_iterator itr = pl.begin(); itr != pl.end(); ++itr)
-                                if (Player* p = itr->GetSource())
-                                    p->CastSpell(p, p->GetTeamId() == TEAM_ALLIANCE ? SPELL_HOR_START_QUEST_ALLY : SPELL_HOR_START_QUEST_HORDE, true);
+                            // give quest  GFY
+                          //  Map::PlayerList const& pl = instance->GetPlayers();
+                          //  for (Map::PlayerList::const_iterator itr = pl.begin(); itr != pl.end(); ++itr)
+                          //      if (Player* p = itr->GetSource())
+                           //         p->CastSpell(p, p->GetTeamId() == TEAM_ALLIANCE ? SPELL_HOR_START_QUEST_ALLY : SPELL_HOR_START_QUEST_HORDE, true);
                         }
                     }
                     break;
@@ -1031,7 +1031,7 @@ public:
                                         a->SetDuration(8000);
                                 }
 
-                                pMarwyn->TextEmote("Spirits appear and surround the altar!", nullptr, true);
+                                pMarwyn->TextEmote("Духи появляются и окружают алтарь!", nullptr, true);
                             }
                             ++ResumeFirstEventStep;
                             ResumeFirstEventTimer = 7500;

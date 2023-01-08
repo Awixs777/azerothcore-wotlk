@@ -32,7 +32,6 @@ enum Spells
     SPELL_QUIVERING_STRIKE                        = 72422,
     SPELL_IMPENDING_DESPAIR                       = 72426,
     SPELL_DEFILING_HORROR                         = 72435,
-    SPELL_SARONITE                                = 633650,
 };
 
 enum Events
@@ -94,7 +93,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
+            DoCast(me, 633650);
             if (startFightTimer)
             {
                 if (startFightTimer <= diff)

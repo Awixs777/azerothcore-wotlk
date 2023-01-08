@@ -108,7 +108,7 @@ public:
                     CloseGossipMenuFor(player);
                     player->DestroyItemCount(90033, 100, true, false);
                     player->DestroyItemCount(500041, 1, true, false);
-                    player->AddItem(90033, 350);
+                    player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
                 }
                 else

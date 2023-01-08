@@ -91,7 +91,7 @@ public:
                             if (Creature* summon = me->SummonCreature(introPositions[counter].entry[idx], PortalPos))
                             {
                                 summon->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                                summon->SetSpeed(MOVE_RUN, 0.8f);
+                                summon->SetSpeed(MOVE_RUN, 1.8f);
                                 summon->GetMotionMaster()->MovePoint(1, introPositions[counter].endPosition);
                                 summon->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_READY1H);
                             }
@@ -277,7 +277,7 @@ public:
                                 c->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
                                 float dist = rand_norm();
                                 float angle = rand_norm() * 2 * M_PI;
-                                c->SetSpeed(MOVE_RUN, 0.8f);
+                                c->SetSpeed(MOVE_RUN, 1.8f);
                                 c->SetInCombatWithZone();
                                 c->GetMotionMaster()->MoveChase(me, dist, angle);
                                 c->SetHomePosition(me->GetPositionX() + dist * cos(angle), me->GetPositionY() + dist * std::sin(angle), me->GetPositionZ(), 0.0f);

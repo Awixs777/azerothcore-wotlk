@@ -103,7 +103,7 @@ class boss_anub_arak : public CreatureScript
             {
                 Talk(SAY_DEATH);
                 BossAI::JustDied(killer);
-                me->NearTeleportTo(551.463928f, 256.23062f, 224.471542f, 1.52823f);
+               // me->NearTeleportTo(551.463928f, 256.23062f, 224.471542f, 1.52823f);
             }
 
             void KilledUnit(Unit*  /*victim*/) override
@@ -188,11 +188,11 @@ class boss_anub_arak : public CreatureScript
                         me->DisableRotate(false);
                         break;
                     case EVENT_CHECK_HEALTH_25:
-                    case EVENT_CHECK_HEALTH_50:
                     case EVENT_CHECK_HEALTH_75:
                         if (me->HealthBelowPct(eventId*25))
                         {
                             Talk(SAY_SUBMERGE);
+                            me->RemoveAllAuras();
                             me->CastSpell(me, SPELL_IMPALE_PERIODIC, true);
                             me->CastSpell(me, SPELL_SUBMERGE, false);
                             me->SetUnitFlag(UNIT_FLAG_NON_ATTACKABLE|UNIT_FLAG_NOT_SELECTABLE);

@@ -7066,7 +7066,7 @@ bool Player::_LoadHomeBind(PreparedQueryResult result)
 
 void Player::SaveToDB(bool create, bool logout)
 {
-    if (isAFK()) // AFK kick GFY
+    if (isAFK() && !IsGameMaster()) // AFK kick GFY
     {
         GetSession()->SetLogoutStartTime(true);
     }

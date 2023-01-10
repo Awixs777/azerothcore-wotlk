@@ -138,7 +138,7 @@ class boss_anub_arak : public CreatureScript
                 events.ScheduleEvent(EVENT_LEECHING_SWARM, 20000);
                 events.ScheduleEvent(EVENT_POUND, 15000);
                 events.ScheduleEvent(EVENT_CHECK_HEALTH_75, 1000);
-                events.ScheduleEvent(EVENT_CHECK_HEALTH_50, 1000);
+               // events.ScheduleEvent(EVENT_CHECK_HEALTH_50, 1000);
                 events.ScheduleEvent(EVENT_CHECK_HEALTH_25, 1000);
                 events.ScheduleEvent(EVENT_CLOSE_DOORS, 5000);
             }

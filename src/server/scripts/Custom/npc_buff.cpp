@@ -63,6 +63,7 @@ class buff : public CreatureScript
         {
         case 2:
         player->PlayerTalkClass->ClearMenus();
+        AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "[Бафнуть] Скорость передвижения 130%", GOSSIP_SENDER_MAIN, 15);
                 AddGossipItemFor(player,GOSSIP_ICON_TRAINER, MSG_GOSSIP_TEXT_BUFF_POWER_WORD, GOSSIP_SENDER_MAIN, 3);
                 AddGossipItemFor(player,GOSSIP_ICON_TRAINER, MSG_GOSSIP_TEXT_BUFF_BLESSING_OF_KINGS, GOSSIP_SENDER_MAIN, 4);
                 AddGossipItemFor(player,GOSSIP_ICON_TRAINER, MSG_GOSSIP_TEXT_BUFF_MARK_OF_THE_WILD, GOSSIP_SENDER_MAIN, 5);
@@ -73,7 +74,19 @@ class buff : public CreatureScript
                 AddGossipItemFor(player,GOSSIP_ICON_TALK, MSG_GOSSIP_TEXT_MAIN_MENU, GOSSIP_SENDER_MAIN, 24);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE,_creature->GetGUID());
                 break;
-
+        case 15:
+            if (player->GetMoney() < CONST_MONEY)
+            {
+                _creature->Whisper(MSG_ERR_MONEY, LANG_UNIVERSAL, player);
+                CloseGossipMenuFor(player);
+            }
+            else {
+                // Наложение Защита Нелтариона(Доработано)
+                player->CastSpell(player, 90400, true);
+                player->ModifyMoney(-CONST_MONEY);
+                CloseGossipMenuFor(player);
+            }
+            break;
         case 3:
 			if (player->GetMoney() < CONST_MONEY)
 			{

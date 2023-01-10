@@ -53,6 +53,9 @@ public:
             handler.PSendSysMessage("|cff8ab6fc[.mir all|cfffcc141 - таймер Мировых боссов|r");
             handler.PSendSysMessage("|cfffcc141[Рейты:] Опыт: х2, Репутация: х2");
 			handler.PSendSysMessage("|cfffcc141Приятной игры.|r|TInterface/ICONS/Achievement_bg_tophealer_wsg:15|t");
+            player->CastSpell(player, 90000, true);
+            player->CastSpell(player, 90001, true);
+            player->CastSpell(player, 90002, true);
 			QueryResult result = LoginDatabase.Query("SELECT unsetdate FROM account_premium WHERE id = {}", accid);
 			if (result)
 			{

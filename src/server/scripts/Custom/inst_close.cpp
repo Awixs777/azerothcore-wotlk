@@ -385,7 +385,7 @@ public:
                 }
                 break;
             case CLASS_ROGUE:
-                if (player->HasItemCount(81040, 1) && player->HasItemCount(81041, 1) && player->HasItemCount(81043, 1) && (player->HasItemCount(70816, 1) || player->HasItemCount(70813, 1)) || player->HasItemCount(100506, 1) || player->IsGameMaster())
+                if (player->HasItemCount(81040, 1) && player->HasItemCount(81041, 1) && player->HasItemCount(81043, 1) && (player->HasItemCount(70817, 1) || player->HasItemCount(70814, 1)) || player->HasItemCount(100506, 1) || player->IsGameMaster())
                 {
                     if (!player->HasItemCount(100506, 1))
                     {

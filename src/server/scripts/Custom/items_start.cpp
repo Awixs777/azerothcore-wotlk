@@ -5,12 +5,11 @@ public:
 
 	void OnLogin(Player* player)
 	{
-
+        uint32 quest = 0;
 		if (player->GetTotalPlayedTime() < 1)
 		{
 				switch (player->getClass())
-				{
-
+				{                
 					/*
 					// Skill Reference
 					player->learnSpell(204);	// Defense
@@ -197,7 +196,7 @@ public:
 				ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
 				ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
 				ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 130-уровня:|cff02A4B1 40 минут|r");
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
 				if (player->getClass() == CLASS_HUNTER)
@@ -249,7 +248,7 @@ public:
 					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
 					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 130-уровня:|cff02A4B1 40 минут|r");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
 				if (player->getClass() == CLASS_ROGUE)
@@ -301,7 +300,7 @@ public:
 					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
 					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 130-уровня:|cff02A4B1 40 минут|r");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
 				if (player->getClass() == CLASS_MAGE || player->getClass() == CLASS_PRIEST || player->getClass() == CLASS_WARLOCK)
@@ -352,7 +351,7 @@ public:
 					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
 					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 130-уровня:|cff02A4B1 40 минут|r");
+                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
 				if (player->getClass() == CLASS_DRUID || player->getClass() == CLASS_SHAMAN)
@@ -403,7 +402,7 @@ public:
 					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
 					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 130-уровня:|cff02A4B1 40 минут|r");
+					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 			}
 		}

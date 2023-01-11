@@ -53,7 +53,7 @@ public:
     {
         if ((newZone == 268 || newZone == 4075 || newArea == 3539 || newZone == 3525 || newArea == 3759 || newZone == 4603 || newArea == 35 || newArea == 279 || newArea == 3456) && sConfigMgr->GetOption<bool>("AOE.Enable", true))
         {
-           ChatHandler(player->GetSession()).PSendSysMessage("В данной локации работает [Автолут]. Проверьте свободное место в своих сумках.");
+           ChatHandler(player->GetSession()).PSendSysMessage("В данной локации работает [Автолут]. Проверьте свободное место в сумках.");
         }
     }
 };

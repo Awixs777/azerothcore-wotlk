@@ -2206,6 +2206,18 @@ public:
             case RACE_DRAENEI:
                 raceStr = "Draenei";
                 break;
+            case RACE_GOBLINNEW:
+                raceStr = "Goblin";
+                break;
+            case RACE_WORGEN:
+                raceStr = "Worgen";
+                break;
+            case RACE_PANDARENA:
+                raceStr = "Pandaren";
+                break;
+            case RACE_PANDARENH:
+                raceStr = "Pandaren";
+                break;
         }
 
         switch (classid)

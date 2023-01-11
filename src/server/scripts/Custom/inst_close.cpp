@@ -311,7 +311,7 @@ public:
             }
         }
         // проверка меха
-        if (newZone == 3849)
+        if (newZone == 3849 && !player->IsGameMaster())
         {
             if (!player->GetQuestRewardStatus(20210)) {
                 player->TeleportTo(530, 2913.550049f, 1605.739990f, 249.011993f, 4.834550f);
@@ -320,16 +320,17 @@ public:
         }
 
         // проверка арка
-        if (newZone == 3848)
+        if (newZone == 3848 && !player->IsGameMaster())
         {
             if (!player->GetQuestRewardStatus(20211)) {
                 player->TeleportTo(530, 3278.582031f, 1416.983398f, 503.112488f, 5.112618f);
                 ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо выполнить задание [Захват Механар]");
             }
+              
         }
 
         // проверка бота
-        if (newZone == 3847)
+        if (newZone == 3847 && !player->IsGameMaster())
         {
             if (!player->GetQuestRewardStatus(20212)) {
                 player->TeleportTo(530, 3335.149658f, 1542.210815f, 180.851791f, 5.635699f);
@@ -489,7 +490,7 @@ public:
         }
 
         // проверка ледяные залы
-        if (newArea == 4862)
+        if (newArea == 4862 && !player->IsGameMaster())
         {
             if (!player->GetQuestRewardStatus(20405)) {
                 player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);

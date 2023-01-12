@@ -37,6 +37,7 @@ public:
 					player->learnSpell(200);	// PoleArms
 					player->learnSpell(197);	// 2H Axe
 					player->learnSpell(199);	// 2H Mace
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 
@@ -46,6 +47,7 @@ public:
 					player->learnSpell(196);	// Axes
 					player->learnSpell(197);	// 2H Axe
 					player->learnSpell(199);	// 2H Mace
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_WARRIOR:
@@ -59,6 +61,7 @@ public:
 					player->learnSpell(199);	// 2H Mace
 					player->learnSpell(227);	// Staves
                     player->learnSpell(2567);
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_HUNTER:
@@ -70,6 +73,7 @@ public:
 					player->learnSpell(227);	// Staves
 					player->learnSpell(202);	// 2H Sword
                     player->learnSpell(2567);
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_ROGUE:
@@ -81,6 +85,7 @@ public:
 					player->learnSpell(198);	// Maces
 					player->learnSpell(201);	// Swords
                     player->learnSpell(2567);
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_DRUID:
@@ -90,24 +95,29 @@ public:
 					player->learnSpell(200);	// PoleArms
 					player->learnSpell(227);	// Staves
 					player->learnSpell(199);	// 2H Mace
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_MAGE:
 					player->learnSpell(201);	// Swords
 					player->learnSpell(1180);	// Daggers
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_WARLOCK:
 					player->learnSpell(201);	// Swords
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_PRIEST:
 					player->learnSpell(1180);	// Daggers
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				case CLASS_DEATH_KNIGHT:
 					player->learnSpell(198);	// Maces
 					player->learnSpell(199);
+                    player->SetSkill(762, 4, 300, 300);
 					break;
 
 				default:

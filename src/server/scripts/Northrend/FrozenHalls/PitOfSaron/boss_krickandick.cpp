@@ -272,7 +272,9 @@ public:
 
             if (who->GetTypeId() == TYPEID_PLAYER)
                 if (Creature* k = GetKrick())
-                    k->AI()->Talk(RAND(SAY_SLAY_1, SAY_SLAY_2));
+                {
+                }
+                 //   k->AI()->Talk(RAND(SAY_SLAY_1, SAY_SLAY_2));
         }
 
         void JustSummoned(Creature*  /*summon*/) override
@@ -334,7 +336,7 @@ public:
                     events.RescheduleEvent(1, 3000);
                     break;
                 case 1:
-                    Talk(SAY_OUTRO_KRICK_1);
+                  //  Talk(SAY_OUTRO_KRICK_1);
                     if (pInstance)
                     {
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_FIRST_GUID)))
@@ -351,7 +353,7 @@ public:
                                 c->DespawnOrUnsummon();
                     }
 
-                    events.RescheduleEvent(2, 7000);
+                    events.RescheduleEvent(2, 4000);
                     break;
                 case 2:
                     if (pInstance)
@@ -363,15 +365,17 @@ public:
                             c->SetHomePosition(SBSTyrannusStartPos);
                         }
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_FIRST_GUID)))
-                            c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_1 : SAY_SYLVANAS_KRICK_1);
+                        {
+                        }
+                           // c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_1 : SAY_SYLVANAS_KRICK_1);
                     }
 
-                    events.RescheduleEvent(3, 6500);
+                    events.RescheduleEvent(3, 4500);
                     break;
                 case 3:
-                    Talk(SAY_OUTRO_KRICK_2);
+                  // Talk(SAY_OUTRO_KRICK_2);
 
-                    events.RescheduleEvent(4, 17000);
+                    events.RescheduleEvent(4, 3000);
                     break;
                 case 4:
                     if (pInstance)
@@ -379,22 +383,25 @@ public:
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
                             c->GetMotionMaster()->MovePath(PATH_BEGIN_VALUE + 10, false);
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_FIRST_GUID)))
-                            c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_2 : SAY_SYLVANAS_KRICK_2);
+                        {
+                        }
+                            
+                           // c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_2 : SAY_SYLVANAS_KRICK_2);
                     }
 
-                    events.RescheduleEvent(5, 6500);
+                    events.RescheduleEvent(5, 3500);
                     break;
                 case 5:
-                    Talk(SAY_OUTRO_KRICK_3);
+                  //  Talk(SAY_OUTRO_KRICK_3);
 
-                    events.RescheduleEvent(6, 6500);
+                    events.RescheduleEvent(6, 3500);
                     break;
                 case 6:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
                         {
                             c->SetFacingToObject(me);
-                            c->AI()->Talk(SAY_TYRANNUS_KRICK_1);
+                          //  c->AI()->Talk(SAY_TYRANNUS_KRICK_1);
                         }
 
                     events.RescheduleEvent(7, 4000);
@@ -410,7 +417,7 @@ public:
                     events.RescheduleEvent(8, 2000);
                     break;
                 case 8:
-                    Talk(SAY_OUTRO_KRICK_4);
+                  //  Talk(SAY_OUTRO_KRICK_4);
 
                     events.RescheduleEvent(9, 1500);
                     break;
@@ -436,9 +443,11 @@ public:
                 case 10:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
-                            c->AI()->Talk(SAY_TYRANNUS_KRICK_2);
+                        {
+                        }
+                          //  c->AI()->Talk(SAY_TYRANNUS_KRICK_2);
 
-                    events.RescheduleEvent(11, 9000);
+                    events.RescheduleEvent(11, 4000);
                     break;
                 case 11:
                     if (pInstance)
@@ -447,7 +456,7 @@ public:
                             c->GetMotionMaster()->MovePoint(1, 809.39f, 74.69f, 541.54f);
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_FIRST_GUID)))
                         {
-                            c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_3 : SAY_SYLVANAS_KRICK_3);
+                          //  c->AI()->Talk(c->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_KRICK_3 : SAY_SYLVANAS_KRICK_3);
                             c->GetMotionMaster()->MovePath(PATH_BEGIN_VALUE + 11, false);
                         }
                     }

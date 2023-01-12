@@ -258,9 +258,9 @@ public:
             {
                 phase = PHASE_SINGLE_ADVISOR;
                 me->SetInCombatWithZone();
-                Talk(SAY_INTRO);
-                events2.ScheduleEvent(EVENT_PREFIGHT_PHASE11, 10000);
-                events2.ScheduleEvent(EVENT_PREFIGHT_PHASE12, 15000);
+              //  Talk(SAY_INTRO);
+                events2.ScheduleEvent(EVENT_PREFIGHT_PHASE11, 5000);
+                events2.ScheduleEvent(EVENT_PREFIGHT_PHASE12, 10000);
             }
         }
 
@@ -382,7 +382,7 @@ public:
                     PrepareAdvisors();
                     break;
                 case EVENT_PREFIGHT_PHASE11:
-                    Talk(SAY_INTRO_THALADRED);
+                 //   Talk(SAY_INTRO_THALADRED);
                     break;
                 case EVENT_PREFIGHT_PHASE12:
                     if (Creature* advisor = summons.GetCreatureWithEntry(NPC_THALADRED))
@@ -396,7 +396,7 @@ public:
                     }
                     break;
                 case EVENT_PREFIGHT_PHASE21:
-                    Talk(SAY_INTRO_SANGUINAR);
+                  //  Talk(SAY_INTRO_SANGUINAR);
                     break;
                 case EVENT_PREFIGHT_PHASE22:
                     if (Creature* advisor = summons.GetCreatureWithEntry(NPC_LORD_SANGUINAR))
@@ -410,7 +410,7 @@ public:
                     }
                     break;
                 case EVENT_PREFIGHT_PHASE31:
-                    Talk(SAY_INTRO_CAPERNIAN);
+                  //  Talk(SAY_INTRO_CAPERNIAN);
                     break;
                 case EVENT_PREFIGHT_PHASE32:
                     if (Creature* advisor = summons.GetCreatureWithEntry(NPC_CAPERNIAN))
@@ -424,7 +424,7 @@ public:
                     }
                     break;
                 case EVENT_PREFIGHT_PHASE41:
-                    Talk(SAY_INTRO_TELONICUS);
+                  //  Talk(SAY_INTRO_TELONICUS);
                     break;
                 case EVENT_PREFIGHT_PHASE42:
                     if (Creature* advisor = summons.GetCreatureWithEntry(NPC_TELONICUS))
@@ -438,7 +438,7 @@ public:
                     }
                     break;
                 case EVENT_PREFIGHT_PHASE51:
-                    Talk(SAY_PHASE2_WEAPON);
+                   // Talk(SAY_PHASE2_WEAPON);
                     me->CastSpell(me, SPELL_SUMMON_WEAPONS, false);
                     phase = PHASE_WEAPONS;
                     break;
@@ -460,7 +460,7 @@ public:
                     break;
                 case EVENT_PREFIGHT_PHASE61:
                     phase = PHASE_ALL_ADVISORS;
-                    Talk(SAY_PHASE3_ADVANCE);
+                 //   Talk(SAY_PHASE3_ADVANCE);
                     break;
                 case EVENT_PREFIGHT_PHASE62:
                     me->CastSpell(me, SPELL_RESURRECTION, false);
@@ -480,7 +480,7 @@ public:
                     break;
                 case EVENT_PREFIGHT_PHASE71:
                     events2.CancelEvent(EVENT_PREFIGHT_PHASE71);
-                    Talk(SAY_PHASE4_INTRO2);
+                 //   Talk(SAY_PHASE4_INTRO2);
                     phase = PHASE_FINAL;
                     DoResetThreatList();
                     me->RemoveUnitFlag(UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_DISABLE_MOVE);
@@ -501,7 +501,7 @@ public:
                     me->SetTarget();
                     me->SetFacingTo(M_PI);
                     me->SetWalk(true);
-                    Talk(SAY_PHASE5_NUTS);
+                //    Talk(SAY_PHASE5_NUTS);
                     break;
                 case EVENT_SCENE_2:
                     me->SetTarget();
@@ -512,7 +512,7 @@ public:
                 case EVENT_SCENE_3:
                     me->SetTarget();
                     for (uint8 i = 0; i < 2; ++i)
-                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i], TEMPSUMMON_TIMED_DESPAWN, 60000))
+                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i], TEMPSUMMON_TIMED_DESPAWN, 30000))
                             trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);
                     me->GetMotionMaster()->MovePoint(POINT_AIR, me->GetPositionX(), me->GetPositionY(), 76.0f, false, true);
                     me->CastSpell(me, SPELL_GROW, true);
@@ -523,7 +523,7 @@ public:
                     me->CastSpell(me, SPELL_KAEL_EXPLODES2, true);
                     me->CastSpell(me, SPELL_NETHERBEAM_AURA1, true);
                     for (uint8 i = 0; i < 2; ++i)
-                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 2], TEMPSUMMON_TIMED_DESPAWN, 60000))
+                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 2], TEMPSUMMON_TIMED_DESPAWN, 30000))
                             trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);
                     break;
                 case EVENT_SCENE_5:
@@ -532,7 +532,7 @@ public:
                     me->CastSpell(me, SPELL_KAEL_EXPLODES3, true);
                     me->CastSpell(me, SPELL_NETHERBEAM_AURA2, true);
                     for (uint8 i = 0; i < 2; ++i)
-                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 4], TEMPSUMMON_TIMED_DESPAWN, 60000))
+                        if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, triggersPos[i + 4], TEMPSUMMON_TIMED_DESPAWN, 30000))
                             trigger->CastSpell(me, SPELL_NETHERBEAM1 + i, false);
                     break;
                 case EVENT_SCENE_6:
@@ -558,29 +558,29 @@ public:
                     me->CastSpell(me, 52241, true); // WRONG VISUAL
                     me->CastSpell(me, 34807, true);
                     me->SummonCreature(NPC_WORLD_TRIGGER, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000);
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY(), me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY(), me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM1, true);
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY(), me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY(), me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM2, true);
                     break;
                 case EVENT_SCENE_10:
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM3, true);
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM1, true);
                     break;
                 case EVENT_SCENE_11:
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX(), me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX(), me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM2, true);
                     break;
                 case EVENT_SCENE_12:
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX(), me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX(), me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM3, true);
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() + 5, me->GetPositionY() - 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM1, true);
                     break;
                 case EVENT_SCENE_13:
-                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000))
+                    if (Creature* trigger = me->SummonCreature(WORLD_TRIGGER, me->GetPositionX() - 5, me->GetPositionY() + 5, me->GetPositionZ() + 15.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 30000))
                         trigger->CastSpell(me, SPELL_PURE_NETHER_BEAM2, true);
                     break;
                 case EVENT_SCENE_14:
@@ -660,9 +660,9 @@ public:
                     me->CastCustomSpell(SPELL_MIND_CONTROL, SPELLVALUE_MAX_TARGETS, 3, me, false);
                     break;
                 case EVENT_SPELL_SUMMON_PHOENIX:
-                    Talk(SAY_SUMMON_PHOENIX);
+                 //   Talk(SAY_SUMMON_PHOENIX);
                     me->CastSpell(me, SPELL_PHOENIX, false);
-                    events.ScheduleEvent(EVENT_SPELL_SUMMON_PHOENIX, 35000);
+                    events.ScheduleEvent(EVENT_SPELL_SUMMON_PHOENIX, 10000);
                     break;
                 case EVENT_CHECK_HEALTH:
                     if (me->HealthBelowPct(51))

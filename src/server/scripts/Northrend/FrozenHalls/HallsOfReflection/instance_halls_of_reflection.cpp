@@ -37,11 +37,11 @@ public:
                 _owner.m_Events.AddEvent(new UtherBatteredHiltEvent(_owner, 2), _owner.m_Events.CalculateTime(1000));
                 break;
             case 2:
-                _owner.AI()->Talk(SAY_BATTERED_HILT_HALT);
+               // _owner.AI()->Talk(SAY_BATTERED_HILT_HALT);
                 break;
             case 3:
                 _owner.CastSpell((Unit*)nullptr, 69966, true);
-                _owner.AI()->Talk(SAY_BATTERED_HILT_REALIZE);
+              //  _owner.AI()->Talk(SAY_BATTERED_HILT_REALIZE);
                 if (InstanceScript* instance = _owner.GetInstanceScript())
                     instance->SetData(DATA_BATTERED_HILT, 4);
                 _owner.m_Events.AddEvent(new UtherBatteredHiltEvent(_owner, 4), _owner.m_Events.CalculateTime(3500));
@@ -73,10 +73,10 @@ public:
                     instance->SetData(DATA_BATTERED_HILT, 8);
                 break;
             case 9:
-                _owner.AI()->Talk(SAY_BATTERED_HILT_OUTRO1);
+              //  _owner.AI()->Talk(SAY_BATTERED_HILT_OUTRO1);
                 _owner.m_Events.AddEvent(new UtherBatteredHiltEvent(_owner, _eventId + 1), _owner.m_Events.CalculateTime(11000));
                 break;
-            case 10:
+          /*  case 10:
                 _owner.AI()->Talk(SAY_BATTERED_HILT_OUTRO2);
                 _owner.m_Events.AddEvent(new UtherBatteredHiltEvent(_owner, _eventId + 1), _owner.m_Events.CalculateTime(7500));
                 break;
@@ -91,7 +91,7 @@ public:
             case 13:
                 _owner.CastSpell((Unit*)nullptr, 73036, true);
                 _owner.m_Events.AddEvent(new UtherBatteredHiltEvent(_owner, _eventId + 1), _owner.m_Events.CalculateTime(3000));
-                break;
+                break; */
             case 14:
                 {
                     Position homePos = _owner.GetHomePosition();

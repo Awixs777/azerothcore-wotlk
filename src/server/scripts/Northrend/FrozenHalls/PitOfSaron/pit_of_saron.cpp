@@ -88,20 +88,20 @@ public:
                             idx = (pInstance->GetData(DATA_TEAMID_IN_INSTANCE) == TEAM_ALLIANCE ? 0 : 1);
                         if (introPositions[counter].entry[idx] != 0)
                         {
-                            if (Creature* summon = me->SummonCreature(introPositions[counter].entry[idx], PortalPos))
+                           /* if (Creature* summon = me->SummonCreature(introPositions[counter].entry[idx], PortalPos))
                             {
                                 summon->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
                                 summon->SetSpeed(MOVE_RUN, 0.8f);
                                 summon->GetMotionMaster()->MovePoint(1, introPositions[counter].endPosition);
                                 summon->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_READY1H);
-                            }
+                            } */
 
                             ++counter;
                             events.RepeatEvent(150);
                         }
                         else
                         {
-                            events.RescheduleEvent(2, 2500);
+                            events.RescheduleEvent(2, 1500);
                         }
                     }
                     break;
@@ -110,17 +110,19 @@ public:
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
                         {
                             c->setActive(true);
-                            c->AI()->Talk(SAY_TYRANNUS_INTRO_1);
+                          //  c->AI()->Talk(SAY_TYRANNUS_INTRO_1);
                         }
 
-                    events.RescheduleEvent(3, 7000);
+                    events.RescheduleEvent(3, 3000);
                     break;
                 case 3:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
-                            c->AI()->Talk(SAY_TYRANNUS_INTRO_2);
+                        {
+                        }
+                          //  c->AI()->Talk(SAY_TYRANNUS_INTRO_2); 
 
-                    events.RescheduleEvent(4, 14000);
+                    events.RescheduleEvent(4, 3000);
                     break;
                 case 4:
                     if (pInstance)
@@ -131,14 +133,14 @@ public:
                         {
                             if (!n1->IsInCombat() && n1->IsAlive())
                             {
-                                n1->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                                n1->GetMotionMaster()->MovePoint(1, NecrolytePos1);
+                            //    n1->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
+                           //     n1->GetMotionMaster()->MovePoint(1, NecrolytePos1);
                                 n1->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_READY1H);
                             }
                             if (!n2->IsInCombat() && n2->IsAlive())
                             {
-                                n2->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                                n2->GetMotionMaster()->MovePoint(1, NecrolytePos2);
+                            //    n2->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
+                            //    n2->GetMotionMaster()->MovePoint(1, NecrolytePos2);
                                 n2->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_READY1H);
                             }
                             // TODO This spell check is invalid
@@ -164,16 +166,18 @@ public:
                     events.RescheduleEvent(5, 1);
                     break;
                 case 5:
-                    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_1 : SAY_SYLVANAS_INTRO_1);
+                  //  Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_1 : SAY_SYLVANAS_INTRO_1);
 
                     events.RescheduleEvent(6, 1000);
                     break;
                 case 6:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
-                            c->AI()->Talk(SAY_TYRANNUS_INTRO_3);
+                        {
+                        }
+                         //   c->AI()->Talk(SAY_TYRANNUS_INTRO_3);
 
-                    events.RescheduleEvent(7, 5000);
+                    events.RescheduleEvent(7, 3000);
                     break;
                 case 7:
                     if (pInstance)
@@ -202,12 +206,14 @@ public:
                             }
                     }
 
-                    events.RescheduleEvent(8, 7000);
+                    events.RescheduleEvent(8, 3000);
                     break;
                 case 8:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
-                            c->CastSpell(c, 69753, false);
+                        {
+                        }
+                         //   c->CastSpell(c, 69753, false);
 
                     events.RescheduleEvent(9, 400);
                     break;
@@ -226,7 +232,7 @@ public:
                     events.RescheduleEvent(10, 1000);
                     break;
                 case 10:
-                    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_2 : SAY_SYLVANAS_INTRO_2);
+                 //   Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_2 : SAY_SYLVANAS_INTRO_2);
 
                     events.RescheduleEvent(11, 1000);
                     break;
@@ -249,7 +255,9 @@ public:
                     if (pInstance)
                     {
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_EVENT_GUID)))
-                            c->AI()->Talk(SAY_TYRANNUS_INTRO_4);
+                        {
+                        }
+                           // c->AI()->Talk(SAY_TYRANNUS_INTRO_4);
 
                         for (SummonList::iterator itr = summons.begin(); itr != summons.end(); ++itr)
                             if (Creature* c = pInstance->instance->GetCreature(*itr))
@@ -291,7 +299,7 @@ public:
                     {
                         if (me->GetEntry() == NPC_JAINA_PART1)
                         {
-                            Talk(SAY_JAINA_INTRO_3);
+                           // Talk(SAY_JAINA_INTRO_3);
                             me->CastSpell(me, 70132, false);
                         }
                         else
@@ -319,10 +327,10 @@ public:
                         }
                     }
 
-                    events.RescheduleEvent(16, 3000);
+                    events.RescheduleEvent(16, 2000);
                     break;
                 case 16:
-                    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_4 : SAY_SYLVANAS_INTRO_3);
+                //    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_4 : SAY_SYLVANAS_INTRO_3);
                     if (pInstance)
                     {
                         for (uint8 i = 0; i < 2; ++i)
@@ -339,16 +347,16 @@ public:
 
                                     Unit::Kill(c, c, false);
                                 }
-                                c->DespawnOrUnsummon(10000);
+                                c->DespawnOrUnsummon(5000);
                             }
                         pInstance->SetData(DATA_INSTANCE_PROGRESS, INSTANCE_PROGRESS_FINISHED_INTRO);
                     }
 
-                    events.RescheduleEvent(17, 5000);
+                    events.RescheduleEvent(17, 3000);
                     break;
                 case 17:
                     me->setActive(false);
-                    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_5 : SAY_SYLVANAS_INTRO_4);
+                   // Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_5 : SAY_SYLVANAS_INTRO_4);
 
                     break;
             }
@@ -412,7 +420,7 @@ public:
 
                     // TODO This spell check is invalid
                     //                    if (SPELL_NECROLYTE_CHANNELING)
-                    me->CastSpell(me, SPELL_NECROLYTE_CHANNELING, false);
+                   // me->CastSpell(me, SPELL_NECROLYTE_CHANNELING, false);
 
                     if (me->GetPositionY() < 206.0f)
                     {
@@ -552,17 +560,19 @@ public:
                                 c->GetMotionMaster()->MovePath(FBSData[i].pathId, false);
                             ++i;
                         }
-                        events.RescheduleEvent(2, 3000);
+                        events.RescheduleEvent(2, 2000);
                         break;
                     }
                 case 2:
                     if (Creature* c = me->SummonCreature(NPC_TYRANNUS_VOICE, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ() - 10.0f, me->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN, 1))
-                        c->AI()->Talk(SAY_TYRANNUS_GARFROST);
+                    {
+                    }
+                      //  c->AI()->Talk(SAY_TYRANNUS_GARFROST);
 
-                    events.RescheduleEvent(3, 4000);
+                    events.RescheduleEvent(3, 3000);
                     break;
                 case 3:
-                    Talk(SAY_GENERAL_GARFROST);
+                   // Talk(SAY_GENERAL_GARFROST);
 
                     break;
             }
@@ -637,10 +647,10 @@ public:
                     if (me->GetExactDist(&PTSTyrannusWaitPos1) > 3.0f)
                         return;
                     pInstance->SetData(DATA_INSTANCE_PROGRESS, INSTANCE_PROGRESS_AFTER_WARN_1);
-                    Talk(SAY_TYRANNUS_AMBUSH_1);
+                 //   Talk(SAY_TYRANNUS_AMBUSH_1);
                     killsLeft = 10;
                     events.ScheduleEvent(30, 0);
-                    events.ScheduleEvent(3, 25000);
+                    events.ScheduleEvent(3, 7000);
                     break;
                 case 2:
                     if (pInstance->GetData(DATA_INSTANCE_PROGRESS) != INSTANCE_PROGRESS_AFTER_WARN_1)
@@ -648,10 +658,10 @@ public:
                     if (killsLeft != 0)
                         return;
                     pInstance->SetData(DATA_INSTANCE_PROGRESS, INSTANCE_PROGRESS_AFTER_WARN_2);
-                    Talk(SAY_TYRANNUS_AMBUSH_2);
+                 //   Talk(SAY_TYRANNUS_AMBUSH_2);
                     killsLeft = (Difficulty(me->GetMap()->GetSpawnMode()) == DUNGEON_DIFFICULTY_HEROIC ? 12 : 6);
                     events.ScheduleEvent(60, 0);
-                    events.ScheduleEvent(5, 20000);
+                    events.ScheduleEvent(5, 5000);
                     break;
                     break;
                 case 3:
@@ -661,7 +671,9 @@ public:
                         return;
                     pInstance->SetData(DATA_INSTANCE_PROGRESS, INSTANCE_PROGRESS_AFTER_TUNNEL_WARN);
                     if (Creature* c = me->SummonCreature(NPC_TYRANNUS_VOICE, 950.16f, -102.17f, 594.90f - 10.0f, 5.43f, TEMPSUMMON_TIMED_DESPAWN, 1))
-                        c->AI()->Talk(SAY_TYRANNUS_TRAP_TUNNEL);
+                    {
+                    }
+                       // c->AI()->Talk(SAY_TYRANNUS_TRAP_TUNNEL);
                     break;
             }
         }
@@ -725,7 +737,7 @@ public:
                         if (c->GetMotionMaster()->GetCurrentMovementGeneratorType() != ESCORT_MOTION_TYPE)
                         {
                             c->CastSpell(c, 69516, false);
-                            events.ScheduleEvent(33, 3000);
+                            events.ScheduleEvent(33, 2000);
                             break;
                         }
                     events.ScheduleEvent(31, 500);
@@ -735,7 +747,7 @@ public:
                         if (c->GetMotionMaster()->GetCurrentMovementGeneratorType() != ESCORT_MOTION_TYPE)
                         {
                             c->CastSpell(c, 69516, false);
-                            events.ScheduleEvent(34, 3000);
+                            events.ScheduleEvent(34, 2000);
                             break;
                         }
                     events.ScheduleEvent(32, 500);
@@ -745,14 +757,14 @@ public:
                     me->SummonCreature(NPC_YMIRJAR_WRATHBRINGER, 911.936f, 63.3542f, 547.698f, 3.735f);
                     me->SummonCreature(NPC_YMIRJAR_FLAMEBEARER, 909.356f, 83.1684f, 551.717f, 3.57792f);
                     me->SummonCreature(NPC_YMIRJAR_FLAMEBEARER, 920.946f, 69.1667f, 557.594f, 3.1765f);
-                    events.ScheduleEvent(35, 3500);
+                    events.ScheduleEvent(35, 1500);
                     break;
                 case 34:
                     me->SummonCreature(NPC_YMIRJAR_WRATHBRINGER, 879.464f, 41.1997f, 521.394f, 3.735f);
                     me->SummonCreature(NPC_YMIRJAR_WRATHBRINGER, 885.715f, 65.5156f, 533.631f, 3.85718f);
                     me->SummonCreature(NPC_YMIRJAR_FLAMEBEARER, 876.884f, 61.0139f, 527.715f, 3.57792f);
                     me->SummonCreature(NPC_YMIRJAR_FLAMEBEARER, 889.49f, 45.2865f, 527.233f, 3.97935f);
-                    events.ScheduleEvent(36, 3500);
+                    events.ScheduleEvent(36, 1500);
                     break;
                 case 35:
                     if (Creature* c = pInstance->instance->GetCreature(deathbringerGUID[0]))
@@ -832,7 +844,7 @@ public:
         npc_pos_icicle_triggerAI(Creature* creature) : NullCreatureAI(creature)
         {
             pInstance = me->GetInstanceScript();
-            timer = urand(0, 16000);
+            timer = urand(0, 12000);
         }
 
         InstanceScript* pInstance;
@@ -846,7 +858,7 @@ public:
             {
                 if (pInstance->GetData(DATA_INSTANCE_PROGRESS) == INSTANCE_PROGRESS_AFTER_TUNNEL_WARN)
                     me->CastSpell(me, SPELL_TUNNEL_ICICLE, false);
-                timer = urand(16000, 24000);
+                timer = urand(12000, 18000);
             }
             else
                 timer -= diff;
@@ -869,8 +881,8 @@ public:
         npc_pos_collapsing_icicleAI(Creature* creature) : NullCreatureAI(creature)
         {
             pInstance = me->GetInstanceScript();
-            timer1 = 2500;
-            timer2 = 7000;
+            timer1 = 1500;
+            timer2 = 3000;
         }
 
         InstanceScript* pInstance;
@@ -929,7 +941,7 @@ public:
             if (pInstance)
                 if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_GUID)))
                 {
-                    c->AI()->Talk(SAY_PREFIGHT_1);
+                 //   c->AI()->Talk(SAY_PREFIGHT_1);
                     c->SetImmuneToPC(false);
                     c->SetReactState(REACT_AGGRESSIVE);
                     //c->ClearUnitState(UNIT_STATE_ONVEHICLE);
@@ -1028,13 +1040,15 @@ public:
                     }
                     break;
                 case 2:
-                    Talk(me->GetEntry() == NPC_MARTIN_VICTUS_2 ? SAY_GENERAL_ALLIANCE_TRASH : SAY_GENERAL_HORDE_TRASH);
-                    events.RescheduleEvent(3, 8000);
+                   // Talk(me->GetEntry() == NPC_MARTIN_VICTUS_2 ? SAY_GENERAL_ALLIANCE_TRASH : SAY_GENERAL_HORDE_TRASH);
+                    events.RescheduleEvent(3, 3000);
                     break;
                 case 3:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_TYRANNUS_GUID)))
-                            c->AI()->Talk(SAY_PREFIGHT_2);
+                        {
+                        }
+                          //  c->AI()->Talk(SAY_PREFIGHT_2);
 
                     me->SetFacingTo(5.26f);
                     me->SetOrientation(5.26f);
@@ -1046,9 +1060,9 @@ public:
                             c->SetOrientation(5.26f);
                             c->SetHomePosition(*c);
                         }
-                    events.RescheduleEvent(10, 15000);
+                    events.RescheduleEvent(10, 5000);
 
-                    events.RescheduleEvent(4, 15000);
+                    events.RescheduleEvent(4, 5000);
                     break;
                 case 4:
                     if (pInstance)
@@ -1057,7 +1071,7 @@ public:
                     break;
                 case 5:
                     me->SetFacingTo(TSCenterPos.GetOrientation());
-                    Talk(me->GetEntry() == NPC_MARTIN_VICTUS_2 ? SAY_GENERAL_ALLIANCE_OUTRO_1 : SAY_GENERAL_HORDE_OUTRO_1);
+                   // Talk(me->GetEntry() == NPC_MARTIN_VICTUS_2 ? SAY_GENERAL_ALLIANCE_OUTRO_1 : SAY_GENERAL_HORDE_OUTRO_1);
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_SECOND_GUID)))
                             c->AI()->DoAction(1);
@@ -1199,11 +1213,13 @@ public:
             switch(id)
             {
                 case 0:
-                    Talk(me->GetEntry() == NPC_JAINA_PART2 ? SAY_JAINA_OUTRO_2 : SAY_SYLVANAS_OUTRO_2);
+                   // Talk(me->GetEntry() == NPC_JAINA_PART2 ? SAY_JAINA_OUTRO_2 : SAY_SYLVANAS_OUTRO_2);
                     break;
                 case 1:
                     if (me->GetEntry() == NPC_JAINA_PART2)
-                        Talk(SAY_JAINA_OUTRO_3);
+                    {
+                    }
+                      //  Talk(SAY_JAINA_OUTRO_3);
                     break;
                 case 6:
                     me->SetNpcFlag(UNIT_NPC_FLAG_QUESTGIVER);
@@ -1234,12 +1250,14 @@ public:
                 case 2:
                     if (pInstance)
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_MARTIN_OR_GORKUN_GUID)))
-                            c->AI()->Talk(SAY_GENERAL_OUTRO_2);
+                        {
+                        }
+                         //   c->AI()->Talk(SAY_GENERAL_OUTRO_2);
 
                     events.RescheduleEvent(3, me->GetEntry() == NPC_JAINA_PART2 ? 7000 : 8000);
                     break;
                 case 3:
-                    Talk(me->GetEntry() == NPC_JAINA_PART2 ? SAY_JAINA_OUTRO_1 : SAY_SYLVANAS_OUTRO_1);
+                   // Talk(me->GetEntry() == NPC_JAINA_PART2 ? SAY_JAINA_OUTRO_1 : SAY_SYLVANAS_OUTRO_1);
                     me->CastSpell(me, me->GetEntry() == NPC_JAINA_PART2 ? SPELL_TELEPORT_JAINA_VISUAL : SPELL_TELEPORT_SYLVANAS_VISUAL, true);
 
                     events.RescheduleEvent(4, 2000);

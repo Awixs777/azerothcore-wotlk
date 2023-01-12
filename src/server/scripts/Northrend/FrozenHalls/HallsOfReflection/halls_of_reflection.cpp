@@ -196,9 +196,9 @@ public:
             if (first)
             {
                 first = false;
-                events.ScheduleEvent(EVENT_PRE_INTRO_1, 10000);
-                events.ScheduleEvent(EVENT_PRE_INTRO_2, 11000);
-                events.ScheduleEvent(EVENT_PRE_INTRO_3, 17000);
+                events.ScheduleEvent(EVENT_PRE_INTRO_1, 3000);
+                events.ScheduleEvent(EVENT_PRE_INTRO_2, 4000);
+                events.ScheduleEvent(EVENT_PRE_INTRO_3, 5000);
             }
         }
 
@@ -230,12 +230,12 @@ public:
                     break;
                 case EVENT_PRE_INTRO_2:
                     if (me->GetEntry() == NPC_JAINA_PART1)
-                        Talk(SAY_JAINA_INTRO_1);
+                      //  Talk(SAY_JAINA_INTRO_1);
                     me->GetMotionMaster()->MovePoint(0, SpawnPos);
                     break;
                 case EVENT_PRE_INTRO_3:
                     me->SetNpcFlag(UNIT_NPC_FLAG_GOSSIP | UNIT_NPC_FLAG_QUESTGIVER);
-                    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_2 : SAY_SYLVANAS_INTRO_1);
+                //    Talk(me->GetEntry() == NPC_JAINA_PART1 ? SAY_JAINA_INTRO_2 : SAY_SYLVANAS_INTRO_1);
                     me->SetFacingTo(0.89f);
                     break;
 
@@ -247,9 +247,9 @@ public:
                         c->GetMotionMaster()->MovePoint(0, LoralenFollowPos);
                     // Begining of intro is differents between factions as the speech sequence and timers are differents.
                     if (me->GetEntry() == NPC_JAINA_PART1)
-                        events.ScheduleEvent(EVENT_INTRO_A2_1, 10000);
+                        events.ScheduleEvent(EVENT_SKIP_INTRO, 10000);
                     else
-                        events.ScheduleEvent(EVENT_INTRO_H2_2, 10000);
+                        events.ScheduleEvent(EVENT_SKIP_INTRO, 10000);
                     break;
                 case EVENT_SKIP_INTRO:
                     shortver = true;
@@ -262,18 +262,18 @@ public:
 
                 // A2 Intro Events
                 case EVENT_INTRO_A2_1:
-                    Talk(SAY_JAINA_INTRO_3);
-                    events.ScheduleEvent(EVENT_INTRO_A2_2, 5000);
+                   // Talk(SAY_JAINA_INTRO_3);
+                    events.ScheduleEvent(EVENT_INTRO_A2_2, 2000);
                     break;
                 case EVENT_INTRO_A2_2:
-                    Talk(SAY_JAINA_INTRO_4);
-                    events.ScheduleEvent(EVENT_INTRO_A2_3, 10000);
+                 //   Talk(SAY_JAINA_INTRO_4);
+                    events.ScheduleEvent(EVENT_INTRO_A2_3, 5000);
                     break;
                 case EVENT_INTRO_A2_3:
                     pInstance->HandleGameObject(pInstance->GetGuidData(GO_FROSTMOURNE), true);
                     me->CastSpell(me, SPELL_FROSTMOURNE_SPAWN_SOUND, true);
                     me->CastSpell(me, SPELL_ARCANE_CAST_VISUAL, false);
-                    events.ScheduleEvent(EVENT_INTRO_A2_4, 10000);
+                    events.ScheduleEvent(EVENT_INTRO_A2_4, 5000);
                     break;
                 case EVENT_INTRO_A2_4:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
@@ -287,52 +287,64 @@ public:
                     break;
                 case EVENT_INTRO_A2_5:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_1);
+                    {
+                    }
+                       // pUther->AI()->Talk(SAY_UTHER_INTRO_A2_1);
                     events.ScheduleEvent(EVENT_INTRO_A2_6, 3000);
                     break;
                 case EVENT_INTRO_A2_6:
-                    Talk(SAY_JAINA_INTRO_5);
+                   // Talk(SAY_JAINA_INTRO_5);
                     events.ScheduleEvent(EVENT_INTRO_A2_7, 6000);
                     break;
                 case EVENT_INTRO_A2_7:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_2);
+                    {
+                    }
+                       // pUther->AI()->Talk(SAY_UTHER_INTRO_A2_2);
                     events.ScheduleEvent(EVENT_INTRO_A2_8, 6500);
                     break;
                 case EVENT_INTRO_A2_8:
-                    Talk(SAY_JAINA_INTRO_6);
+                   // Talk(SAY_JAINA_INTRO_6);
                     events.ScheduleEvent(EVENT_INTRO_A2_9, 2000);
                     break;
                 case EVENT_INTRO_A2_9:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_3);
+                    {
+                    }
+                       // pUther->AI()->Talk(SAY_UTHER_INTRO_A2_3);
                     events.ScheduleEvent(EVENT_INTRO_A2_10, 9000);
                     break;
                 case EVENT_INTRO_A2_10:
-                    Talk(SAY_JAINA_INTRO_7);
+                   // Talk(SAY_JAINA_INTRO_7);
                     events.ScheduleEvent(EVENT_INTRO_A2_11, 5000);
                     break;
                 case EVENT_INTRO_A2_11:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_4);
+                    {
+                    }
+                      //  pUther->AI()->Talk(SAY_UTHER_INTRO_A2_4);
                     events.ScheduleEvent(EVENT_INTRO_A2_12, 11000);
                     break;
                 case EVENT_INTRO_A2_12:
-                    Talk(SAY_JAINA_INTRO_8);
+                  //  Talk(SAY_JAINA_INTRO_8);
                     events.ScheduleEvent(EVENT_INTRO_A2_13, 4000);
                     break;
                 case EVENT_INTRO_A2_13:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_5);
+                    {
+                    }
+                      //  pUther->AI()->Talk(SAY_UTHER_INTRO_A2_5);
                     events.ScheduleEvent(EVENT_INTRO_A2_14, 12500);
                     break;
                 case EVENT_INTRO_A2_14:
-                    Talk(SAY_JAINA_INTRO_9);
+                   // Talk(SAY_JAINA_INTRO_9);
                     events.ScheduleEvent(EVENT_INTRO_A2_15, 10000);
                     break;
                 case EVENT_INTRO_A2_15:
                     if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
-                        pUther->AI()->Talk(SAY_UTHER_INTRO_A2_6);
+                    {
+                    }
+                      //  pUther->AI()->Talk(SAY_UTHER_INTRO_A2_6);
                     events.ScheduleEvent(EVENT_INTRO_A2_16, 24000);
                     break;
                 case EVENT_INTRO_A2_16:
@@ -445,15 +457,15 @@ public:
                     if (!shortver)
                         if (Creature* pUther = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_UTHER)))
                         {
-                            if (me->GetEntry() == NPC_JAINA_PART1)
+                          /*  if (me->GetEntry() == NPC_JAINA_PART1)
                                 pUther->AI()->Talk(SAY_UTHER_INTRO_A2_9);
                             else
-                                pUther->AI()->Talk(SAY_UTHER_INTRO_H2_7);
+                                pUther->AI()->Talk(SAY_UTHER_INTRO_H2_7); */
                         }
 
                     events.ScheduleEvent(EVENT_INTRO_LK_1_2, 2000);
                     events.ScheduleEvent(EVENT_INTRO_LK_1_3, 4000);
-                    events.ScheduleEvent(EVENT_INTRO_LK_2, 11000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_2, 5000);
                     break;
 
                 case EVENT_INTRO_LK_1_2:
@@ -469,7 +481,9 @@ public:
                 case EVENT_INTRO_LK_2:
                     if (!shortver)
                         if (Creature* pLichKing = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_LICH_KING_EVENT)))
-                            pLichKing->AI()->Talk(SAY_LK_INTRO_1);
+                        {
+                        }
+                          //  pLichKing->AI()->Talk(SAY_LK_INTRO_1);
                     events.ScheduleEvent(EVENT_INTRO_LK_3, 2000);
                     break;
 
@@ -529,10 +543,12 @@ public:
                     }
 
                     if (Creature* pLichKing = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_LICH_KING_EVENT)))
-                        pLichKing->AI()->Talk(SAY_LK_INTRO_3);
+                    {
+                    }
+                       // pLichKing->AI()->Talk(SAY_LK_INTRO_3);
 
-                    events.ScheduleEvent(EVENT_INTRO_LK_5_2, 5000);
-                    events.ScheduleEvent(EVENT_INTRO_LK_6, 8000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_5_2, 2000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_6, 3000);
                     break;
 
                 case EVENT_INTRO_LK_5_2:
@@ -544,42 +560,44 @@ public:
                     if (Creature* pFalric = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(DATA_FALRIC)))
                         pFalric->AI()->Talk(SAY_FALRIC_INTRO_1);
 
-                    events.ScheduleEvent(EVENT_INTRO_LK_7, 2000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_7, 1000);
                     break;
 
                 case EVENT_INTRO_LK_7:
                     if (Creature* pMarwyn = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(DATA_MARWYN)))
                         pMarwyn->AI()->Talk(SAY_MARWYN_INTRO_1);
 
-                    events.ScheduleEvent(EVENT_INTRO_LK_8, 2000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_8, 1000);
                     break;
 
                 case EVENT_INTRO_LK_8:
                     if (Creature* pFalric = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(DATA_FALRIC)))
-                        pFalric->AI()->Talk(SAY_FALRIC_INTRO_2);
+                    {
+                    }
+                       // pFalric->AI()->Talk(SAY_FALRIC_INTRO_2);
                     pInstance->SetData(ACTION_SHOW_TRASH, 1);
 
                     pInstance->HandleGameObject(pInstance->GetGuidData(GO_ARTHAS_DOOR), true);
 
-                    events.ScheduleEvent(EVENT_INTRO_LK_9, 5000);
+                    events.ScheduleEvent(EVENT_INTRO_LK_9, 2000);
                     break;
 
                 case EVENT_INTRO_LK_9:
                     if (me->GetEntry() == NPC_JAINA_PART1)
                         Talk(SAY_JAINA_INTRO_END);
                     else
-                        Talk(SAY_SYLVANAS_INTRO_END);
+                        Talk(SAY_SYLVANAS_INTRO_END); 
 
                     me->GetMotionMaster()->MovePoint(0, LichKingMoveAwayPos, false);
                     if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(NPC_DARK_RANGER_LORALEN)))
                         c->GetMotionMaster()->MovePoint(0, LichKingMoveAwayPos, false);
-                    events.ScheduleEvent(EVENT_INTRO_END, 14000);
+                    events.ScheduleEvent(EVENT_INTRO_END, 2000);
                     break;
 
                 case EVENT_INTRO_END:
                     pInstance->HandleGameObject(pInstance->GetGuidData(GO_ARTHAS_DOOR), false);
                     pInstance->HandleGameObject(pInstance->GetGuidData(GO_FRONT_DOOR), false);
-                    events.ScheduleEvent(EVENT_INTRO_END_SET, 10000);
+                    events.ScheduleEvent(EVENT_INTRO_END_SET, 3000);
                     break;
                 case EVENT_INTRO_END_SET:
                     if (Creature* pLichKing = ObjectAccessor::GetCreature(*me, pInstance->GetGuidData(NPC_LICH_KING_EVENT)))

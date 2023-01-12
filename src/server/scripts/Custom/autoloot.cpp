@@ -51,7 +51,7 @@ public:
 	}
     void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea)
     {
-        if ((newZone == 268 || newZone == 4075 || newArea == 3539 || newZone == 3525 || newArea == 3759 || newZone == 4603 || newArea == 35 || newArea == 279 || newArea == 3456) && sConfigMgr->GetOption<bool>("AOE.Enable", true))
+        if ((newZone == 268 || newZone == 4075 || newArea == 3539 || newZone == 3525 || newArea == 3759 || newZone == 4603 || newArea == 35 || newArea == 279 || newArea == 3456) && sConfigMgr->GetOption<bool>("AOE.Enable", true) && !player->GetGroup())
         {
            ChatHandler(player->GetSession()).PSendSysMessage("В данной локации работает [Автолут]. Проверьте свободное место в сумках.");
         }

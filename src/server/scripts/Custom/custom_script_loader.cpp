@@ -40,7 +40,7 @@ void AddSC_revive_zone();
 void AddSC_FallEvent();
 void AddSC_CloseInst();
 void AddSC_BuffInst();
-void AddSC_AutoLoot();
+void AddSC_npc_1v1arena();
 
 // WorldBoss
 void AddSC_Arzhara_Fun_boss_1();
@@ -85,5 +85,5 @@ void AddCustomScripts()
     AddSC_FallEvent();
     AddSC_CloseInst();
     AddSC_BuffInst();
-    AddSC_AutoLoot();
+    AddSC_npc_1v1arena();
 }

@@ -537,6 +537,9 @@ public:
     void GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float fMaxSearchRange) const;
     void GetDeadCreatureListInGrid(std::list<Creature*>& lList, float maxSearchRange, bool alive = false) const;
 
+    template <typename Container>
+    void GetDeadCreatureListInGrid(Container& creaturedeadContainer, float maxSearchRange, bool alive = false) const;
+
     void DestroyForNearbyPlayers();
     virtual void UpdateObjectVisibility(bool forced = true, bool fromUpdate = false);
     void BuildUpdate(UpdateDataMapType& data_map, UpdatePlayerSet& player_set) override;

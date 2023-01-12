@@ -2467,6 +2467,18 @@ void WorldObject::GetCreatureListWithEntryInGrid(std::list<Creature*>& creatureL
     Cell::VisitGridObjects(this, searcher, maxSearchRange);
 }
 
+template <typename Container>
+void WorldObject::GetDeadCreatureListInGrid(Container & creaturedeadContainer, float maxSearchRange, bool alive /*= false*/) const
+ {
+    Acore::AllDeadCreaturesInRange check(this, maxSearchRange, alive);
+    Acore::CreatureListSearcher<Acore::AllDeadCreaturesInRange> searcher(this, creaturedeadContainer, check);
+    Cell::VisitGridObjects(this, searcher, maxSearchRange);
+ }
+
+template AC_GAME_API void WorldObject::GetDeadCreatureListInGrid(std::list<Creature*>&, float, bool) const;
+template AC_GAME_API void WorldObject::GetDeadCreatureListInGrid(std::deque<Creature*>&, float, bool) const;
+template AC_GAME_API void WorldObject::GetDeadCreatureListInGrid(std::vector<Creature*>&, float, bool) const;
+
 void WorldObject::GetDeadCreatureListInGrid(std::list<Creature*>& creaturedeadList, float maxSearchRange, bool alive /*= false*/) const
 {
     Acore::AllDeadCreaturesInRange check(this, maxSearchRange, alive);

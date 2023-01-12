@@ -85,65 +85,65 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
         Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
 
         if (!player->GetGroup() && creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true) &&
-            (player->GetMapId() == 230 || player->GetMapId() == 37 || player->GetMapId() == 580 ||
-             player->GetAreaId() == 3539 || player->GetZoneId() == 3525 || player->GetAreaId() == 3759 ||
-             player->GetMapId() == 624 || player->GetMapId() == 533 || player->GetMapId() == 585 || 
-             player->GetMapId() == 615 || player->GetAreaId() == 35 || player->GetZoneId() == 2817 ||
-             player->GetAreaId() == 279 || player->GetMapId() == 550))
+            (player->GetMapId() == 624 || player->GetMapId() == 230 || player->GetMapId() == 33 ||
+                player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
+                player->GetMapId() == 556 || player->GetMapId() == 544 || player->GetMapId() == 558 ||
+                player->GetAreaId() == 279 || player->GetAreaId() == 3749))
         {
-            int                    i = 0;
-            float                  range = 30.0f;
-            Creature* c = nullptr;
-            std::list<Creature*> creaturedie;
+            int i = 0;
+            float range = 30.0f;
+            Creature * c = nullptr;
+            std::vector<Creature*> creaturedie;
             player->GetDeadCreatureListInGrid(creaturedie, range);
-            for (std::list<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-            {
+            for (std::vector<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
+                 {
                 c = *itr;
                 loot = &c->loot;
-
-                uint8 maxSlot = loot->GetMaxSlotInLootFor(player);
+                
+                    uint8 maxSlot = loot->GetMaxSlotInLootFor(player);
                 for (i = 0; i < maxSlot; ++i)
-                {
+                     {
                     if (LootItem* item = loot->LootItemInSlot(i, player))
-                    {
+                         {
                         if (player->AddItem(item->itemid, item->count))
-                        {
+                             {
                             player->SendNotifyLootItemRemoved(lootSlot);
                             player->SendLootRelease(player->GetLootGUID());
-                        }
-                        else
-                        {
+                            }
+                         else
+                             {
                             player->SendItemRetrievalMail(item->itemid, item->count);
-                            player->GetSession()->SendAreaTriggerMessage("Нет места. Вещи были отправлены вам по почте.");
-                        }
-                    }
-                }
-
-                // This if covers a issue with skinning being infinite by Aokromes
-                if (!creature->IsAlive())
-                {
+                            player->GetSession()->SendAreaTriggerMessage("Your items has been mailed to you.");
+                            }
+                         }
+                     }
+                
+                                    // This if covers a issue with skinning being infinite by Aokromes
+                    if (!creature->IsAlive())
+                     {
                     creature->AllLootRemovedFromCorpse();
-                }
-
-                loot->clear();
-
-                if (loot->isLooted() && loot->empty())
-                {
+                    }
+                
+                    loot->clear();
+                
+                    if (loot->isLooted() && loot->empty())
+                     {
                     c->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
                     c->AllLootRemovedFromCorpse();
-                }
-            }
+                    }
+                 }
+            
         }
-        else
-        {
+         else
+             {
             bool lootAllowed = creature && creature->IsAlive() == (player->getClass() == CLASS_ROGUE && creature->loot.loot_type == LOOT_PICKPOCKETING);
             if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
-            {
+                 {
                 player->SendLootError(lguid, lootAllowed ? LOOT_ERROR_TOO_FAR : LOOT_ERROR_DIDNT_KILL);
                 return;
-            }
-
-            loot = &creature->loot;
+                }
+            
+                loot = &creature->loot;
         }
     }
 
@@ -264,26 +264,26 @@ void WorldSession::HandleLootMoneyOpcode(WorldPacket& /*recvData*/)
         else
         {
             ObjectGuid lguid = player->GetLootGUID();
-            Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
-            if (creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true))
-            {
+            Creature * creature = GetPlayer()->GetMap()->GetCreature(lguid);
+            if (creature && sConfigMgr->GetBoolDefault("AOE.LOOT.enable", true))
+                 {
                 if (!player->GetGroup())
-                {
-                    float                  range = 30.0f;
-                    uint32                 gold = 0;
-                    Creature* c = nullptr;
-                    std::list<Creature*>   creaturedie;
+                     {
+                    float range = 30.0f;
+                    uint32 gold = 0;
+                    Creature * c = nullptr;
+                    std::vector<Creature*> creaturedie;
                     player->GetDeadCreatureListInGrid(creaturedie, range);
-                    for (std::list<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-                    {
+                    for (std::vector<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
+                         {
                         c = *itr;
                         loot = &c->loot;
                         gold += loot->gold;
                         loot->gold = 0;
+                        }
+                     loot->gold = gold;
                     }
-                    loot->gold = gold;
-                }
-            }
+                 }
             player->ModifyMoney(loot->gold);
             player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LOOT_MONEY, loot->gold);
 

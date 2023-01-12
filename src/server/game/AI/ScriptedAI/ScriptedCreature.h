@@ -506,4 +506,10 @@ void GetCreatureListWithEntryInGrid(std::list<Creature*>& list, WorldObject* sou
 void GetGameObjectListWithEntryInGrid(std::list<GameObject*>& list, WorldObject* source, uint32 entry, float maxSearchRange);
 void GetDeadCreatureListInGrid(std::list<Creature*>& list, WorldObject* source, float maxSearchRange, bool alive = false);
 
+template <typename Container> // AOE LOOT
+void GetDeadCreatureListInGrid(Container & container, WorldObject * source, float maxSearchRange, bool alive = false)
+{
+    source->GetDeadCreatureListInGrid(container, maxSearchRange, alive);
+}
+
 #endif // SCRIPTEDCREATURE_H_

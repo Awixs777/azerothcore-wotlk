@@ -22,6 +22,13 @@ public:
 				ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Событие не активно или ваш уровень менее 200|r");
 			}
 		}
+
+        // AOE LOOT
+        if (!player->GetGroup() && (player->GetMapId() == 624 || player->GetMapId() == 230 || player->GetMapId() == 33 ||
+                player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
+                player->GetMapId() == 556 || player->GetMapId() == 544 || player->GetMapId() == 558 ||
+                player->GetAreaId() == 279 || player->GetAreaId() == 3749))
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[AutoLoot]:|r\nВ данной локации работает Соло [AutoLoot]|r");
 	}
 };
 

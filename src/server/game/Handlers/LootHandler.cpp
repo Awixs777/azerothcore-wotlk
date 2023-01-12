@@ -20,6 +20,7 @@
 #include "Creature.h"
 #include "GameObject.h"
 #include "Group.h"
+#include "Chat.h"
 #include "LootItemStorage.h"
 #include "LootMgr.h"
 #include "Object.h"
@@ -113,7 +114,7 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
                          else
                              {
                             player->SendItemRetrievalMail(item->itemid, item->count);
-                            player->GetSession()->SendAreaTriggerMessage("Your items has been mailed to you.");
+                            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[AutoLoot]:|r Вещи были отправлены вам на почту.|r");
                             }
                          }
                      }

@@ -439,8 +439,8 @@ public:
                     break;
                 case EVENT_PREFIGHT_PHASE51:
                    // Talk(SAY_PHASE2_WEAPON);
-                    me->CastSpell(me, SPELL_SUMMON_WEAPONS, false);
-                    phase = PHASE_WEAPONS;
+               //     me->CastSpell(me, SPELL_SUMMON_WEAPONS, false);
+                //    phase = PHASE_WEAPONS;
                     break;
                 case EVENT_PREFIGHT_PHASE52:
                     for (SummonList::const_iterator i = summons.begin(); i != summons.end(); ++i)
@@ -454,9 +454,9 @@ public:
                                     summon->AI()->AttackStart(target);
                             }
                     }
-                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE61, 2 * MINUTE * IN_MILLISECONDS);
-                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE62, 2 * MINUTE * IN_MILLISECONDS + 6000);
-                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE63, 2 * MINUTE * IN_MILLISECONDS + 12000);
+                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE61, 0.3 * MINUTE * IN_MILLISECONDS);
+                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE62, 0.3 * MINUTE * IN_MILLISECONDS + 6000);
+                    events2.ScheduleEvent(EVENT_PREFIGHT_PHASE63, 0.3 * MINUTE * IN_MILLISECONDS + 12000);
                     break;
                 case EVENT_PREFIGHT_PHASE61:
                     phase = PHASE_ALL_ADVISORS;
@@ -779,7 +779,7 @@ public:
     }
 };
 
-class spell_kaelthas_summon_weapons : public SpellScriptLoader
+/*class spell_kaelthas_summon_weapons : public SpellScriptLoader
 {
 public:
     spell_kaelthas_summon_weapons() : SpellScriptLoader("spell_kaelthas_summon_weapons") { }
@@ -805,7 +805,7 @@ public:
     {
         return new spell_kaelthas_summon_weapons_SpellScript();
     }
-};
+}; */
 
 class spell_kaelthas_resurrection : public SpellScriptLoader
 {
@@ -1055,7 +1055,7 @@ void AddSC_boss_kaelthas()
     new boss_kaelthas();
     new spell_kaelthas_kael_phase_two();
     new spell_kaelthas_remote_toy();
-    new spell_kaelthas_summon_weapons();
+   // new spell_kaelthas_summon_weapons();
     new spell_kaelthas_resurrection();
     new spell_kaelthas_mind_control();
     new spell_kaelthas_burn();

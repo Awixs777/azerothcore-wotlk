@@ -86,9 +86,8 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
         Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
 
         if (!player->GetGroup() && creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true) &&
-            (player->GetMapId() == 624 || player->GetMapId() == 230 || player->GetMapId() == 33 ||
+            (player->GetMapId() == 624 || player->GetMapId() == 230 || 
                 player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
-                player->GetMapId() == 556 || player->GetMapId() == 544 || player->GetMapId() == 558 ||
                 player->GetAreaId() == 279 || player->GetAreaId() == 3749))
         {
             int i = 0;

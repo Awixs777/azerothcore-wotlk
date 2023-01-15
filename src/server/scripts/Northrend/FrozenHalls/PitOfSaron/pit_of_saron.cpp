@@ -650,7 +650,7 @@ public:
                  //   Talk(SAY_TYRANNUS_AMBUSH_1);
                     killsLeft = 10;
                     events.ScheduleEvent(30, 0);
-                    events.ScheduleEvent(3, 7000);
+                    events.ScheduleEvent(3, 3000);
                     break;
                 case 2:
                     if (pInstance->GetData(DATA_INSTANCE_PROGRESS) != INSTANCE_PROGRESS_AFTER_WARN_1)
@@ -1060,9 +1060,9 @@ public:
                             c->SetOrientation(5.26f);
                             c->SetHomePosition(*c);
                         }
-                    events.RescheduleEvent(10, 5000);
+                    events.RescheduleEvent(10, 3000);
 
-                    events.RescheduleEvent(4, 5000);
+                    events.RescheduleEvent(4, 3000);
                     break;
                 case 4:
                     if (pInstance)

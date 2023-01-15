@@ -5,9 +5,9 @@ public:
 
 	void OnLogin(Player* player)
 	{
-        uint32 quest = 0;
+        
 		if (player->GetTotalPlayedTime() < 1)
-		{
+		{          
 				switch (player->getClass())
 				{                
 					/*

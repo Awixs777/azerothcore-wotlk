@@ -121,7 +121,10 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
         }
         else
         {
-            xpMod *= sWorld->getRate(RATE_XP_KILL);
+            if (player->GetLevel() < 150)
+                xpMod *= sWorld->getRate(RATE_XP_KILL);
+            else
+                xpMod *= 0;
         }
 
         // if players dealt less than 50% of the damage and were credited anyway (due to CREATURE_FLAG_EXTRA_NO_PLAYER_DAMAGE_REQ), scale XP gained appropriately (linear scaling)
@@ -132,7 +135,12 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
 
         // VIP
         if (player->GetSession()->IsPremium())
-            xpMod *= sWorld->getRate(RATE_XP_KILL_PREMIUM);
+        {
+            if (player->GetLevel() < 150)
+                xpMod *= sWorld->getRate(RATE_XP_KILL_PREMIUM);
+            else
+                xpMod *= 0;
+        }
 
         gain = uint32(gain * xpMod);
     }

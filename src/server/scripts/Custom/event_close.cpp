@@ -24,11 +24,13 @@ public:
 		}
 
         // AOE LOOT
-        if (!player->GetGroup() && (player->GetMapId() == 624 || player->GetMapId() == 230 || player->GetMapId() == 33 ||
-                player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
-                player->GetMapId() == 556 || player->GetMapId() == 544 || player->GetMapId() == 558 ||
+        if (!player->GetGroup() && (player->GetMapId() == 624 || player->GetAreaId() == 35 || player->GetZoneId() == 2817 ||
                 player->GetAreaId() == 279 || player->GetAreaId() == 3749))
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[AutoLoot]:|r\nВ данной локации работает Соло [AutoLoot]|r");
+
+        // Кач
+        if  (player->GetZoneId() == 268)
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rНе забудь одеть экипировку 80-го и 130-го уровня!|r");
 	}
 };
 

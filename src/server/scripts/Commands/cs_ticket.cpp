@@ -47,8 +47,8 @@ public:
     {
         static ChatCommandTable ticketResponseCommandTable =
         {
-            { "append",         SEC_GAMEMASTER,      true,  &HandleGMTicketResponseAppendCommand,    "" },
-            { "appendln",       SEC_GAMEMASTER,      true,  &HandleGMTicketResponseAppendLnCommand,  "" }
+            { "append",         SEC_GAMEMASTER,      true,  &HandleGMTicketResponseAppendCommand,    "" }
+           // { "appendln",       SEC_GAMEMASTER,      true,  &HandleGMTicketResponseAppendLnCommand,  "" }
         };
         static ChatCommandTable ticketCommandTable =
         {
@@ -66,8 +66,8 @@ public:
             { "response",       SEC_GAMEMASTER,      true,  nullptr,                                 "", ticketResponseCommandTable },
             { "togglesystem",   SEC_ADMINISTRATOR,   true,  &HandleToggleGMTicketSystem,             "" },
             { "unassign",       SEC_GAMEMASTER,      true,  &HandleGMTicketUnAssignCommand,          "" },
-            { "viewid",         SEC_GAMEMASTER,      true,  &HandleGMTicketGetByIdCommand,           "" },
-            { "viewname",       SEC_GAMEMASTER,      true,  &HandleGMTicketGetByNameCommand,         "" }
+            { "viewid",         SEC_GAMEMASTER,      true,  &HandleGMTicketGetByIdCommand,           "" }
+          //  { "viewname",       SEC_GAMEMASTER,      true,  &HandleGMTicketGetByNameCommand,         "" }
         };
         static ChatCommandTable commandTable =
         {

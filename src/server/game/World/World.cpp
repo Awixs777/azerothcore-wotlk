@@ -520,6 +520,10 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[COMMAND_BANK_PREMIUM] = sConfigMgr->GetOption<float>("Command.Bank.Premium", false);
     m_bool_configs[COMMAND_MAIL_PREMIUM] = sConfigMgr->GetOption<float>("Command.Mail.Premium", false);
 
+    // WEEKEND
+  //  rate_values[RATE_REPUTATION_WEEK] = sConfigMgr->GetOption<float>("Rate.Reputation.Weekend", 1.0f);
+  //  rate_values[RATE_REPUTATION_WEEKVIP] = sConfigMgr->GetOption<float>("Rate.Reputation.WeekendVIP", 1.0f);
+
     rate_values[RATE_SELLVALUE_ITEM_POOR]         = sConfigMgr->GetOption<float>("Rate.SellValue.Item.Poor", 1.0f);
     rate_values[RATE_SELLVALUE_ITEM_NORMAL]       = sConfigMgr->GetOption<float>("Rate.SellValue.Item.Normal", 1.0f);
     rate_values[RATE_SELLVALUE_ITEM_UNCOMMON]     = sConfigMgr->GetOption<float>("Rate.SellValue.Item.Uncommon", 1.0f);

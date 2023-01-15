@@ -20,6 +20,7 @@
 #include "DatabaseEnv.h"
 #include "ObjectMgr.h"
 #include "Player.h"
+#include "Chat.h"
 #include "ScriptMgr.h"
 #include "World.h"
 #include "WorldPacket.h"
@@ -381,7 +382,6 @@ bool ReputationMgr::SetOneFactionReputation(FactionEntry const* factionEntry, fl
     if (itr != _factions.end())
     {
         int32 BaseRep = GetBaseReputation(factionEntry);
-
         if (incremental)
         {
             stand *= sWorld->getRate(RATE_REPUTATION_GAIN);

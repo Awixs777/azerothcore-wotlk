@@ -36,6 +36,7 @@ enum VolkahnSpells
     SPELL_IMMOLATION_STRIKE_H           = 59530,
     SPELL_SHATTER_N                     = 52429,
     SPELL_SHATTER_H                     = 59527,
+    SPELL_SARONITE                      = 63364,
 };
 
 enum VolkhanOther
@@ -274,6 +275,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             //Return since we have no target
             if (!UpdateVictim())
                 return;

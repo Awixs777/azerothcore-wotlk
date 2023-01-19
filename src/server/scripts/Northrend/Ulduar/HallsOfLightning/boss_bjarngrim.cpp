@@ -51,6 +51,7 @@ enum BjarngrimSpells
     SPELL_ARC_WELD                      = 59085,
     SPELL_RENEW_STEEL_N                 = 52774,
     SPELL_RENEW_STEEL_H                 = 59160,
+    SPELL_SARONITE                      = 63364,
 };
 
 enum BjarngrimOther
@@ -293,6 +294,7 @@ public:
             if (!me->IsInCombat())
                 return;
 
+            DoCast(me, SPELL_SARONITE);
             // Return since we have no target
             if (!UpdateVictim())
             {

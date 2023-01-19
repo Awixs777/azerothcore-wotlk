@@ -32,7 +32,7 @@ BuffData vvData[] =
 uint32 GetBonus(Player* player)
 {
 	uint32 accId = player->GetSession()->GetAccountId();
-	QueryResult result = CharacterDatabase.Query("SELECT vp FROM u1756783_blizzcms.users WHERE id = {}", accId);
+	QueryResult result = CharacterDatabase.Query("SELECT vp FROM blizzcms.users WHERE id = {}", accId);
 	Field *field = result->Fetch();
      if (!result)
     {
@@ -47,7 +47,7 @@ uint32 GetBonus(Player* player)
 uint32 GetBonusDP(Player* player)
 {
 	uint32 accId = player->GetSession()->GetAccountId();
-	QueryResult result = CharacterDatabase.Query("SELECT dp FROM u1756783_blizzcms.users WHERE id = {}", accId);
+	QueryResult result = CharacterDatabase.Query("SELECT dp FROM blizzcms.users WHERE id = {}", accId);
 	Field *field = result->Fetch();
     if (!result)
     {
@@ -61,25 +61,25 @@ uint32 GetBonusDP(Player* player)
 void DelBonus(Player* player, uint32 bonus)
 {
 	uint32 accId = player->GetSession()->GetAccountId();
-	CharacterDatabase.Query("UPDATE u1756783_blizzcms.users SET vp = vp - {} WHERE id = {}", bonus, accId);
+	CharacterDatabase.Query("UPDATE blizzcms.users SET vp = vp - {} WHERE id = {}", bonus, accId);
 }
 
 void DelBonusDP(Player* player, uint32 bonus)
 {
 	uint32 accId = player->GetSession()->GetAccountId();
-	CharacterDatabase.Query("UPDATE u1756783_blizzcms.users SET dp = dp - {} WHERE id = {}", bonus, accId);
+	CharacterDatabase.Query("UPDATE blizzcms.users SET dp = dp - {} WHERE id = {}", bonus, accId);
 }
 
 void AddBonusVP(Player* player, uint32 bonus)
 {
 	uint32 accId = player->GetSession()->GetAccountId();
-	CharacterDatabase.Query("UPDATE u1756783_blizzcms.users SET vp = vp + {} WHERE id = {}", bonus, accId);
+	CharacterDatabase.Query("UPDATE blizzcms.users SET vp = vp + {} WHERE id = {}", bonus, accId);
 }
 
 void AddBonusDP(Player* player, uint32 bonus)
 {
     uint32 accId = player->GetSession()->GetAccountId();
-    CharacterDatabase.Query("UPDATE u1756783_blizzcms.users SET dp = dp + {} WHERE id = {}", bonus, accId);
+    CharacterDatabase.Query("UPDATE blizzcms.users SET dp = dp + {} WHERE id = {}", bonus, accId);
 }
 
 /* выводим время респавна моба */
@@ -460,7 +460,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 					message << "|cff5da673[BELION] |CFFE55BB0" << name << "|CFFFE8A0E баффнул всех игроков онлайн баффом [|cffEAF4F5" << vvData[action].Name << "|cff02A4B1]|r";
 					GetBuffOnline(action);
 
-					CharacterDatabase.Query("UPDATE u1756783_blizzcms.users SET vp = vp - {} WHERE id = {}", vvData[action].Cost, player->GetSession()->GetAccountId());
+					CharacterDatabase.Query("UPDATE blizzcms.users SET vp = vp - {} WHERE id = {}", vvData[action].Cost, player->GetSession()->GetAccountId());
 
 					sWorld->SendServerMessage(SERVER_MSG_STRING, message.str().c_str());
 					CloseGossipMenuFor(player);
@@ -479,9 +479,9 @@ public:
 	{
 		uint32 accId = player->GetSession()->GetAccountId();
 
-		QueryResult result = CharacterDatabase.Query("SELECT vp FROM u1756783_blizzcms.users WHERE id = {}", accId);
+		QueryResult result = CharacterDatabase.Query("SELECT vp FROM blizzcms.users WHERE id = {}", accId);
 		if (!result)
-			CharacterDatabase.Query("INSERT INTO u1756783_blizzcms.users (id, dp, vp) VALUES ({}, 0, 0)", accId);
+			CharacterDatabase.Query("INSERT INTO blizzcms.users (id, dp, vp) VALUES ({}, 0, 0)", accId);
 
 	}
 };

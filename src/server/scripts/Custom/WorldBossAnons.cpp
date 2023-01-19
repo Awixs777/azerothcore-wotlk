@@ -52,6 +52,13 @@ public:
             sWorld->SendServerMessage(SERVER_MSG_STRING, msg);
         }
 
+        if (killed->GetEntry() == 50030)
+        {
+            char msg[250];
+            snprintf(msg, 250, "|CFF7BBEF7[World-Boss]|r: Игрок|cffff0000 %s|r и его группа, уничтожили Мирового Босса [Лолита Лейн], следующий респавн босса через: 6 часов.", killer->GetName());
+            sWorld->SendServerMessage(SERVER_MSG_STRING, msg);
+        }
+
         if (killed->GetEntry() == 29611)
         {
             char msg[250];

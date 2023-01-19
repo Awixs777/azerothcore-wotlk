@@ -25,12 +25,25 @@ public:
 
         // AOE LOOT
         if (!player->GetGroup() && (player->GetMapId() == 624 || player->GetAreaId() == 35 || player->GetZoneId() == 2817 ||
-                player->GetAreaId() == 279 || player->GetAreaId() == 3749))
+            player->GetAreaId() == 279 || player->GetAreaId() == 3749))
+        {
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[AutoLoot]:|r\nВ данной локации работает Соло [AutoLoot]|r");
+        }
 
         // Кач
-        if  (player->GetZoneId() == 268)
+        if (player->GetZoneId() == 268)
+        {
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rНе забудь одеть экипировку 80-го и 130-го уровня!|r");
+        }
+
+
+        // Лолита Лейн
+        if (player->GetAreaId() == 3547 && player->getLevel() < 229)
+        {
+            player->TeleportTo(571, 6236.229980f, 5768.240234f, -5.373631f, 0.736042f);
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|rНеобходим 230-й уровень!|r");
+        }
+
 	}
 };
 

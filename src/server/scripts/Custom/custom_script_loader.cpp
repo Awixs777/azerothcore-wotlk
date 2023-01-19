@@ -50,6 +50,7 @@ void AddSC_Arzhara_Fun_boss_4();
 void AddSC_boss_two(); // Mir5
 void AddSC_Arzhara_Fun_boss_6();
 void AddSC_Arzhara_Fun_boss_7();
+void AddSC_mir8();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
@@ -86,4 +87,5 @@ void AddCustomScripts()
     AddSC_CloseInst();
     AddSC_BuffInst();
     AddSC_npc_1v1arena();
+    AddSC_mir8();
 }

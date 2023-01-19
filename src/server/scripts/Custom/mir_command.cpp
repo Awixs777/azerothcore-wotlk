@@ -46,6 +46,7 @@ static bool HandleAllCommand(ChatHandler* handler, char const* /*args*/)
     std::string RespawnReg7 = "";
     std::string RespawnReg8 = "";
     std::string RespawnReg9 = "";
+    std::string RespawnReg10 = "";
 	
    // Лорж
 	QueryResult queryResult1 = CharacterDatabase.Query("SELECT respawnTime FROM creature_respawn WHERE guid = 4360017");
@@ -155,6 +156,18 @@ static bool HandleAllCommand(ChatHandler* handler, char const* /*args*/)
         RespawnReg9 = "Тралл жив. Вперед, убейте его!";
     }
 
+    //Лолита
+    QueryResult queryResult10 = CharacterDatabase.Query("SELECT respawnTime FROM creature_respawn WHERE guid = 4764200");
+    if (queryResult10)
+    {
+        uint32 respawnUnix = queryResult10->Fetch()[0].Get<uint32>();
+        RespawnReg10 = secsToTimeString(respawnUnix - time_stamp);
+    }
+    else
+    {
+        RespawnReg10 = "Лолита жива. Вперед, убейте ее!";
+    }
+
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0E[Таймер Мировых Боссов]");
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лорд]:|r |CFFE55BB0 %s", RespawnReg1.c_str());
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Иллидан]:|r |CFFE55BB0 %s", RespawnReg2.c_str());
@@ -163,6 +176,7 @@ static bool HandleAllCommand(ChatHandler* handler, char const* /*args*/)
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Изера]:|r |CFFE55BB0 %s", RespawnReg5.c_str());
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Кил'Джеден]:|r |CFFE55BB0 %s", RespawnReg6.c_str());
     ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Повелитель]:|r |CFFE55BB0 %s", RespawnReg7.c_str());
+    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лолита Лейн]:|r |CFFE55BB0 %s", RespawnReg10.c_str());
     ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Вариан]:|r |CFFE55BB0 %s", RespawnReg8.c_str());
     ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Тралл]:|r |CFFE55BB0 %s", RespawnReg9.c_str());
 	return true;

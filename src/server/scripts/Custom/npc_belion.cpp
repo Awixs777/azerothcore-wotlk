@@ -158,11 +158,12 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 							std::string resp_5 = GetRespawnTime(player, 4352959) == 0 ? "|cff02A4B1[Изера]|CFFE55BB0 Жива. Вперед, убейте её!" : "|cff02A4B1[Изера]|CFFE55BB0 мертва, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4352959) - time_stamp);
 							std::string resp_6 = GetRespawnTime(player, 4763736) == 0 ? "|cff02A4B1[Кил'Джеден]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Кил'Джеден]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4763736) - time_stamp);
                             std::string resp_7 = GetRespawnTime(player, 4763931) == 0 ? "|cff02A4B1[Повелитель]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Повелитель]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4763931) - time_stamp);
+                            std::string resp_10 = GetRespawnTime(player, 4764200) == 0 ? "|cff02A4B1[Лолита Лейн]|CFFE55BB0 Жива. Вперед, убейте ее!" : "|cff02A4B1[Лолита Лейн]|CFFE55BB0 мертва, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4764200) - time_stamp);
                             std::string resp_8 = GetRespawnTime(player, 10495) == 0 ? "|cff02A4B1[Вариан]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Вариан]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 10495) - time_stamp);
                             std::string resp_9 = GetRespawnTime(player, 4770) == 0 ? "|cff02A4B1[Тралл]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Тралл]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4770) - time_stamp);
 
 							std::ostringstream announce;
-							announce << "|cff02A4B1[Таймер Боссов]\n" << resp_1 << "\n" << resp_2 << "\n" << resp_3 << "\n" << resp_4 << "\n" << resp_5 << "\n" << resp_6 << "\n" << resp_7 <<  "\n" << resp_8 << "\n" << resp_9;
+							announce << "|cff02A4B1[Таймер Боссов]\n" << resp_1 << "\n" << resp_2 << "\n" << resp_3 << "\n" << resp_4 << "\n" << resp_5 << "\n" << resp_6 << "\n" << resp_7 <<  "\n" << resp_10 << "\n" << resp_8 << "\n" << resp_9;
 							ChatHandler(player->GetSession()).PSendSysMessage(announce.str().c_str());
 							CloseGossipMenuFor(player);
 				}

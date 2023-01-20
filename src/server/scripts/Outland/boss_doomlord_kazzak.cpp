@@ -43,6 +43,7 @@ enum Spells
     SPELL_CAPTURE_SOUL          = 32966,
     SPELL_TWISTED_REFLECTION    = 21063,
     SPELL_BERSERK               = 32965,
+    SPELL_SARONITE              = 63364,
 };
 
 enum Events
@@ -56,6 +57,9 @@ enum Events
     EVENT_TWISTED_REFLECTION    = 7,
     EVENT_BERSERK               = 8
 };
+
+# define LM_YELL_AGGRO "Добро пожаловать в АД!"
+# define LM_YELL_DANGER "Бегите глупцы, теперь вы узрите настоящий АД!!!"
 
 class boss_doomlord_kazzak : public CreatureScript
 {
@@ -83,12 +87,12 @@ public:
 
         void JustRespawned() override
         {
-            Talk(SAY_INTRO);
+          //  Talk(SAY_INTRO);
         }
 
         void EnterCombat(Unit* /*who*/) override
         {
-            Talk(SAY_AGGRO);
+            me->Yell("Не стоило этого делать! Думаете оделеть меня? Я вас уничтожу!!!", LANG_UNIVERSAL, 0);
         }
 
         void KilledUnit(Unit* victim) override
@@ -99,16 +103,16 @@ public:
 
             DoCast(me, SPELL_CAPTURE_SOUL);
 
-            Talk(SAY_KILL);
         }
 
         void JustDied(Unit* /*killer*/) override
         {
-            Talk(SAY_DEATH);
+            me->Yell("Этого не может быть...", LANG_UNIVERSAL, 0);
         }
 
         void UpdateAI(uint32 diff) override
         {
+            DoCast(me, SPELL_SARONITE);
             // Return since we have no target
             if (!UpdateVictim())
                 return;
@@ -124,29 +128,29 @@ public:
                 {
                     case EVENT_SHADOW_VOLLEY:
                         DoCastVictim(SPELL_SHADOW_VOLLEY);
-                        _events.ScheduleEvent(EVENT_SHADOW_VOLLEY, urand(4000, 6000));
+                        _events.ScheduleEvent(EVENT_SHADOW_VOLLEY, urand(3000, 5000));
                         break;
                     case EVENT_CLEAVE:
                         DoCastVictim(SPELL_CLEAVE);
-                        _events.ScheduleEvent(EVENT_CLEAVE, urand(8000, 12000));
+                        _events.ScheduleEvent(EVENT_CLEAVE, urand(6000, 8000));
                         break;
                     case EVENT_THUNDERCLAP:
                         DoCastVictim(SPELL_THUNDERCLAP);
-                        _events.ScheduleEvent(EVENT_THUNDERCLAP, urand(10000, 14000));
+                        _events.ScheduleEvent(EVENT_THUNDERCLAP, urand(9000, 11000));
                         break;
                     case EVENT_VOID_BOLT:
                         DoCastVictim(SPELL_VOID_BOLT);
-                        _events.ScheduleEvent(EVENT_VOID_BOLT, urand(15000, 18000));
+                        _events.ScheduleEvent(EVENT_VOID_BOLT, urand(12000, 14000));
                         break;
                     case EVENT_MARK_OF_KAZZAK:
                         if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, PowerUsersSelector(me, POWER_MANA, 100.0f, true)))
                             DoCast(target, SPELL_MARK_OF_KAZZAK);
-                        _events.ScheduleEvent(EVENT_MARK_OF_KAZZAK, 20000);
+                        _events.ScheduleEvent(EVENT_MARK_OF_KAZZAK, 17000);
                         break;
                     case EVENT_ENRAGE:
-                        Talk(EMOTE_FRENZY);
+                      //  Talk(EMOTE_FRENZY);
                         DoCast(me, SPELL_ENRAGE);
-                        _events.ScheduleEvent(EVENT_ENRAGE, 30000);
+                        _events.ScheduleEvent(EVENT_ENRAGE, 20000);
                         break;
                     case EVENT_TWISTED_REFLECTION:
                         if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 0.0f, true))

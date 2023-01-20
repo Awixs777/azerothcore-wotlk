@@ -9,7 +9,7 @@ public:
 	/* запрет входа на событие */
 	void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea)
 	{
-		if ((newArea == 4179 || newArea == 4254 || newArea == 4987))
+		if ((newArea == 4179 || newArea == 4987))
 		{
 			if (sGameEventMgr->IsActiveEvent(120) && player->getLevel() >= 200 || player->IsGameMaster())
 				ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Событие]:|r Добро пожаловать на Событие [Изумрудка]|r");

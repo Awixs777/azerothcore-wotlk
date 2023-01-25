@@ -97,6 +97,9 @@ public:
 			player->removeSpell(90000, SPEC_MASK_ALL, false);
             player->removeSpell(90001, SPEC_MASK_ALL, false);
             player->removeSpell(90002, SPEC_MASK_ALL, false);
+            player->RemoveAurasDueToSpell(90000);
+            player->RemoveAurasDueToSpell(90001);
+            player->RemoveAurasDueToSpell(90002);
 			CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(178);
 			player->SetTitle(titleInfo, true);
 		}

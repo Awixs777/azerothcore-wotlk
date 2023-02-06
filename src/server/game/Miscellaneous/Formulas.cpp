@@ -121,7 +121,7 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
         }
         else
         {
-            if (player->GetLevel() < 150)
+            if (player->GetLevel() < 151)
                 xpMod *= sWorld->getRate(RATE_XP_KILL);
             else
                 xpMod *= 0;
@@ -136,7 +136,7 @@ uint32 Acore::XP::Gain(Player* player, Unit* unit, bool isBattleGround /*= false
         // VIP
         if (player->GetSession()->IsPremium())
         {
-            if (player->GetLevel() < 150)
+            if (player->GetLevel() < 151)
                 xpMod *= sWorld->getRate(RATE_XP_KILL_PREMIUM);
             else
                 xpMod *= 0;

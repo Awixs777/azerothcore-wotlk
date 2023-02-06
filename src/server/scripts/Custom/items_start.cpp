@@ -124,37 +124,6 @@ public:
 					break;
 				}
 
-			if (player->GetSession()->GetSecurity() > 1)
-			{
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HEAD, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_NECK, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_SHOULDERS, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_CHEST, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BODY, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WAIST, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_LEGS, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WRISTS, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HANDS, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER1, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER2, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET1, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET2, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BACK, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
-				player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-				player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 2586, true); // [Gamemaster's Robe]
-				player->EquipNewItem(EQUIPMENT_SLOT_FEET, 11508, true); // [Gamemaster's Slippers]
-				player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 12064, true); // [Gamemaster Hood]
-				// player->learnSpell(26035); // Изучение любого спела при старте
-				ChatHandler(player->GetSession()).PSendSysMessage("|cff00ccff[GM character is ready for use]|r");
-			}
-
-			else // if normal char
-
-			{
 				if (player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_DEATH_KNIGHT)
 				{
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HEAD, true);
@@ -176,26 +145,26 @@ public:
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61014, true); // Грудбь ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61016, true); // Ноги ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61017, true); // Ботинки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61015, true); // Руки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61012, true); // Голова ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100400, true); // Плечи ДД
+                    player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61071, true); // Грудбь ДД
+                    player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61073, true); // Ноги ДД
+                    player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61075, true); // Ботинки ДД
+                    player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61072, true); // Руки ДД
+                    player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61069, true); // Голова ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100403, true); // Плечи ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 60016, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61083, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61089, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61089, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61086, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 60098, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61128, true); // Колцьцо ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61134, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61134, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61131, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 61074, true); // Пояс  ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61095, true); // Плащ ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61178, true); // Шея  ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61166, true); // Рубашка  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61143, true); // Пуха
-					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61092, true); // Сумка 1
-					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61092, true); // Сумка 2
-					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61092, true); // Сумка 3
-					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61092, true); // Сумка 4
+					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61159, true); // Пуха
+					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61137, true); // Сумка 1
+					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61137, true); // Сумка 2
+					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61137, true); // Сумка 3
+					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61137, true); // Сумка 4
 					player->AddItem(21215, 10); // Кекс
 					player->ResurrectPlayer(player->GetSession()->GetSecurity() ? 1.0f : 1.0f);
 					player->SpawnCorpseBones();
@@ -203,13 +172,11 @@ public:
 				//	player->AddItem(60015, 1); // Кольцо НОВИЧКАМ 
 				// Оповещение в чате
 				std::ostringstream ss;
-				ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
+				ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [3] дня|r";
 				ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
-				ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
-				if (player->getClass() == CLASS_HUNTER)
+				if (player->getClass() == CLASS_HUNTER || player->getClass() == CLASS_ROGUE || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_DRUID)
 				{
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HEAD, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_NECK, true);
@@ -230,87 +197,32 @@ public:
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61014, true); // Грудбь ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61016, true); // Ноги ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61017, true); // Ботинки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61015, true); // Руки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61012, true); // Голова ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100401, true); // Плечи ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61078, true); // Грудбь ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61081, true); // Ноги ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61082, true); // Ботинки ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61079, true); // Руки ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61076, true); // Голова ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100404, true); // Плечи ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 60016, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61084, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61090, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61090, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61087, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 60098, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61096, true); // Плащ ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61179, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61167, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61147, true); // Пуха
-					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61093, true); // Сумка 1
-					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61093, true); // Сумка 2
-					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61093, true); // Сумка 3
-					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61093, true); // Сумка 4
-					player->AddItem(21215, 10); // Кекс
-				//	player->AddItem(60015, 1); // Кольцо НОВИЧКАМ 
-					player->AddItem(61145, 1); // Арбалет 
-					// Оповещение в чате
-					std::ostringstream ss;
-					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
-					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
-				}
-
-				if (player->getClass() == CLASS_ROGUE)
-				{
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HEAD, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_NECK, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_SHOULDERS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_CHEST, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BODY, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WAIST, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_LEGS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WRISTS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HANDS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER1, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER2, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET1, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET2, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BACK, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61014, true); // Грудбь ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61016, true); // Ноги ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61017, true); // Ботинки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61015, true); // Руки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61012, true); // Голова ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100401, true); // Плечи ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 60016, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61084, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61090, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61090, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61087, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 60098, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61096, true); // Плащ ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61179, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61167, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61146, true); // Пуха
-					player->EquipNewItem(EQUIPMENT_SLOT_OFFHAND, 61146, true); // Пуха
-					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61093, true); // Сумка 1
-					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61093, true); // Сумка 2
-					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61093, true); // Сумка 3
-					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61093, true); // Сумка 4
+					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61129, true); // Колцьцо ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61135, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61135, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61132, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 61080, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61141, true); // Плащ ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61188, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61175, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61163, true); // Пуха
+					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61138, true); // Сумка 1
+					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61138, true); // Сумка 2
+					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61138, true); // Сумка 3
+					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61138, true); // Сумка 4
 					player->AddItem(21215, 10); // Кекс
 				//	player->AddItem(60015, 1); // Кольцо НОВИЧКАМ 
 					// Оповещение в чате
 					std::ostringstream ss;
-					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
+					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [3] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
 
 				if (player->getClass() == CLASS_MAGE || player->getClass() == CLASS_PRIEST || player->getClass() == CLASS_WARLOCK)
@@ -334,87 +246,33 @@ public:
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61008, true); // Грудбь ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61010, true); // Ноги ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61011, true); // Ботинки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61009, true); // Руки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61006, true); // Голова ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100402, true); // Плечи ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61064, true); // Грудбь ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61066, true); // Ноги ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61068, true); // Ботинки ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61065, true); // Руки ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61062, true); // Голова ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100405, true); // Плечи ДД
 					player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 60016, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61085, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61091, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61091, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61088, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 60099, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61097, true); // Плащ ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61180, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61168, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61144, true); // Пуха
-					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61094, true); // Сумка 1
-					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61094, true); // Сумка 2
-					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61094, true); // Сумка 3
-					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61094, true); // Сумка 4
+					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61130, true); // Колцьцо ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61136, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61136, true); // Триня ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61133, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 61067, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61142, true); // Плащ ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61189, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61177, true); // Шея  ДД
+					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61160, true); // Пуха
+					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61139, true); // Сумка 1
+					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61139, true); // Сумка 2
+					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61139, true); // Сумка 3
+					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61139, true); // Сумка 4
 					player->AddItem(21215, 10); // Кекс
 				//	player->AddItem(60015, 1); // Кольцо НОВИЧКАМ 
 					// Оповещение в чате
 					std::ostringstream ss;
-					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
+					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [3] дня|r";
 					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-                    ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
 				}
-
-				if (player->getClass() == CLASS_DRUID || player->getClass() == CLASS_SHAMAN)
-				{
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HEAD, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_NECK, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_SHOULDERS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_CHEST, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BODY, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WAIST, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_LEGS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_WRISTS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_HANDS, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER1, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FINGER2, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET1, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TRINKET2, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BACK, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61002, true); // Грудбь ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 61004, true); // Ноги ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_FEET, 61005, true); // Ботинки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 61003, true); // Руки ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 61000, true); // Голова ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 100402, true); // Плечи ДД
-                    player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 60016, true);
-					player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 61085, true); // Колцьцо ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 61091, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 61091, true); // Триня ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_NECK, 61088, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 60099, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BACK, 61097, true); // Плащ ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_TABARD, 61180, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_BODY, 61168, true); // Шея  ДД
-					player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 61144, true); // Пуха
-					player->EquipNewItem(INVENTORY_SLOT_BAG_1, 61093, true); // Сумка 1
-					player->EquipNewItem(INVENTORY_SLOT_BAG_2, 61093, true); // Сумка 2
-					player->EquipNewItem(INVENTORY_SLOT_BAG_3, 61093, true); // Сумка 3
-					player->EquipNewItem(INVENTORY_SLOT_BAG_4, 61093, true); // Сумка 4
-					player->AddItem(21215, 10); // Кекс
-					//	player->AddItem(60015, 1); // Кольцо НОВИЧКАМ 
-					// Оповещение в чате
-					std::ostringstream ss;
-					ss << "|cffFF0000[Приятной игры]|cffFF8000Вы получили бонус:|cff02A4B1 ViP-Аккаунт [2] дня|r";
-					ChatHandler(player->GetSession()).SendSysMessage(ss.str().c_str());
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Вы изучили новыки владения оружием|r");
-					ChatHandler(player->GetSession()).PSendSysMessage("|cffFF8000Среднее время прокачки до 150-уровня:|cff02A4B1 30 минут|r");
-				}
-			}
 		}
 	}
 };

@@ -8,6 +8,11 @@
 */
 
 #include "ScriptPCH.h"
+#include "LFGMgr.h"
+#include "Player.h"
+#include "Config.h"
+#include "Chat.h"
+#include <vector>
 
 #define CONST_ARENA_RENAME 0
 #define CONST_ARENA_CUSTOMIZE 0
@@ -35,10 +40,55 @@
 #define MSG_CHARACTER_SAVE_TO_DB "Ваш персонаж сохранён!"
 #define MSG_RESET_QUEST_STATUS_COMPLETE "Ваши ежедневные и еженедельные задания обновлены!"
 
+enum Trainers
+{
+    // Alliance
+    DRUID_A = 5504,
+    HUNTER_A = 5515,
+    MAGE_A = 5497,
+    PALADIN_A = 928,
+    PRIEST_A = 376,
+    ROGUE_A = 918,
+    SHAMAN_A = 20407,
+    WARLOCK_A = 461,
+    WARRIOR_A = 5479,
+
+    // Horde
+    DRUID_H = 3033,
+    HUNTER_H = 3406,
+    MAGE_H = 5883,
+    PALADIN_H = 23128,
+    PRIEST_H = 3045,
+    ROGUE_H = 3401,
+    SHAMAN_H = 3344,
+    WARLOCK_H = 3324,
+    WARRIOR_H = 3354,
+
+    DEATHKNIGHT_AH = 28472
+};
+
 class npc_premium_master : public CreatureScript
 {
 public: 
 	npc_premium_master() : CreatureScript("npc_premium_master") { }
+
+    void SummonTempNPC(Player* player, uint32 entry, const char* salute = "")
+    {
+        if (!player || entry == 0)
+            return;
+
+        int npcDuration = sConfigMgr->GetOption<int32>("Premium.NpcDuration", 60) * IN_MILLISECONDS;
+        if (npcDuration <= 0) // Safeguard
+            npcDuration = 60;
+
+        Creature* npc = player->SummonCreature(entry, player->GetPositionX(), player->GetPositionY(), player->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, npcDuration);
+        npc->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+        npc->GetMotionMaster()->MoveFollow(player, PET_FOLLOW_DIST, player->GetFollowAngle());
+        npc->SetFaction(player->GetFaction());
+
+        if (salute && !(salute[0] == '\0'))
+            npc->Whisper(salute, LANG_UNIVERSAL, player, false);
+    }
 
 	bool OnGossipHello(Player* player, Creature* creature)
 	{
@@ -66,6 +116,8 @@ public:
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_09:20|t Превращения ->", GOSSIP_SENDER_MAIN, 1203);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_book_07:20|t Заклинания ->", GOSSIP_SENDER_MAIN, 1206);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Trade_engineering:20|tИзменить персонажа ->", GOSSIP_SENDER_MAIN, 2000);
+        AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_book_11:20|t Классовый тренер ->", GOSSIP_SENDER_MAIN, 12);
+        AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_book_04:20|t Профессии ->", GOSSIP_SENDER_MAIN, 13);
         SendGossipMenuFor(player, 200034, creature->GetGUID());
 		return true;
 	}
@@ -86,6 +138,116 @@ public:
 		case 4:
 			OnGossipHello(player, creature);
 			break;
+        case 13:
+            player->PlayerTalkClass->ClearMenus();
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Алхимия", GOSSIP_SENDER_MAIN, 20);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Кузнечное дело", GOSSIP_SENDER_MAIN, 21);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Кожевничество", GOSSIP_SENDER_MAIN, 22);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Портняжное дело", GOSSIP_SENDER_MAIN, 23);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Инженерное дело", GOSSIP_SENDER_MAIN, 24);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Наложение чар", GOSSIP_SENDER_MAIN, 25);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Начертание", GOSSIP_SENDER_MAIN, 32);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Ювелирное дело", GOSSIP_SENDER_MAIN, 26);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Травничество", GOSSIP_SENDER_MAIN, 27);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Снятие шкур", GOSSIP_SENDER_MAIN, 28);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Горное дело", GOSSIP_SENDER_MAIN, 29);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Кулинария", GOSSIP_SENDER_MAIN, 30);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "Первая помощь", GOSSIP_SENDER_MAIN, 31);
+            SendGossipMenuFor(player, 200035, creature->GetGUID());
+            break;
+        case 20:
+            SummonTempNPC(player, 19052);
+            CloseGossipMenuFor(player);
+            break;
+        case 21:
+            SummonTempNPC(player, 33591);
+            CloseGossipMenuFor(player);
+            break;
+        case 22:
+            SummonTempNPC(player, 33581);
+            CloseGossipMenuFor(player);
+            break;
+        case 23:
+            SummonTempNPC(player, 33580);
+            CloseGossipMenuFor(player);
+            break;
+        case 24:
+            SummonTempNPC(player, 33586);
+            CloseGossipMenuFor(player);
+            break;
+        case 25:
+            SummonTempNPC(player, 33633);
+            CloseGossipMenuFor(player);
+            break;
+        case 26:
+            SummonTempNPC(player, 33590);
+            CloseGossipMenuFor(player);
+            break;
+        case 27:
+            SummonTempNPC(player, 28704);
+            CloseGossipMenuFor(player);
+            break;
+        case 28:
+            SummonTempNPC(player, 28696);
+            CloseGossipMenuFor(player);
+            break;
+        case 29:
+            SummonTempNPC(player, 28698);
+            CloseGossipMenuFor(player);
+            break;
+        case 30:
+            SummonTempNPC(player, 33587);
+            CloseGossipMenuFor(player);
+            break;
+        case 31:
+            SummonTempNPC(player, 28706);
+            CloseGossipMenuFor(player);
+            break;
+        case 32:
+            SummonTempNPC(player, 33603);
+            CloseGossipMenuFor(player);
+            break;
+        case 12: /* Class Trainers*/
+        {
+            uint32 trainerId = 0;
+            switch (player->getClass())
+            {
+            case CLASS_ROGUE:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? ROGUE_A : ROGUE_H;
+                break;
+            case CLASS_WARRIOR:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? WARRIOR_A : WARRIOR_H;
+                break;
+            case CLASS_PRIEST:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? PRIEST_A : PRIEST_H;
+                break;
+            case CLASS_MAGE:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? MAGE_A : MAGE_H;
+                break;
+            case CLASS_PALADIN:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? PALADIN_A : PALADIN_H;
+                break;
+            case CLASS_HUNTER:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? HUNTER_A : HUNTER_H;
+                break;
+            case CLASS_DRUID:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? DRUID_A : DRUID_H;
+                break;
+            case CLASS_SHAMAN:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? SHAMAN_A : SHAMAN_H;
+                break;
+            case CLASS_WARLOCK:
+                trainerId = player->GetTeamId() == TEAM_ALLIANCE ? WARLOCK_A : WARLOCK_H;
+                break;
+            case CLASS_DEATH_KNIGHT:
+                trainerId = DEATHKNIGHT_AH;
+                break;
+            }
+
+            SummonTempNPC(player, trainerId);
+            CloseGossipMenuFor(player);
+        }
+        break;
 		case 1202: // Heal
 			if (player->HasAura(45523))
 			{
@@ -287,19 +449,19 @@ public:
 			break;
 		case 1206: // Buffs
 			player->PlayerTalkClass->ClearMenus();
-			AddGossipItemFor(player,5, "Молитва стойкости", GOSSIP_SENDER_MAIN, 4000);
-			AddGossipItemFor(player,5, "Молитва духа", GOSSIP_SENDER_MAIN, 4001);
-			AddGossipItemFor(player,5, "Молитва защиты от темных сил", GOSSIP_SENDER_MAIN, 4002);
-			AddGossipItemFor(player,5, "Великое благословение королей", GOSSIP_SENDER_MAIN, 4003);
-			AddGossipItemFor(player,5, "Великое благословение могущества", GOSSIP_SENDER_MAIN, 4004);
-			AddGossipItemFor(player,5, "Великое благословение мудрости", GOSSIP_SENDER_MAIN, 4005);
-			AddGossipItemFor(player,5, "Великое благословение неприкосновенности", GOSSIP_SENDER_MAIN, 4006);
-			AddGossipItemFor(player,5, "Чародейский интеллект", GOSSIP_SENDER_MAIN, 4007);
-			AddGossipItemFor(player,5, "Ослабление магии", GOSSIP_SENDER_MAIN, 4008);
-			AddGossipItemFor(player,5, "Усиление магии", GOSSIP_SENDER_MAIN, 4009);
-			AddGossipItemFor(player,5, "Знак дикой природы", GOSSIP_SENDER_MAIN, 4010);
-			AddGossipItemFor(player,5, "Шипы", GOSSIP_SENDER_MAIN, 4011);
-			AddGossipItemFor(player,5, "Гениальность", GOSSIP_SENDER_MAIN, 4012);
+            AddGossipItemFor(player, 5, "Молитва стойкости", GOSSIP_SENDER_MAIN, 4000);
+            AddGossipItemFor(player, 5, "Молитва духа", GOSSIP_SENDER_MAIN, 4001);
+            AddGossipItemFor(player, 5, "Молитва защиты от темных сил", GOSSIP_SENDER_MAIN, 4002);
+            AddGossipItemFor(player, 5, "Великое благословение королей", GOSSIP_SENDER_MAIN, 4003);
+            AddGossipItemFor(player, 5, "Великое благословение могущества", GOSSIP_SENDER_MAIN, 4004);
+            AddGossipItemFor(player, 5, "Великое благословение мудрости", GOSSIP_SENDER_MAIN, 4005);
+            AddGossipItemFor(player, 5, "Великое благословение неприкосновенности", GOSSIP_SENDER_MAIN, 4006);
+            AddGossipItemFor(player, 5, "Чародейский интеллект", GOSSIP_SENDER_MAIN, 4007);
+            AddGossipItemFor(player, 5, "Ослабление магии", GOSSIP_SENDER_MAIN, 4008);
+            AddGossipItemFor(player, 5, "Усиление магии", GOSSIP_SENDER_MAIN, 4009);
+            AddGossipItemFor(player, 5, "Знак дикой природы", GOSSIP_SENDER_MAIN, 4010);
+            AddGossipItemFor(player, 5, "Шипы", GOSSIP_SENDER_MAIN, 4011);
+            AddGossipItemFor(player, 5, "Гениальность", GOSSIP_SENDER_MAIN, 4012);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
 			break;
 		case 4000: // Power Word Fortitude

@@ -159,10 +159,10 @@ public:
             }
         }
 
-        void EnterCombat(Unit* who) override
+        void JustEngagedWith(Unit* who) override
         {
             Talk(SAY_AGGRO);
-            BossAI::EnterCombat(who);
+            BossAI::JustEngagedWith(who);
             me->InterruptNonMeleeSpells(false);
 
             events.ScheduleEvent(EVENT_CLEAVE, 11000);
@@ -284,7 +284,7 @@ public:
         {
         }
 
-        void EnterCombat(Unit* /*who*/) override
+        void JustEngagedWith(Unit* /*who*/) override
         {
             _events.Reset();
             _events.ScheduleEvent(EVENT_CLEAVE, urand(5000, 10000));

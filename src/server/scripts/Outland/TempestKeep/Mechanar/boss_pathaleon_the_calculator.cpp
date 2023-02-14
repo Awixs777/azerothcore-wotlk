@@ -79,9 +79,9 @@ public:
             Talk(SAY_APPEAR);
         }
 
-        void EnterCombat(Unit* /*who*/) override
+        void JustEngagedWith(Unit* /*who*/) override
         {
-            _EnterCombat();
+            _JustEngagedWith();
             events.ScheduleEvent(EVENT_SUMMON, 30000);
             events.ScheduleEvent(EVENT_MANA_TAP, 12000);
             events.ScheduleEvent(EVENT_ARCANE_TORRENT, 16000);

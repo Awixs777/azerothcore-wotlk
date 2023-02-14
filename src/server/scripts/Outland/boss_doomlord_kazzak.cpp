@@ -90,7 +90,7 @@ public:
           //  Talk(SAY_INTRO);
         }
 
-        void EnterCombat(Unit* /*who*/) override
+        void JustEngagedWith(Unit* /*who*/) override
         {
             me->Yell("Не стоило этого делать! Думаете оделеть меня? Я вас уничтожу!!!", LANG_UNIVERSAL, 0);
         }

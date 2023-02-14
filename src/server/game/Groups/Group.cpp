@@ -392,7 +392,8 @@ bool Group::AddMember(Player* player)
     if (!player)
         return false;
 
-    player->RemoveAurasDueToSpell(90005);
+    player->RemoveAurasDueToSpell(90005); //Solo-Buff
+    player->RemoveAurasDueToSpell(90003); //Solo-Buff
     // Get first not-full group
     uint8 subGroup = 0;
     if (m_subGroupsCounts)

@@ -2744,7 +2744,7 @@ bool World::SendGuildMessage(uint32 guild, WorldPacket* packet, WorldSession* se
     bool foundPlayerToSend = false;
     SessionMap::const_iterator itr;
 
-    for (itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+    for (itr = _sessions.begin(); itr != _sessions.end(); ++itr)
     {
         if (itr->second &&
             itr->second->GetPlayer() &&

@@ -74,6 +74,7 @@ public:
 					player->learnSpell(202);	// 2H Sword
                     player->learnSpell(2567);
                     player->SetSkill(762, 4, 300, 300);
+                    player->EquipNewItem(EQUIPMENT_SLOT_RANGED, 61162, true);      
 					break;
 
 				case CLASS_ROGUE:
@@ -194,7 +195,6 @@ public:
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BACK, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND, true);
-					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_TABARD, true);
 					player->DestroyItem(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_FEET, true);
 					player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 61078, true); // Грудбь ДД

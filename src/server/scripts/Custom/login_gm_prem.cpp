@@ -49,6 +49,7 @@ public:
 			handler.PSendSysMessage("|cff8ab6fc[.vip bank]|cfffcc141 - открыть банк|r");
 			handler.PSendSysMessage("|cff8ab6fc[.vip mail]|cfffcc141 - открыть почту|r");
             handler.PSendSysMessage("|cff8ab6fc[.vip home]|cfffcc141 - телепорт в Столицу|r");
+            handler.PSendSysMessage("|cff8ab6fc[.vip buff]|cfffcc141 - Баффы|r");
             handler.PSendSysMessage("|cff8ab6fc[.ins un all]|cfffcc141 - сбросить КД подземелий|r");
             handler.PSendSysMessage("|cff8ab6fc[.mir all|cfffcc141 - таймер Мировых боссов|r");
             handler.PSendSysMessage("|cfffcc141[Рейты:] Опыт: х2, Репутация: х2");
@@ -56,6 +57,7 @@ public:
             player->CastSpell(player, 90000, true);
             player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
+            player->AddItem(34104, 1);
 			QueryResult result = LoginDatabase.Query("SELECT unsetdate FROM account_premium WHERE id = {}", accid);
 			if (result)
 			{

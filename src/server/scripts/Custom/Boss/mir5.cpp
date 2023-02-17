@@ -69,7 +69,7 @@ public:
 			me->SetFloatValue(OBJECT_FIELD_SCALE_X, 2.3f);
 		}
 
-		void EnterCombat(Unit* /*who*/) override
+		void JustEngagedWith(Unit* /*who*/) override
 		{
 			me->SetFloatValue(OBJECT_FIELD_SCALE_X, 3.5f);
 			me->Yell(LM_YELL_AGGRO, LANG_UNIVERSAL, 0);

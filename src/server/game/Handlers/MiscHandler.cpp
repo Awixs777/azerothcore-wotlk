@@ -485,6 +485,10 @@ void WorldSession::HandlePlayerLogoutOpcode(WorldPackets::Character::PlayerLogou
 
 void WorldSession::HandleLogoutCancelOpcode(WorldPackets::Character::LogoutCancel& /*logoutCancel*/)
 {
+    // Player have already logged out serverside, too late to cancel
+    if (!GetPlayer())
+        return;
+
     SetLogoutStartTime(0);
 
     SendPacket(WorldPackets::Character::LogoutCancelAck().Write());

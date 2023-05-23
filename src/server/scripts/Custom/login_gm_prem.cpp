@@ -57,7 +57,10 @@ public:
             player->CastSpell(player, 90000, true);
             player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
-            player->AddItem(34104, 1);
+            if (!player->HasItemCount(34104, 1))
+            {
+                player->AddItem(34104, 1);
+            }
 			QueryResult result = LoginDatabase.Query("SELECT unsetdate FROM account_premium WHERE id = {}", accid);
 			if (result)
 			{
@@ -93,6 +96,7 @@ public:
             player->DestroyItemCount(80085, 1, true, false);
 			player->DestroyItemCount(80090, 1, true, false);
             player->DestroyItemCount(300048, 1, true, false);
+            player->DestroyItemCount(34104, 1, true, false);
 			player->removeSpell(300118, SPEC_MASK_ALL, false);
 			player->removeSpell(300048, SPEC_MASK_ALL, false);
 			player->removeSpell(300194, SPEC_MASK_ALL, false);

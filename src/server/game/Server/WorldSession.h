@@ -1067,8 +1067,6 @@ public:                                                 // opcodes handlers
     uint32 GetOfflineTime() const { return _offlineTime; }
     bool IsKicked() const { return _kicked; }
     void SetKicked(bool val) { _kicked = val; }
-    void SetShouldSetOfflineInDB(bool val) { _shouldSetOfflineInDB = val; }
-    bool GetShouldSetOfflineInDB() const { return _shouldSetOfflineInDB; }
     bool IsSocketClosed() const;
 
     /*
@@ -1179,7 +1177,6 @@ private:
     ObjectGuid m_currentBankerGUID;
     uint32 _offlineTime;
     bool _kicked;
-    bool _shouldSetOfflineInDB;
     // Packets cooldown
     time_t _calendarEventCreationCooldown;
 

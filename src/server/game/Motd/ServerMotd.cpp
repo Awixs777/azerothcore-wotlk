@@ -31,6 +31,7 @@ namespace
 
 void Motd::SetMotd(std::string motd)
 {
+
     motd = "Добро пожаловать на GFY [Game For You]"; // MOTDGFY
 
     // scripts may change motd

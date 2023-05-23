@@ -340,11 +340,18 @@ SocketTimeOutTimeActive = 60000
 SessionAddDelay = 10000
 
 #
+#    MinWorldUpdateTime
+#        Description: Minimum time (milliseconds) between world update ticks (for mostly idle servers).
+#        Default:     1 - (0.001 second)
+
+MinWorldUpdateTime = 1
+
+#
 #    MapUpdateInterval
 #        Description: Time (milliseconds) for map update interval.
-#        Default:     100 - (0.1 second)
+#        Default:     10 - (0.01 second)
 
-MapUpdateInterval = 100
+MapUpdateInterval = 10
 
 #
 #    ChangeWeatherInterval
@@ -467,6 +474,7 @@ LogDB.Opt.ClearTime = 1209600
 #
 #    MaxCoreStuckTime
 #        Description: Time (in seconds) before the server is forced to crash if it is frozen.
+#                     FreezeDetector
 #        Default:     0   - (Disabled)
 #                     10+ - (Enabled, Recommended 30+)
 # Note: If enabled and the setting is too low, it can cause unexpected crash.
@@ -1258,30 +1266,6 @@ BeepAtStart = 1
 FlashAtStart = 1
 
 #
-#    Motd
-#        Description: Message of the Day, displayed at login.
-#                     Use '@' for a newline and be sure to escape special characters.
-#        Example:     "Welcome to John\'s Server@"
-#        Default:     "Welcome to an AzerothCore server."
-
-Motd = "Welcome to an AzerothCore server."
-
-#    PLEASE NOTE: another (hardcoded) text will appear below the MOTD:
-#
-#        "This server runs on AzerothCore www.azerothcore.org"
-#
-#    All the AzerothCore contributors, as well as its father projects (MaNGOS, TrinityCore, etc..),
-#    have worked for free to provide you this software. Please do not remove the credits.
-#
-#    Changing or removing such hardcoded text is considered a violation of our license
-#    and it's not allowed. We reserve the right to take legal action in case of violations.
-#    Furthermore, any kind of support will be always denied.
-#
-#    All AzerothCore contributors and its father projects are publicly listed in
-#    our official repository. Credits to open source contributions should always be shown.
-#
-
-#
 #    Server.LoginInfo
 #        Description: Display core version (.server info) on login.
 #        Default:     0 - (Disabled)
@@ -1324,6 +1308,14 @@ DeletedCharacterTicketTrace = 0
 #        Default:     5
 
 DungeonFinder.OptionsMask = 5
+
+#
+#   DBC.EnforceItemAttributes
+#        Disallow overriding item attributes stored in DBC files with values from the database
+#        Default: 0 - Off, Use DB values
+#                 1 - On, Enforce DBC Values (default)
+
+DBC.EnforceItemAttributes = 1
 
 #
 #   AccountInstancesPerHour
@@ -2275,7 +2267,20 @@ Rate.Drop.Item.Artifact         = 1
 Rate.Drop.Item.Referenced       = 1
 Rate.Drop.Money                 = 1
 
-#    RewardBonusMoney
+#    Rate.Drop.Item.ReferencedAmount
+#        Description: Multiplier for referenced loot amount. Makes many raid bosses (and others) drop additional loot.
+#        Default:     1
+
+Rate.Drop.Item.ReferencedAmount = 1
+
+#
+#    Rate.Drop.Item.GroupAmount
+#        Description: Multiplier for grouped items. Makes many dungeon bosses (and others) drop additional loot.
+#        Default:     1
+
+Rate.Drop.Item.GroupAmount = 1
+
+#    Rate.RewardBonusMoney
 #        Description: Allows to further tweak the amount of extra money rewarded by quests when the player
 #                     is at MaxPlayerLevel (this amount is specified in quest_template.RewardBonusMoney).
 #                     NOTE: the final amount will also affected by Rate.Drop.Money
@@ -2338,13 +2343,6 @@ Rate.BuyValue.Item.Epic             = 1
 Rate.BuyValue.Item.Legendary        = 1
 Rate.BuyValue.Item.Artifact         = 1
 Rate.BuyValue.Item.Heirloom         = 1
-
-#
-#    Rate.Drop.Item.ReferencedAmount
-#        Description: Multiplier for referenced loot amount.
-#        Default:     1
-
-Rate.Drop.Item.ReferencedAmount = 1
 
 #
 #    Rate.XP.Kill
@@ -3955,6 +3953,7 @@ Logger.module=4,Console Server
 #Logger.addon=4,Console Server
 #Logger.ahbot=4,Console Server
 #Logger.auctionHouse=4,Console Server
+#Logger.autobroadcast=4, Console Server
 #Logger.bg.arena=4,Console Server
 #Logger.bg.battlefield=4,Console Server
 #Logger.bg.battleground=4,Console Server

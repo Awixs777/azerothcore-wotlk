@@ -2,7 +2,7 @@
 --
 -- Revamp Aeonus Tables
 DELETE FROM `reference_loot_template` WHERE Entry IN (35004);
-INSERT INTO `reference_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES 
+REPLACE INTO `reference_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES 
 (35004, 27509, 0, 0, 0, 1, 2, 1, 1, 'Handgrips of Assassination'),
 (35004, 27839, 0, 0, 0, 1, 2, 1, 1, 'Legplates of the Righteous'),
 (35004, 27873, 0, 0, 0, 1, 2, 1, 1, 'Moonglade Pants'),
@@ -17,5 +17,5 @@ INSERT INTO `reference_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `
 (35004, 28206, 0, 0, 0, 1, 3, 1, 1, 'Cowl of the Guiltless');
 -- Insert 2nd loot drop
 DELETE FROM `creature_loot_template` WHERE `Entry`=17881 AND `Item`=35004 AND `GroupId`=3;
-INSERT INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES 
+REPLACE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES 
 (17881, 35004, 35004, 100, 0, 1, 3, 1, 1, 'Aeonus High Value Table - (ReferenceTable)');

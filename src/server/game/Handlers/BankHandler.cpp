@@ -21,6 +21,7 @@
 #include "Log.h"
 #include "Opcodes.h"
 #include "Player.h"
+#include "Chat.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
 
@@ -190,6 +191,13 @@ void WorldSession::HandleBuyBankSlotOpcode(WorldPackets::Bank::BuyBankSlot& buyB
 
 void WorldSession::SendShowBank(ObjectGuid guid)
 {
+    // Запрет Банка
+    ChatHandler handler = ChatHandler(this);
+    if (_player->getLevel() < 130)
+    {
+        handler.SendSysMessage("Банк доступен с 130-го уровня.");
+        return;
+    }
     m_currentBankerGUID = guid;
     WorldPackets::Bank::ShowBank packet;
     packet.Banker = guid;

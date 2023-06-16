@@ -267,7 +267,7 @@ public:
 
             if (who->GetTypeId() == TYPEID_PLAYER)
                 if (Creature* k = GetKrick())
-                  //  k->AI()->Talk(SAY_SLAY);
+                    k->AI()->Talk(SAY_SLAY);
         }
 
         void JustSummoned(Creature*  /*summon*/) override

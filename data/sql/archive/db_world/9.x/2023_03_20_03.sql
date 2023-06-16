@@ -1,7 +1,7 @@
 -- DB update 2023_03_20_02 -> 2023_03_20_03
 --
 DELETE FROM `gameobject` WHERE `id`=186729;
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`) VALUES
 (20463, 186729, 530, 3523, 3877, 1, 1, 3304.35, 2952.27, 141.742, 3.15906, 0, 0, -0.999962, 0.00873464, 180, 255, 1, '', 48526),
 (20464, 186729, 530, 3523, 3877, 1, 1, 3311.84, 2959.4, 142.62, 1.37881, 0, 0, 0.636078, 0.771625, 180, 255, 1, '', 48526),
 (20467, 186729, 530, 3523, 3877, 1, 1, 3315.77, 2873.66, 141.707, 4.04917, 0, 0, -0.898793, 0.438373, 180, 255, 1, '', 48526),

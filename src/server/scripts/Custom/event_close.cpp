@@ -36,12 +36,6 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rНе забудь одеть экипировку 80-го и 130-го уровня!|r");
         }
 
-        // Кач 1-80
-        if (player->GetZoneId() == 1584)
-        {
-            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rНе забудь взять VIP экипировку!|r");
-        }
-
         // Лолита Лейн
         if (player->GetAreaId() == 3547 && player->getLevel() < 229)
         {

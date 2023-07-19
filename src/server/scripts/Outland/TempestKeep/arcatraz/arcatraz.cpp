@@ -147,34 +147,34 @@ public:
                     break;
                 case EVENT_MILLHOUSE_INTRO1:
                     Talk(SAY_INTRO_1);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO2, 18000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO2, 9000);
                     break;
                 case EVENT_MILLHOUSE_INTRO2:
                     Talk(SAY_INTRO_2);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO3, 8000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO3, 4000);
                     break;
                 case EVENT_MILLHOUSE_INTRO3:
                     Talk(SAY_INTRO_3);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO4, 6000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO4, 3000);
                     break;
                 case EVENT_MILLHOUSE_INTRO4:
                     Talk(SAY_INTRO_4);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO5, 8000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO5, 4000);
                     break;
                 case EVENT_MILLHOUSE_INTRO5:
                     Talk(SAY_WATER);
                     me->CastSpell(me, SPELL_CONJURE_WATER, false);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO6, 7000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO6, 3500);
                     break;
                 case EVENT_MILLHOUSE_INTRO6:
                     Talk(SAY_BUFFS);
                     me->CastSpell(me, SPELL_ICE_ARMOR, false);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO7, 7000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO7, 3500);
                     break;
                 case EVENT_MILLHOUSE_INTRO7:
                     Talk(SAY_DRINK);
                     me->CastSpell(me, SPELL_ARCANE_INTELLECT, false);
-                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO8, 7000);
+                    events2.ScheduleEvent(EVENT_MILLHOUSE_INTRO8, 3500);
                     break;
                 case EVENT_MILLHOUSE_INTRO8:
                     Talk(SAY_READY);
@@ -439,11 +439,11 @@ public:
                     break;
                 case EVENT_WARDEN_INTRO2:
                     instance->HandleGameObject(instance->GetGuidData(DATA_WARDENS_SHIELD), false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO3, 20000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO3, 10000);
                     break;
                 case EVENT_WARDEN_INTRO3:
                     Talk(YELL_INTRO2);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO4, 5000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO4, 2500);
                     break;
                 case EVENT_WARDEN_INTRO4:
                     me->SetFacingTo(0.5f);
@@ -457,7 +457,7 @@ public:
                 case EVENT_WARDEN_INTRO6:
                     me->SetFacingTo(M_PI * 1.5f);
                     me->CastSpell((Unit*)nullptr, SPELL_TARGET_OMEGA, false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO7, 5000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO7, 2500);
                     break;
                 case EVENT_WARDEN_INTRO7:
                     me->SummonCreature(RAND(NPC_TRICKSTER, NPC_PH_HUNTER), 478.326f, -148.505f, 42.56f, 3.19f, TEMPSUMMON_MANUAL_DESPAWN);
@@ -481,11 +481,11 @@ public:
                 case EVENT_WARDEN_INTRO12:
                     me->SetFacingTo(M_PI * 1.5f);
                     me->CastSpell((Unit*)nullptr, SPELL_TARGET_OMEGA, false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO13, 6000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO13, 3000);
                     break;
                 case EVENT_WARDEN_INTRO13:
                     me->SummonCreature(NPC_MILLHOUSE, 413.292f, -148.378f, 42.56f, 6.27f, TEMPSUMMON_MANUAL_DESPAWN);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO14, 14000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO14, 7000);
                     break;
                 case EVENT_WARDEN_INTRO14:
                     Talk(YELL_RELEASE2B);
@@ -504,7 +504,7 @@ public:
                 case EVENT_WARDEN_INTRO17:
                     me->SetFacingTo(M_PI * 1.5f);
                     me->CastSpell((Unit*)nullptr, SPELL_TARGET_OMEGA, false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO18, 6000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO18, 3000);
                     break;
                 case EVENT_WARDEN_INTRO18:
                     me->SummonCreature(RAND(NPC_AKKIRIS, NPC_SULFURON), 420.179f, -174.396f, 42.58f, 0.02f, TEMPSUMMON_MANUAL_DESPAWN);
@@ -514,7 +514,7 @@ public:
                     Talk(YELL_RELEASE3);
                     me->InterruptNonMeleeSpells(false);
                     me->SetFacingTo(6.05f);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO20, 4000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO20, 2500);
                     break;
                 case EVENT_WARDEN_INTRO20:
                     me->CastSpell((Unit*)nullptr, SPELL_TARGET_GAMMA, false);
@@ -527,7 +527,7 @@ public:
                 case EVENT_WARDEN_INTRO22:
                     me->SetFacingTo(M_PI * 1.5f);
                     me->CastSpell((Unit*)nullptr, SPELL_TARGET_OMEGA, false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO23, 6000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO23, 3000);
                     break;
                 case EVENT_WARDEN_INTRO23:
                     me->SummonCreature(RAND(NPC_TW_DRAK, NPC_BL_DRAK), 471.795f, -174.58f, 42.58f, 3.06f, TEMPSUMMON_MANUAL_DESPAWN);
@@ -537,7 +537,7 @@ public:
                     instance->SetData(DATA_WARDEN_5, IN_PROGRESS);
                     Talk(YELL_RELEASE4);
                     me->InterruptNonMeleeSpells(false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO25, 8000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO25, 4000);
                     break;
                 case EVENT_WARDEN_INTRO25:
                     if (Creature* cr = me->SummonCreature(NPC_HARBINGER_SKYRISS, 445.763f, -191.639f, 44.64f, 1.60f, TEMPSUMMON_MANUAL_DESPAWN))
@@ -550,17 +550,17 @@ public:
                 case EVENT_WARDEN_INTRO26:
                     if (Creature* creature = summons.GetCreatureWithEntry(NPC_HARBINGER_SKYRISS))
                         creature->AI()->Talk(SAY_HARBINGER_INTRO);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO27, 23000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO27, 10000);
                     break;
                 case EVENT_WARDEN_INTRO27:
                     Talk(YELL_WELCOME);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO28, 5000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO28, 3000);
                     break;
                 case EVENT_WARDEN_INTRO28:
                     instance->HandleGameObject(instance->GetGuidData(DATA_WARDENS_SHIELD), true);
                     if (Creature* creature = summons.GetCreatureWithEntry(NPC_HARBINGER_SKYRISS))
                         creature->CastSpell((Unit*)nullptr, SPELL_MIND_REND, false);
-                    events.ScheduleEvent(EVENT_WARDEN_INTRO29, 4000);
+                    events.ScheduleEvent(EVENT_WARDEN_INTRO29, 3000);
                     break;
 
                 case EVENT_WARDEN_INTRO29:

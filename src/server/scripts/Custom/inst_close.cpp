@@ -492,16 +492,20 @@ public:
         // проверка ледяные залы
         if (newArea == 4862 && !player->IsGameMaster())
         {
-            //фазы, закрыт доступ до 230lvl
-            if (player->getLevel() < 230) {
-                player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
-                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Подземелья закрыты!");
-            }
-            // после открытия, убрать скобки ниже
-            /*if (!player->GetQuestRewardStatus(20405)) {
+             if (!player->GetQuestRewardStatus(20405))
+            {
                 player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
                 ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r\nНеобходимо выполнить задание [Тайны Лабиринта]\nПодземелье [Темный Лабиринт]");
-            } */
+            }
+        }
+
+        // проверка рыбалка
+        if ((newArea == 3622 || newArea == 3621 || newArea == 266) && !player->IsGameMaster())
+        {
+            if (player->getLevel() < 150) {
+                player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Рыбалка доступна с 150-го уровня!");
+            }
         }
     }
 };

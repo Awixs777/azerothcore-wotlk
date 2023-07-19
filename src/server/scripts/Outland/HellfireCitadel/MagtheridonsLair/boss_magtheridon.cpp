@@ -160,13 +160,13 @@ public:
             _JustEngagedWith();
             Talk(SAY_EMOTE_BEGIN);
 
-            scheduler.Schedule(60s, [this](TaskContext /*context*/)
+            scheduler.Schedule(40s, [this](TaskContext /*context*/)
             {
                 Talk(SAY_EMOTE_NEARLY);
-            }).Schedule(120s, [this](TaskContext /*context*/)
+            }).Schedule(20s, [this](TaskContext /*context*/)
             {
                 Talk(SAY_EMOTE_FREE);
-            }).Schedule(123s, [this](TaskContext /*context*/)
+            }).Schedule(23s, [this](TaskContext /*context*/)
             {
                 me->RemoveUnitFlag(UNIT_FLAG_NOT_SELECTABLE);
                 me->SetImmuneToPC(false);

@@ -33,6 +33,7 @@ enum Spells
     SPELL_BANISH            = 30231,
     SPELL_CORROSIVE_ACID    = 33551,
     SPELL_FEAR              = 33547,
+    SPELL_SARONITE          = 63364,
     SPELL_ENRAGE            = 34970
 };
 

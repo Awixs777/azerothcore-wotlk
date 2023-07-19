@@ -180,6 +180,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_05:25:25:-20:0|t5 бонусов на [Vote-Token]x5", GOSSIP_SENDER_MAIN, 5);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 бонусов на [Vote-Token]x50", GOSSIP_SENDER_MAIN, 6);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 бонусов на [Vote-Token]x100", GOSSIP_SENDER_MAIN, 7);
+                            AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t[Vote-Token]x10 - Перевести в ЛК", GOSSIP_SENDER_MAIN, 88, "Токены будут переведены на баланс ЛК.\n Вы уверены?", 0, false);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:25:25:-20:0|tНазад", GOSSIP_SENDER_MAIN, 4);
                             player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), creature->GetGUID());
 				}
@@ -248,6 +249,21 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 						  CloseGossipMenuFor(player);
 				}
 					break;
+                case 88:
+                {
+                    if (!player->HasItemCount(90201, 10))
+                    {
+                        ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает [Vote-Token]\n");
+                    }
+                    else
+                    {
+                        player->DestroyItemCount(90201, 10, true, false);
+                        AddBonusVP(player, 10);
+                        ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно перевели [Vote-Token]x10 в Личный кабинет!\n");
+                    }
+                    CloseGossipMenuFor(player);
+                }
+                break;
 				case 8:
 				case 9:
 				case 10:

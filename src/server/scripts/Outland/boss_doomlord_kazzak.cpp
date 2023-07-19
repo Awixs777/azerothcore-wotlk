@@ -60,6 +60,7 @@ public:
 
         void Reset() override
         {
+            _scheduler.CancelAll();
             _inBerserk = false;
         }
 

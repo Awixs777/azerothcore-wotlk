@@ -299,6 +299,9 @@ public:
     void RemoveTimedAchievement(AchievementCriteriaTimedTypes type, uint32 entry);   // used for quest and scripted timed achievements
 
     void RemoveCriteriaProgress(AchievementCriteriaEntry const* entry);
+    CriteriaProgress* GetCriteriaProgress(AchievementCriteriaEntry const* entry);
+    CompletedAchievementMap const& GetCompletedAchievements();
+
 private:
     enum ProgressType { PROGRESS_SET, PROGRESS_ACCUMULATE, PROGRESS_HIGHEST, PROGRESS_RESET };
     void SendAchievementEarned(AchievementEntry const* achievement) const;

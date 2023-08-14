@@ -186,7 +186,9 @@ public:
             case GOSSIP_ACTION_INFO_DEF+1:
                 CloseGossipMenuFor(player);
                 if (creature->AI())
-                    creature->AI()->DoAction(ACTION_START_INTRO);
+                {
+                    creature->AI()->DoAction(ACTION_SKIP_INTRO);
+                }
                 creature->RemoveNpcFlag(UNIT_NPC_FLAG_GOSSIP | UNIT_NPC_FLAG_QUESTGIVER);
                 break;
             case GOSSIP_ACTION_INFO_DEF+2:

@@ -1,6 +1,6 @@
 -- DB update 2023_06_26_00 -> 2023_06_26_01
 --
-SET @OGUID := 76200;
+SET @OGUID := 105300;
 
 DELETE FROM `gameobject` WHERE `id` = 181288 AND `guid` BETWEEN @OGUID AND @OGUID+77;
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -164,7 +164,7 @@ INSERT INTO `game_event_gameobject` (`eventEntry`, `guid`) VALUES
 (1, @OGUID+76),
 (1, @OGUID+77);
 
-SET @OGUID := 76300;
+SET @OGUID := 105400;
 
 DELETE FROM `gameobject` WHERE `id` IN (SELECT `entry` FROM `gameobject_template` WHERE `name` IN ('Horde Bonfire', 'Alliance Bonfire')) /* AND `guid` BETWEEN @OGUID AND @OGUID+77 */;
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`) VALUES

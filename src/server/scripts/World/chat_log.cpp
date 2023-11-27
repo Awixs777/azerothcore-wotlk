@@ -18,13 +18,8 @@
 #include "Channel.h"
 #include "Group.h"
 #include "Guild.h"
+#include "Log.h"
 #include "ScriptMgr.h"
-
-#define LOG_CHAT(TYPE, ...)                             \
-    if (lang != LANG_ADDON)                             \
-        LOG_DEBUG("chat.log." TYPE, __VA_ARGS__);       \
-    else                                                \
-        LOG_DEBUG("chat.log.addon." TYPE, __VA_ARGS__);
 
 class ChatLogScript : public PlayerScript
 {
@@ -36,66 +31,75 @@ public:
         switch (type)
         {
             case CHAT_MSG_SAY:
-                LOG_CHAT("say", "[SAY] Игрок {} говорит (язык {}): {}",
+                LOG_INFO("say", "[SAY] Игрок {} говорит (язык {}): {}",
                     player->GetName(), lang, msg);
                 break;
 
             case CHAT_MSG_EMOTE:
-                LOG_CHAT("emote", "Игрок {} показывают эмоцию: {}",
+                LOG_INFO("chat.emote", "Игрок {} показывают эмоцию: {}",
                     player->GetName(), msg);
                 break;
 
             case CHAT_MSG_YELL:
-                LOG_CHAT("yell", "Игрок {} кричит (язык {}): {}",
+                LOG_INFO("chat.yell", "Игрок {} кричит (язык {}): {}",
                     player->GetName(), lang, msg);
                 break;
         }
     }
 
-    void OnChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Player* receiver) override
+    void OnChat(Player* player, uint32 /*type*/, uint32 /*lang*/, std::string& msg, Player* receiver) override
     {
-        LOG_CHAT("whisper", "[WHISPER] Игрок {} шепчет {}: {}",
+        LOG_INFO("chat.whisper", "[WHISPER] Игрок {} шепчет {}: {}",
+
                player->GetName(), receiver ? receiver->GetName() : "<unknown>", msg);
     }
 
     void OnChat(Player* player, uint32 type, uint32 lang, std::string& msg, Group* group) override
     {
+        std::string str = lang != LANG_ADDON ? "chat." : "chat.addon.";
         //! NOTE:
         //! LANG_ADDON can only be sent by client in "PARTY", "RAID", "GUILD", "BATTLEGROUND", "WHISPER"
         switch (type)
         {
             case CHAT_MSG_PARTY:
-                LOG_CHAT("party", "[PARTY] Игрок {} говорит группе с лидером {}: {}",
+                LOG_INFO("party", "[PARTY] Игрок {} говорит группе с лидером {}: {}",
+
                     player->GetName(), group ? group->GetLeaderName() : "<unknown>", msg);
                 break;
 
             case CHAT_MSG_PARTY_LEADER:
-                LOG_CHAT("party", "[PARTY] Лидер группы {} говорит: {}",
+                LOG_INFO("party", "[PARTY] Лидер группы {} говорит: {}",
+
                     player->GetName(), msg);
                 break;
 
             case CHAT_MSG_RAID:
-                LOG_CHAT("raid", "[RAID] Игрок {} говорит рейду с лидером {}: {}",
+                LOG_INFO("raid", "[RAID] Игрок {} говорит рейду с лидером {}: {}",
+
                     player->GetName(), group ? group->GetLeaderName() : "<unknown>", msg);
                 break;
 
             case CHAT_MSG_RAID_LEADER:
-                LOG_CHAT("raid", "[RAID] Лидер рейда {} говорит: {}",
+                LOG_INFO("raid", "[RAID] Лидер рейда {} говорит: {}",
+
                     player->GetName(), msg);
                 break;
 
             case CHAT_MSG_RAID_WARNING:
                 LOG_CHAT("raid", "Лидер рейда {} предупреждает рейд с: {}",
+
                     player->GetName(), msg);
                 break;
 
             case CHAT_MSG_BATTLEGROUND:
-                LOG_CHAT("bg", "[BG] Игрок {} говорит на BG с лидером {}: {}",
+                LOG_INFO("bg", "[BG] Игрок {} говорит на BG с лидером {}: {}",
+
                     player->GetName(), group ? group->GetLeaderName() : "<unknown>", msg);
                 break;
 
             case CHAT_MSG_BATTLEGROUND_LEADER:
-                LOG_CHAT("bg", "[BG] Лидер BG {} говорит: {}",
+                LOG_INFO("bg", "[BG] Лидер BG {} говорит: {}",
+
                     player->GetName(), msg);
                 break;
         }
@@ -103,21 +107,23 @@ public:
 
     void OnChat(Player* player, uint32 type, uint32 lang, std::string& msg, Guild* guild) override
     {
+        std::string str = lang != LANG_ADDON ? "chat." : "chat.addon.";
         switch (type)
         {
             case CHAT_MSG_GUILD:
-                LOG_CHAT("guild", "[GUILD] Игрок {} говорит гильдии {}: {}",
+                LOG_INFO("guild", "[GUILD] Игрок {} говорит гильдии {}: {}",
                     player->GetName(), guild ? guild->GetName() : "<unknown>", msg);
                 break;
 
             case CHAT_MSG_OFFICER:
-                LOG_CHAT("guild.officer", "[GUILD] Игрок {} говорит гильдии {} офицерам: {}",
+                LOG_INFO("guild.officer", "[GUILD] Игрок {} говорит гильдии {} офицерам: {}",
+
                     player->GetName(), guild ? guild->GetName() : "<unknown>", msg);
                 break;
         }
     }
 
-    void OnChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel) override
+    void OnChat(Player* player, uint32 /*type*/, uint32 /*lang*/, std::string& msg, Channel* channel) override
     {
         bool isSystem = channel &&
                         (channel->HasFlag(CHANNEL_FLAG_TRADE) ||
@@ -127,13 +133,17 @@ public:
 
         if (isSystem)
         {
-            LOG_CHAT("system", "[CHANNEL] Игрок {} говорит в канале {}: {}",
-                player->GetName(), channel->GetName(), msg);
+            LOG_INFO("chat.channel", "[CHANNEL] Игрок {} говорит в канале {}: {}",
+
+               player->GetName(), channel->GetName(), msg);
         }
         else
         {
+            // Allow to log custom channels. i.e. world channel
+            // in that case set config: Logger.channel.world=6,Chat
             std::string channelName = channel ? channel->GetName() : "<unknown>";
-            LOG_CHAT("channel." + channelName, "[CHANNEL] Игрок {} говорит в канале [{}]: {}",
+            LOG_INFO("chat.channel." + channelName, "[CHANNEL] Игрок {} говорит в канале [{}]: {}",
+
                 player->GetName(), channelName, msg);
         }
     }

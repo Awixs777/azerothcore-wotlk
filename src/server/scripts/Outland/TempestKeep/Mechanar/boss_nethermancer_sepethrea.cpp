@@ -47,13 +47,7 @@ enum Spells
 
 struct boss_nethermancer_sepethrea : public BossAI
 {
-    boss_nethermancer_sepethrea(Creature* creature) : BossAI(creature, DATA_NETHERMANCER_SEPRETHREA)
-    {
-        scheduler.SetValidator([this]
-        {
-            return !me->HasUnitState(UNIT_STATE_CASTING);
-        });
-    }
+    boss_nethermancer_sepethrea(Creature* creature) : BossAI(creature, DATA_NETHERMANCER_SEPRETHREA) { }
 
     bool CanAIAttack(Unit const* target) const override
     {
@@ -167,7 +161,7 @@ struct npc_raging_flames : public ScriptedAI
 
         FixateRandomTarget();
 
-        _scheduler.Schedule(15s, 25s, [this](TaskContext task)
+        scheduler.Schedule(15s, 25s, [this](TaskContext task)
         {
             DoCastSelf(SPELL_INFERNO);
             FixateRandomTarget();
@@ -178,7 +172,7 @@ struct npc_raging_flames : public ScriptedAI
 
     void Reset() override
     {
-        _scheduler.CancelAll();
+        scheduler.CancelAll();
     }
 
     void EnterEvadeMode(EvadeReason /*why*/) override
@@ -191,13 +185,10 @@ struct npc_raging_flames : public ScriptedAI
         if (!UpdateVictim())
             return;
 
-        _scheduler.Update(diff);
+        scheduler.Update(diff);
 
         DoMeleeAttackIfReady();
     }
-
-private:
-    TaskScheduler _scheduler;
 };
 
 class spell_ragin_flames_inferno : public AuraScript

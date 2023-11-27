@@ -60,7 +60,7 @@ public:
 
         void Reset() override
         {
-            _scheduler.CancelAll();
+            scheduler.CancelAll();
             _inBerserk = false;
         }
 
@@ -72,7 +72,7 @@ public:
         void JustEngagedWith(Unit* /*who*/) override
         {
             Talk(SAY_AGGRO);
-            _scheduler.Schedule(6s, 10s, [this](TaskContext context)
+            scheduler.Schedule(6s, 10s, [this](TaskContext context)
             {
                 DoCastVictim(SPELL_SHADOW_VOLLEY);
                 context.Repeat(4s, 6s);
@@ -138,7 +138,7 @@ public:
             if (!UpdateVictim())
                 return;
 
-            _scheduler.Update(diff);
+            scheduler.Update(diff);
             if (me->HasUnitState(UNIT_STATE_CASTING))
                 return;
 
@@ -146,7 +146,6 @@ public:
         }
 
     private:
-        TaskScheduler _scheduler;
         bool _inBerserk;
     };
 

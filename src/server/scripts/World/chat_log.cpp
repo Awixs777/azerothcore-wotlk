@@ -86,7 +86,7 @@ public:
                 break;
 
             case CHAT_MSG_RAID_WARNING:
-                LOG_CHAT("raid", "Лидер рейда {} предупреждает рейд с: {}",
+                LOG_INFO("raid", "Лидер рейда {} предупреждает рейд с: {}",
 
                     player->GetName(), msg);
                 break;

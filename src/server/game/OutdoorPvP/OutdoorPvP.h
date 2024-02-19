@@ -125,6 +125,7 @@ public:
     ObjectGuid::LowType m_capturePointSpawnId{};
     GameObject* _capturePoint{};
 
+    void SetSlider(float slider);
     void AddGO(uint32 type, ObjectGuid::LowType guid, uint32 entry = 0);
     void AddCre(uint32 type, ObjectGuid::LowType guid, uint32 entry = 0);
 

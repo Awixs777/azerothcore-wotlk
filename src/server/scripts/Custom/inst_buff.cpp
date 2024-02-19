@@ -14,14 +14,14 @@ public:
             || player->GetMapId() == 553 || player->GetMapId() == 554 || player->GetMapId() == 555 || player->GetMapId() == 632
             || player->GetMapId() == 658 || player->GetMapId() == 668 || player->GetMapId() == 602 || player->GetMapId() == 565))
         {
-            player->CastSpell(player, 90005);
+            player->CastSpell(player, 90003);
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Buff-Solo]:|rВы получили бафф увеличения характеристик.");
         }
 
         if (!player->GetGroup() && (player->GetMapId() == 544 || player->GetMapId() == 558 || player->GetMapId() == 601
             || player->GetMapId() == 533 || player->GetMapId() == 585 || player->GetMapId() == 615))
         {
-            player->CastSpell(player, 90005);
+            player->CastSpell(player, 90003);
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Buff-Solo]:|rВы получили бафф увеличения характеристик.");
         }
 

@@ -67,6 +67,18 @@ void PlayerTaxi::InitTaxiNodesForLevel(uint32 race, uint32 chrClass, uint8 level
         case RACE_DRAENEI:
             SetTaximaskNode(94);
             break;     // Draenei
+        case RACE_GOBLINNEW:
+            SetTaximaskNode(23);
+            break;     // Goblin
+        case RACE_WORGEN:
+            SetTaximaskNode(2);
+            break;     // WORGEN
+        case RACE_PANDARENA:
+            SetTaximaskNode(2);
+            break;     // PANDA ALL
+        case RACE_PANDARENH:
+            SetTaximaskNode(23);
+            break;     // PANDA HOR
     }
 
     // new continent starting masks (It will be accessible only at new map)

@@ -86,9 +86,9 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
         Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
 
         if (!player->GetGroup() && creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true) &&
-            (player->GetMapId() == 624 || player->GetMapId() == 230 || 
+            (player->GetMapId() == 624 || player->GetMapId() == 230 ||
                 player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
-                player->GetAreaId() == 279 || player->GetAreaId() == 3749))
+                player->GetAreaId() == 279 || player->GetAreaId() == 3749));
 				
         bool lootAllowed = creature && creature->IsAlive() == (player->IsClass(CLASS_ROGUE, CLASS_CONTEXT_ABILITY) && creature->loot.loot_type == LOOT_PICKPOCKETING);
         if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))

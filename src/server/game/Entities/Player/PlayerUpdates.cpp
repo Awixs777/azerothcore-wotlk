@@ -445,31 +445,27 @@ void Player::UpdateNextMailTimeAndUnreads()
 {
     // Update the next delivery time and unread mails
     time_t cTime = GameTime::GetGameTime().count();
-    // Get the next delivery time
-    CharacterDatabasePreparedStatement* stmtNextDeliveryTime =
-        CharacterDatabase.GetPreparedStatement(CHAR_SEL_NEXT_MAIL_DELIVERYTIME);
-    stmtNextDeliveryTime->SetData(0, GetGUID().GetCounter());
-    stmtNextDeliveryTime->SetData(1, uint32(cTime));
-    PreparedQueryResult resultNextDeliveryTime =
-        CharacterDatabase.Query(stmtNextDeliveryTime);
-    if (resultNextDeliveryTime)
-    {
-        Field* fields          = resultNextDeliveryTime->Fetch();
-        m_nextMailDelivereTime = time_t(fields[0].Get<uint32>());
-    }
 
-    // Get unread mails count
-    CharacterDatabasePreparedStatement* stmtUnreadAmount =
-        CharacterDatabase.GetPreparedStatement(
-            CHAR_SEL_CHARACTER_MAILCOUNT_UNREAD_SYNCH);
-    stmtUnreadAmount->SetData(0, GetGUID().GetCounter());
-    stmtUnreadAmount->SetData(1, uint32(cTime));
-    PreparedQueryResult resultUnreadAmount =
-        CharacterDatabase.Query(stmtUnreadAmount);
-    if (resultUnreadAmount)
+    m_nextMailDelivereTime = 0;
+    unReadMails = 0;
+
+    for (Mail const* mail : GetMails())
     {
-        Field* fields = resultUnreadAmount->Fetch();
-        unReadMails   = uint8(fields[0].Get<uint64>());
+        if (mail->deliver_time > cTime)
+        {
+            if (!m_nextMailDelivereTime || m_nextMailDelivereTime > mail->deliver_time)
+                m_nextMailDelivereTime = mail->deliver_time;
+        }
+
+        // must be not checked yet
+        if (mail->checked & MAIL_CHECK_MASK_READ)
+            continue;
+
+        // and already delivered or expired
+        if (cTime < mail->deliver_time || cTime > mail->expire_time)
+            continue;
+
+        unReadMails++;
     }
 }
 
@@ -878,7 +874,7 @@ bool Player::UpdateFishingSkill()
 // bonus abilities in sSkillLineAbilityStore
 // Used only to avoid scan DBC at each skill grow
 static uint32       bonusSkillLevels[] = {75, 150, 225, 300, 375, 450};
-static const size_t bonusSkillLevelsSize =
+static const std::size_t bonusSkillLevelsSize =
     sizeof(bonusSkillLevels) / sizeof(uint32);
 
 bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
@@ -922,7 +918,7 @@ bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
         if (itr->second.uState != SKILL_NEW)
             itr->second.uState = SKILL_CHANGED;
 
-        for (size_t i = 0; i < bonusSkillLevelsSize; ++i)
+        for (std::size_t i = 0; i < bonusSkillLevelsSize; ++i)
         {
             uint32 bsl = bonusSkillLevels[i];
             if (SkillValue < bsl && new_value >= bsl)
@@ -1030,7 +1026,7 @@ void Player::UpdateCombatSkills(Unit* victim, WeaponAttackType attType, bool def
 
     chance = chance < 1.0f ? 1.0f : chance; // minimum chance to increase skill is 1%
 
-    LOG_DEBUG("entities.player", "Player::UpdateCombatSkills(defence:{}, playerLevel:{}, moblevel:{}) -> ({}/{}) chance to increase skill is {}%", defence, playerLevel, moblevel, currentSkillValue, currentSkillMax, chance);
+    LOG_DEBUG("entities.player", "Player::UpdateCombatSkills(defence:{}, playerLevel:{}, moblevel:{}) -> ({}/{}) chance to increase skill is {}\%", defence, playerLevel, moblevel, currentSkillValue, currentSkillMax, chance);
 
     if (roll_chance_f(chance))
     {
@@ -1336,7 +1332,7 @@ void Player::UpdateEquipSpellsAtFormChange()
     }
 
     // item set bonuses not dependent from item broken state
-    for (size_t setindex = 0; setindex < ItemSetEff.size(); ++setindex)
+    for (std::size_t setindex = 0; setindex < ItemSetEff.size(); ++setindex)
     {
         ItemSetEffect* eff = ItemSetEff[setindex];
         if (!eff)
@@ -1749,7 +1745,7 @@ void Player::UpdateTriggerVisibility()
     if (!udata.HasData())
         return;
 
-    udata.BuildPacket(&packet);
+    udata.BuildPacket(packet);
     GetSession()->SendPacket(&packet);
 }
 
@@ -1801,7 +1797,7 @@ void Player::UpdateForQuestWorldObjects()
         }
     }
 
-    udata.BuildPacket(&packet);
+    udata.BuildPacket(packet);
     GetSession()->SendPacket(&packet);
 }
 

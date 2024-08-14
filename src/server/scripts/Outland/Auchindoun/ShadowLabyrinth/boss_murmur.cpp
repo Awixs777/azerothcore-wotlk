@@ -20,6 +20,7 @@
 #include "SpellInfo.h"
 #include "SpellScriptLoader.h"
 #include "shadow_labyrinth.h"
+#include "SpellScript.h"
 
 enum Spells
 {
@@ -58,7 +59,7 @@ struct boss_murmur : public BossAI
 {
     boss_murmur(Creature* creature) : BossAI(creature, DATA_MURMUR)
     {
-        SetCombatMovement(false);
+        me->SetCombatMovement(false);
         scheduler.SetValidator([this]
         {
             return !me->HasUnitState(UNIT_STATE_CASTING);

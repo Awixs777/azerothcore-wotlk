@@ -574,7 +574,7 @@ void WorldSession::HandleInitiateTradeOpcode(WorldPacket& recvPacket)
 
     if (GetPlayer()->GetLevel() < sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ))
     {
-        SendNotification(GetAcoreString(LANG_TRADE_REQ), sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ));
+        SendNotification(LANG_TRADE_REQ, sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ));
         return;
     }
 
@@ -639,7 +639,7 @@ void WorldSession::HandleInitiateTradeOpcode(WorldPacket& recvPacket)
 
     if (pOther->GetLevel() < sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ))
     {
-        SendNotification(GetAcoreString(LANG_TRADE_OTHER_REQ), sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ));
+        SendNotification(LANG_TRADE_OTHER_REQ, sWorld->getIntConfig(CONFIG_TRADE_LEVEL_REQ));
         return;
     }
 
@@ -705,6 +705,15 @@ void WorldSession::HandleSetTradeItemOpcode(WorldPacket& recvPacket)
     {
         // cheating attempt
         SendTradeStatus(TRADE_STATUS_TRADE_CANCELED);
+        return;
+    }
+
+    // PlayerScript Hook for checking traded items if we want to filter them in a custom module
+    if (!sScriptMgr->CanSetTradeItem(_player, item, tradeSlot))
+    {
+        // Do not send TRADE_STATUS_TRADE_CANCELED because it will cause double display of "Transaction canceled" notification
+        // On the trade initiator screen
+        SendTradeStatus(TRADE_STATUS_CLOSE_WINDOW);
         return;
     }
 

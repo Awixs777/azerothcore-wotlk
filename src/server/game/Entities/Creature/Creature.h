@@ -25,7 +25,6 @@
 #include "ItemTemplate.h"
 #include "LootMgr.h"
 #include "Unit.h"
-#include "UpdateMask.h"
 #include "World.h"
 #include <list>
 
@@ -53,7 +52,8 @@ public:
 
     float GetNativeObjectScale() const override;
     void SetObjectScale(float scale) override;
-    void SetDisplayId(uint32 modelId) override;
+    void SetDisplayId(uint32 displayId, float displayScale = 1.f) override;
+    void SetDisplayFromModel(uint32 modelIdx);
 
     void DisappearAndDie();
 
@@ -413,6 +413,14 @@ public:
     * */
     [[nodiscard]] ObjectGuid GetSummonerGUID() const;
 
+    // Used to control if MoveChase() is to be used or not in AttackStart(). Some creatures does not chase victims
+    // NOTE: If you use SetCombatMovement while the creature is in combat, it will do NOTHING - This only affects AttackStart
+    //       You should make the necessary to make it happen so.
+    //       Remember that if you modified _isCombatMovementAllowed (e.g: using SetCombatMovement) it will not be reset at Reset().
+    //       It will keep the last value you set.
+    void SetCombatMovement(bool allowMovement);
+    bool IsCombatMovementAllowed() const { return _isCombatMovementAllowed; }
+
     std::string GetDebugInfo() const override;
 
 protected:
@@ -501,6 +509,7 @@ private:
 
     uint32 _playerDamageReq;
     bool _damagedByPlayer;
+    bool _isCombatMovementAllowed;
 };
 
 class AssistDelayEvent : public BasicEvent

@@ -28,7 +28,6 @@
 #include "GroupReference.h"
 #include "InstanceSaveMgr.h"
 #include "Item.h"
-#include "KillRewarder.h"
 #include "MapReference.h"
 #include "ObjectMgr.h"
 #include "Optional.h"
@@ -38,7 +37,6 @@
 #include "QuestDef.h"
 #include "SpellAuras.h"
 #include "SpellInfo.h"
-#include "SpellMgr.h"
 #include "TradeData.h"
 #include "Unit.h"
 #include "WorldSession.h"
@@ -725,7 +723,7 @@ enum BankBagSlots                                           // 7 slots
 
 enum BuyBackSlots                                           // 12 slots
 {
-    // stored in m_buybackitems
+    // stored in m_items, there is no more m_buybackitems
     BUYBACK_SLOT_START          = 74,
     BUYBACK_SLOT_END            = 86
 };
@@ -1455,6 +1453,7 @@ public:
     bool SatisfyQuestSeasonal(Quest const* qInfo, bool msg) const;
     bool GiveQuestSourceItem(Quest const* quest);
     bool TakeQuestSourceItem(uint32 questId, bool msg);
+    uint32 CalculateQuestRewardXP(Quest const* quest);
     [[nodiscard]] bool GetQuestRewardStatus(uint32 quest_id) const;
     [[nodiscard]] QuestStatus GetQuestStatus(uint32 quest_id) const;
     void SetQuestStatus(uint32 questId, QuestStatus status, bool update = true);
@@ -1614,7 +1613,7 @@ public:
     QuestStatusMap& getQuestStatusMap() { return m_QuestStatus; }
     QuestStatusSaveMap& GetQuestStatusSaveMap() { return m_QuestStatusSave; }
 
-    [[nodiscard]] size_t GetRewardedQuestCount() const { return m_RewardedQuests.size(); }
+    [[nodiscard]] std::size_t GetRewardedQuestCount() const { return m_RewardedQuests.size(); }
     [[nodiscard]] bool IsQuestRewarded(uint32 quest_id) const
     {
         return m_RewardedQuests.find(quest_id) != m_RewardedQuests.end();
@@ -1979,7 +1978,7 @@ public:
     [[nodiscard]] WorldSession* GetSession() const { return m_session; }
     void SetSession(WorldSession* sess) { m_session = sess; }
 
-    void BuildCreateUpdateBlockForPlayer(UpdateData* data, Player* target) const override;
+    void BuildCreateUpdateBlockForPlayer(UpdateData* data, Player* target) override;
     void DestroyForPlayer(Player* target, bool onDeath = false) const override;
     void SendLogXPGain(uint32 GivenXP, Unit* victim, uint32 BonusXP, bool recruitAFriend = false, float group_rate = 1.0f);
 
@@ -2004,11 +2003,10 @@ public:
 
     void ProcessTerrainStatusUpdate() override;
 
-    void SendMessageToSet(WorldPacket const* data, bool self) const override { SendMessageToSetInRange(data, GetVisibilityRange(), self, true); } // pussywizard!
-    void SendMessageToSetInRange(WorldPacket const* data, float dist, bool self, bool includeMargin = false, Player const* skipped_rcvr = nullptr) const override; // pussywizard!
-    void SendMessageToSetInRange_OwnTeam(WorldPacket const* data, float dist, bool self) const; // pussywizard! param includeMargin not needed here
-    void SendMessageToSet(WorldPacket const* data, Player const* skipped_rcvr) const override { SendMessageToSetInRange(data, GetVisibilityRange(), skipped_rcvr != this, true, skipped_rcvr); } // pussywizard!
-
+    void SendMessageToSet(WorldPacket const* data, bool self) const override;
+    void SendMessageToSetInRange(WorldPacket const* data, float dist, bool self) const override;
+    void SendMessageToSetInRange(WorldPacket const* data, float dist, bool self, bool includeMargin, bool ownTeamOnly, bool required3dDist = false) const;
+    void SendMessageToSet(WorldPacket const* data, Player const* skipped_rcvr) const override;
     void SendTeleportAckPacket();
 
     [[nodiscard]] Corpse* GetCorpse() const;
@@ -2151,6 +2149,8 @@ public:
 
     void SetDrunkValue(uint8 newDrunkValue, uint32 itemId = 0);
     [[nodiscard]] uint8 GetDrunkValue() const { return GetByteValue(PLAYER_BYTES_3, 1); }
+    [[nodiscard]] int32 GetFakeDrunkValue() const { return GetInt32Value(PLAYER_FAKE_INEBRIATION); }
+    void UpdateInvisibilityDrunkDetect();
     static DrunkenState GetDrunkenstateByValue(uint8 value);
 
     [[nodiscard]] uint32 GetDeathTimer() const { return m_deathTimer; }
@@ -2351,7 +2351,6 @@ public:
     float m_homebindX;
     float m_homebindY;
     float m_homebindZ;
-    float m_homebindO;
 
     [[nodiscard]] WorldLocation GetStartPosition() const;
 

@@ -1074,7 +1074,7 @@ void WorldSession::SendListInventory(ObjectGuid vendorGuid, uint32 vendorEntry)
     WorldPacket data(SMSG_LIST_INVENTORY, 8 + 1 + itemCount * 8 * 4);
     data << vendorGuid;
 
-    size_t countPos = data.wpos();
+    std::size_t countPos = data.wpos();
     data << uint8(count);
 
     float discountMod = _player->GetReputationPriceDiscount(vendor);
@@ -1341,6 +1341,12 @@ void WorldSession::HandleWrapItemOpcode(WorldPacket& recvData)
 
     // maybe not correct check  (it is better than nothing)
     if (item->GetTemplate()->MaxCount > 0)
+    {
+        _player->SendEquipError(EQUIP_ERR_UNIQUE_CANT_BE_WRAPPED, item, nullptr);
+        return;
+    }
+
+    if (item->GetTemplate()->Duration > 0)
     {
         _player->SendEquipError(EQUIP_ERR_UNIQUE_CANT_BE_WRAPPED, item, nullptr);
         return;

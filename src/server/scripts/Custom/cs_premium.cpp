@@ -25,7 +25,7 @@ public:
 
         static ChatCommandTable commandTable =
         {
-            { "vip", SEC_PLAYER, false, NULL, "", premiumCommandTable },
+            { "vip", premiumCommandTable                                      },
         };
 
         return commandTable;

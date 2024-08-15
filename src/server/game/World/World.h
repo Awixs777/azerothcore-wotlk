@@ -248,7 +248,7 @@ public:
     void SendGuildText(uint32 guild, const char* text, WorldSession* self = NULL, uint32 team = 0);
     bool SendGuildMessage(uint32 guild, WorldPacket* packet, WorldSession* self = NULL, uint32 team = 0);
 
-    void SendWorldTextOptional(uint32 string_id, uint32 flag, ...) override;
+    //void SendWorldTextOptional(uint32 string_id, uint32 flag, ...) override;
 
     /// Are we in the middle of a shutdown?
     [[nodiscard]] bool IsShuttingDown() const override { return _shutdownTimer > 0; }

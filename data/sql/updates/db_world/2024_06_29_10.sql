@@ -6,7 +6,7 @@ INSERT INTO `event_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, 
 (12857, 0, 9, 30029, 10, 0, 0, 0, 0, 0);
 
 DELETE FROM `gameobject` WHERE (`id` = 184119 AND `guid` = 30029);
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 (30029, 184119, 530, 0, 0, 1, 1, 2248.23, 2228.12, 137.002, -2.14675, 0, 0, -0.878817, 0.47716, -1, 255, 1, '', 0, NULL);
 
 DELETE FROM `creature_text` WHERE (`CreatureID` = 19938);

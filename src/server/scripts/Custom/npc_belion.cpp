@@ -238,13 +238,13 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 						  uint32 need = action == 5 ? 5 : action == 6 ? 50 : 100;
 						  if (GetBonus(player) < need)
 						  {
-							  ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает бонусов.\nНужно %u", need);
+							  ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает бонусов.\nНужно {}", need);
 						  }
 						  else
 						  {
 							  DelBonus(player, need);
 							  player->AddItem(90201, need);
-							  ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [Vote-Token] x %u\nПотратив на это %u бонусов.", need, need);
+							  ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [Vote-Token] x{}\nПотратив на это {} бонусов.", need, need);
 						  }
 						  CloseGossipMenuFor(player);
 				}
@@ -271,13 +271,13 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 						   uint32 need = action == 8 ? 10 : action == 9 ? 50 : 100;
 						  if (GetBonusDP(player) < need)
 						  {
-							  ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно %u", need);
+							  ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно {}", need);
 						  }
 						  else
 						  {
 							  DelBonusDP(player, need);
 							  AddBonusVP(player, need);
-							  ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [%u] очков голосования.\nПотратив на это [%u] очков пожертвования.", need, need);
+							  ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [{}] очков голосования.\nПотратив на это [{}] очков пожертвования.", need, need);
 						  }
 						  CloseGossipMenuFor(player);
 				}
@@ -291,13 +291,13 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 						   
 						   if (GetBonusDP(player) < need)
 						   {
-							   ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно %u", need);
+							   ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно {}", need);
 						   }
 						   else
 						   {
 							   DelBonusDP(player, need);
 							   player->AddItem(90033, need);
-							   ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [%u] Монета-Donate.\nПотратив на это [%u] очков пожертвования.", need, need);
+							   ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [{}] Монета-Donate.\nПотратив на это [{}] очков пожертвования.", need, need);
 						   }
 						   CloseGossipMenuFor(player);
 				}

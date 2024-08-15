@@ -26,6 +26,7 @@
 #include "GridNotifiersImpl.h"
 #include "Group.h"
 #include "GroupMgr.h"
+#include "Chat.h"
 #include "ObjectMgr.h"
 #include "OutdoorPvPMgr.h"
 #include "PoolMgr.h"
@@ -2034,7 +2035,7 @@ void GameObject::Use(Unit* user)
 
                 if (player->getRace() == RACE_GOBLINNEW || player->getRace() == RACE_WORGEN || player->getRace() == RACE_PANDARENA || player->getRace() == RACE_PANDARENH)
                 {
-                    player->GetSession()->SendNotification("К сожалению, вы не можете пользоваться парикмахерской.");
+                    ChatHandler(player->GetSession()).SendNotification("К сожалению, вы не можете пользоваться парикмахерской.");
                     return;
                 }
                 // fallback, will always work

@@ -22,7 +22,7 @@ public:
 		};
         static ChatCommandTable commandTable =
 		{
-            { "mir", SEC_PLAYER, false, NULL, "", BossCommandTable },
+            { "mir", BossCommandTable },
 		};
 		return commandTable;
 	}

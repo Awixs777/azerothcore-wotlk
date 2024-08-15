@@ -13,7 +13,7 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, 
 -- new spawns
 DELETE FROM `gameobject` WHERE (`id` IN (160415, 183751, 183752, 183753, 183754, 183755))
 AND (`guid` IN (10857, 10858, 10859, 10860, 10861, 10862));
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 -- this spawn is out of bounds, makes no sense adding it, even if it shows in sniffs
 -- (, 158579, 230, 0, 0, 3, 1, 1071.4451904296875, -542.276123046875, -81.8671722412109375, 1.570795774459838867, 0, 0, 0.707106590270996093, 0.707106947898864746, 7200, 255, 1, "", 46779, NULL),
 (10857, 160415, 628, 0, 0, 3, 1, 1117.19189453125, -365.67437744140625, 18.84563636779785156, 0.968655109405517578, 0, 0, 0.465613365173339843, 0.884988248348236083, 7200, 255, 1, "", 50375, NULL),

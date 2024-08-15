@@ -37,6 +37,6 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, 
 -- new spawns
 DELETE FROM `gameobject` WHERE (`id` IN (177213, 179550))
 AND (`guid` IN (508, 509));
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 (508, 177213, 429, 0, 0, 1, 1, 10.59113693237304687, -154.99786376953125, -2.6937870979309082, 3.141592741012573242, 0, 0, -1, 0, 7200, 255, 1, "", 46248, NULL),
 (509, 179550, 429, 0, 0, 1, 1, 83.25516510009765625, 630.54559326171875, -24.631509780883789, 5.646140575408935546, 0, 0, -0.31316375732421875, 0.949699163436889648, 7200, 255, 1, "", 46248, NULL);

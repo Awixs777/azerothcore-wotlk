@@ -659,7 +659,7 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, 
 -- new spawns
 DELETE FROM `gameobject` WHERE (`id` IN (136965, 136966, 161488, 177408, 181446, 181735, 182215, 182216, 182217, 182218, 182219, 182220, 182221, 182944, 183894, 184017, 184683, 185161, 186745, 186972, 187075, 187082, 187852, 188214, 191407, 191412, 191460, 191619, 191620, 191622, 191623, 191624, 191626, 192473, 192574, 195207, 195209, 195210, 196417, 202100, 202101, 202102, 202103))
 AND (`guid` BETWEEN 81623 AND 81678);
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 (81623, 136965, 229, 0, 0, 1, 1, 215.773406982421875, -341.663360595703125, 76.86114501953125, 1.928588032722473144, 0, 0, 0.821646690368652343, 0.569997072219848632, 7200, 255, 1, "", 49345, NULL),
 (81624, 136966, 229, 0, 0, 1, 1, 229.0283050537109375, -307.809783935546875, 76.9667816162109375, 2.72271275520324707, 0, 0, 0.978147506713867187, 0.207912087440490722, 7200, 255, 1, "", 49345, NULL),
 (81625, 161488, 30, 0, 0, 3, 1, 360.914947509765625, -497.098968505859375, 71.33890533447265625, 3.141592741012573242, 0, 0, -1, 0, 7200, 255, 1, "", 46248, NULL),

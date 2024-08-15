@@ -77,7 +77,7 @@ public:
         if (WorldSession* session = handler->GetSession())
             name = session->GetPlayer()->GetName();
 
-        handler->SendGMText(LANG_GM_ANNOUNCE_COLOR, name, message.data());
+        ChatHandler(nullptr).SendGMText(LANG_GM_ANNOUNCE_COLOR, name, message.data());
         return true;
     }
 
@@ -97,7 +97,7 @@ public:
         if (message.empty())
             return false;
 
-        handler->SendGMText(LANG_GM_BROADCAST, message.data());
+        ChatHandler(nullptr).SendGMText(LANG_GM_BROADCAST, message.data());
         return true;
     }
 

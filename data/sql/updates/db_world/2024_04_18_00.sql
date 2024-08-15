@@ -102,7 +102,7 @@ INSERT INTO `creature` (`guid`, `id1`, `map`, `zoneId`, `areaId`, `equipment_id`
 (@CGUID+94, 25145, 530, 3433, 3507, 1, 6756.51, -7545.18, 126.2, 5.09636, 120, 0, 0, 53788, 1, NULL);
 
 DELETE FROM `gameobject` WHERE `map` = 530 AND `id` IN (184858, 184863, 186251, 186280, 186284, 186285, 186286, 186302, 186307);
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `VerifiedBuild`, `Comment`) VALUES
 (@OGUID+0 , 186251, 530, 3433, 3508, 6820.08, -7781.74, 129.512, 3.94445, 0.00621271, -0.0257998, -0.920135, 0.3907, 120, 255, 1, 53788, NULL),
 (@OGUID+1 , 184858, 530, 3433, 3517, 6786.55, -7541.54, 126.109, 1.72787, 0, 0, 0.760406, 0.649449, 120, 255, 1, 53788, NULL),
 (@OGUID+2 , 184858, 530, 3433, 3517, 6784.78, -7538.15, 126.109, 2.14675, 0, 0, 0.878817, 0.47716, 120, 255, 1, 53788, NULL),

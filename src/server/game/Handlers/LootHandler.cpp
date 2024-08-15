@@ -270,7 +270,7 @@ void WorldSession::HandleLootMoneyOpcode(WorldPacket& /*recvData*/)
         {
             ObjectGuid lguid = player->GetLootGUID();
             Creature * creature = GetPlayer()->GetMap()->GetCreature(lguid);
-            if (creature && sConfigMgr->GetBoolDefault("AOE.LOOT.enable", true))
+            if (creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true))
                  {
                 if (!player->GetGroup())
                      {

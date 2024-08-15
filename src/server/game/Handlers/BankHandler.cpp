@@ -191,7 +191,7 @@ void WorldSession::SendShowBank(ObjectGuid guid)
 {
     // Запрет Банка
     ChatHandler handler = ChatHandler(this);
-    if (_player->getLevel() < 130)
+    if (_player->GetLevel() < 130)
     {
         handler.SendSysMessage("Банк доступен с 130-го уровня.");
         return;

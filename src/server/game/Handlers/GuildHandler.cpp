@@ -290,7 +290,7 @@ void WorldSession::HandleGuildBankerActivate(WorldPackets::Guild::GuildBankActiv
 
     // Запрет Банка
     ChatHandler handler = ChatHandler(this);
-    if (_player->getLevel() < 130)
+    if (_player->GetLevel() < 130)
     {
         handler.SendSysMessage("[Хранилище Гильдии] доступно с 130-го уровня.");
         return;

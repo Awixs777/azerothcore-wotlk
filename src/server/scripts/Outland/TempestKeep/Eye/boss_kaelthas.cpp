@@ -1332,7 +1332,7 @@ void AddSC_boss_kaelthas()
     RegisterTheEyeAI(npc_thaladred);
     RegisterSpellScript(spell_kaelthas_kael_phase_two);
     RegisterSpellScript(spell_kaelthas_remote_toy);
-    RegisterSpellScript(spell_kaelthas_summon_weapons);
+    //RegisterSpellScript(spell_kaelthas_summon_weapons);
     RegisterSpellScript(spell_kaelthas_resurrection);
     RegisterSpellScript(spell_kaelthas_mind_control);
     RegisterSpellScript(spell_kaelthas_burn);

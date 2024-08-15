@@ -3,7 +3,7 @@
 -- updated spawns
 DELETE FROM `gameobject` WHERE (`id` IN (49485, 49486, 24763, 24764, 3303, 3816, 3815, 24761, 24762, 24760))
 AND (`guid` IN (13308, 13313, 18439, 18441, 26512, 26516, 27875, 30122, 30140, 30323, 30329, 30831, 30832, 40715, 40716, 42525, 42534, 42946, 45378, 45388, 50011, 50012, 61031, 61060));
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 (13308, 49485, 1, 0, 0, 1, 1, -2367.10107421875, -1982.8148193359375, 105.0190505981445312, 1.623155713081359863, 0, 0, 0.725374221801757812, 0.688354730606079101, 120, 255, 1, "", 45435, NULL),
 (13313, 49486, 1, 0, 0, 1, 1, -2373.9384765625, -1999.787109375, 96.80924224853515625, 2.574358940124511718, 0, 0, 0.960049629211425781, 0.279829770326614379, 120, 255, 1, "", 45435, NULL),
 (18439, 49485, 1, 0, 0, 1, 1, -2357.732421875, -352.275909423828125, -0.64270401000976562, 0.148352250456809997, 0, 0, 0.074108123779296875, 0.997250199317932128, 120, 255, 1, "", 45572, NULL),
@@ -32,7 +32,7 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, 
 -- new spawns
 DELETE FROM `gameobject` WHERE (`id` IN (24758, 24759, 24765, 3815, 3816))
 AND (`guid` BETWEEN 11218 AND 11224);
-INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
+REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES
 (11218, 24758, 0, 0, 0, 1, 1, -8882.69140625, 1084.036376953125, 92.411041259765625, 2.67034769058227539, 0, 0, 0.972369194030761718, 0.233448356389999389, 120, 255, 1, "", 48632, NULL),
 (11219, 24759, 0, 0, 0, 1, 1, -9109.69140625, 830.975830078125, 105.6230239868164062, 5.864308834075927734, 0, 0, -0.20791053771972656, 0.978147864341735839, 120, 255, 1, "", 48019, NULL),
 (11220, 24765, 0, 0, 0, 1, 1, -9110.251953125, 831.41619873046875, 105.6230239868164062, 2.757613182067871093, 0, 0, 0.981626510620117187, 0.190812408924102783, 120, 255, 1, "", 48019, NULL),

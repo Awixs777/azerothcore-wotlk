@@ -1371,7 +1371,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -1432,7 +1432,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -1493,7 +1493,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -1554,7 +1554,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -1615,7 +1615,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -1676,7 +1676,7 @@ public:
                             }
                             else {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно опыта гильдии!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно опыта гильдии!");
                                 return;
                             }
 
@@ -2287,7 +2287,7 @@ public:
     void TakeHonorButtons(Player* player, Creature* creature)
     {
         if (!player->GetGuildId()) {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2324,14 +2324,14 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
 
         if (gold < 100)
         {
-            player->GetSession()->SendNotification("Минимальное количество вложения золота 100!");
+            ChatHandler(player->GetSession()).SendNotification("Минимальное количество вложения золота 100!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2350,7 +2350,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u золота и полули %u опыта!", gold, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно золота!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно золота!");
         CloseGossipMenuFor(player);
     }
 
@@ -2363,7 +2363,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2382,7 +2382,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков арены!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
         CloseGossipMenuFor(player);
     }
 
@@ -2395,7 +2395,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2414,7 +2414,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков арены!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
         CloseGossipMenuFor(player);
     }
 
@@ -2427,7 +2427,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2446,7 +2446,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков арены!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
         CloseGossipMenuFor(player);
     }
 
@@ -2459,7 +2459,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2478,7 +2478,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков арены!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
         CloseGossipMenuFor(player);
     }
 
@@ -2491,7 +2491,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2510,7 +2510,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков чести!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
         CloseGossipMenuFor(player);
     }
 
@@ -2523,7 +2523,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2542,7 +2542,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков чести!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
         CloseGossipMenuFor(player);
     }
 
@@ -2555,7 +2555,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2574,7 +2574,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков чести!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
         CloseGossipMenuFor(player);
     }
 
@@ -2587,7 +2587,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2606,7 +2606,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно эмблем!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
         CloseGossipMenuFor(player);
     }
 
@@ -2619,7 +2619,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2638,7 +2638,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно эмблем!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
         CloseGossipMenuFor(player);
     }
 
@@ -2651,7 +2651,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2670,7 +2670,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно эмблем!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
         CloseGossipMenuFor(player);
     }
 
@@ -2683,7 +2683,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2702,20 +2702,20 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно эмблем!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
         CloseGossipMenuFor(player);
     }
 
     void TakeTriumphEmblem(Player* player)
     {
         if (!player->GetGuildId()) {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
 
         if (!player->HasItemCount(18228, 50, true)) {
-            player->GetSession()->SendNotification("У вас недостаточно свитков!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно свитков!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2750,7 +2750,7 @@ public:
 
         if (!guild)
         {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2769,7 +2769,7 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
         }
         else
-            player->GetSession()->SendNotification("У вас недостаточно очков чести!");
+            ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
         CloseGossipMenuFor(player);
     }
 
@@ -2777,7 +2777,7 @@ public:
 
     void TakeArenaButtons(Player* player, Creature* creature) {
         if (!player->GetGuildId()) {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -2794,7 +2794,7 @@ public:
 
     void GuildInfo(Player* player) {
         if (!player->GetGuildId()) {
-            player->GetSession()->SendNotification("Вы не состоите в гильдии!");
+            ChatHandler(player->GetSession()).SendNotification("Вы не состоите в гильдии!");
             CloseGossipMenuFor(player);
             return;
         }
@@ -3099,7 +3099,7 @@ public:
                             if (!player->HasItemCount(90651, cost))
                             {
                                 CloseGossipMenuFor(player);
-                                player->GetSession()->SendNotification("Недостаточно эмблем!");
+                                ChatHandler(player->GetSession()).SendNotification("Недостаточно эмблем!");
                                 return;
                             }
 

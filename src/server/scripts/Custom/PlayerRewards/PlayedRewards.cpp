@@ -6,7 +6,7 @@
 #include "PlayedRewards.h"
 #include "Chat.h"
 #include "Mail.h"
-#include "GameLocale.h"
+//#include "GameLocale.h"
 #include "GameTime.h"
 #include "Log.h"
 #include "Config.h"
@@ -25,12 +25,12 @@ PlayedRewards* PlayedRewards::instance()
 
 void PlayedRewards::LoadConfig()
 {
-    m_IsEnabled   = sConfigMgr->GetBoolDefault("PlayedRewards.Enable", false);
-    m_SiteData[0] = sConfigMgr->GetStringDefault("PlayedRewards.SiteDB", "");
-    m_SiteData[1] = sConfigMgr->GetStringDefault("PlayedRewards.SiteTable", "");
-    m_SiteData[2] = sConfigMgr->GetStringDefault("PlayedRewards.SiteColumnID", "");
-    m_SiteData[3] = sConfigMgr->GetStringDefault("PlayedRewards.SiteColumnVP", "");
-    m_SiteData[4] = sConfigMgr->GetStringDefault("PlayedRewards.SiteColumnDP", "");
+    m_IsEnabled   = sConfigMgr->GetOption<bool>("PlayedRewards.Enable", false);
+    m_SiteData[0] = sConfigMgr->GetOption<std::string>("PlayedRewards.SiteDB", "");
+    m_SiteData[1] = sConfigMgr->GetOption<std::string>("PlayedRewards.SiteTable", "");
+    m_SiteData[2] = sConfigMgr->GetOption<std::string>("PlayedRewards.SiteColumnID", "");
+    m_SiteData[3] = sConfigMgr->GetOption<std::string>("PlayedRewards.SiteColumnVP", "");
+    m_SiteData[4] = sConfigMgr->GetOption<std::string>("PlayedRewards.SiteColumnDP", "");
 }
 
 void PlayedRewards::LoadFromDB()
@@ -237,7 +237,7 @@ void PlayedRewards::SendReward(Player* player)
             ConcatRewardMsg(player, data, message);
             break;
         case RewardType::LEVEL:
-            player->GiveLevel(player->getLevel() + data.amount);
+            player->GiveLevel(player->GetLevel() + data.amount);
             ConcatRewardMsg(player, data, message);
             break;
         case RewardType::HONOR_POINTS:

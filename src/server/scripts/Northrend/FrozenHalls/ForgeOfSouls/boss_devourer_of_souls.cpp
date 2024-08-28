@@ -373,4 +373,3 @@ void AddSC_boss_devourer_of_souls()
     new boss_devourer_of_souls();
     RegisterSpellScript(spell_wailing_souls_periodic_aura);
 }
-

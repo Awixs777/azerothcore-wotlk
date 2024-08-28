@@ -143,7 +143,7 @@ struct boss_felblood_kaelthas : public ScriptedAI
 
     void MoveInLineOfSight(Unit* who) override
     {
-        if (!introSpeak && me->IsWithinDistInMap(who, 40.0f) && who->GetTypeId() == TYPEID_PLAYER)
+        if (!introSpeak && me->IsWithinDistInMap(who, 40.0f) && who->IsPlayer())
         {
             Talk(SAY_AGGRO);
             introSpeak = true;
@@ -316,4 +316,3 @@ void AddSC_boss_felblood_kaelthas()
     RegisterMagistersTerraceCreatureAI(boss_felblood_kaelthas);
     RegisterSpellScript(spell_mt_phoenix_burn);
 }
-

@@ -543,30 +543,6 @@ enum CurrentSpellTypes
 #define CURRENT_FIRST_NON_MELEE_SPELL 1
 #define CURRENT_MAX_SPELL             4
 
-struct GlobalCooldown
-{
-    explicit GlobalCooldown(uint32 _dur = 0, uint32 _time = 0) : duration(_dur), cast_time(_time) {}
-
-    uint32 duration;
-    uint32 cast_time;
-};
-
-typedef std::unordered_map<uint32 /*category*/, GlobalCooldown> GlobalCooldownList;
-
-class GlobalCooldownMgr                                     // Shared by Player and CharmInfo
-{
-public:
-    GlobalCooldownMgr() = default;
-
-public:
-    bool HasGlobalCooldown(SpellInfo const* spellInfo) const;
-    void AddGlobalCooldown(SpellInfo const* spellInfo, uint32 gcd);
-    void CancelGlobalCooldown(SpellInfo const* spellInfo);
-
-private:
-    GlobalCooldownList m_GlobalCooldowns;
-};
-
 enum ReactStates : uint8
 {
     REACT_PASSIVE    = 0,
@@ -741,6 +717,7 @@ public:
         return nullptr;
     }
     bool Attack(Unit* victim, bool meleeAttack);
+
     void CastStop(uint32 except_spellid = 0, bool withInstant = true);
     bool AttackStop();
     void RemoveAllAttackers();
@@ -845,10 +822,10 @@ public:
     void SetUInt32Value(uint16 index, uint32 value);
 
     UnitFlags GetUnitFlags() const { return UnitFlags(GetUInt32Value(UNIT_FIELD_FLAGS)); }
-    bool HasUnitFlag(UnitFlags flags) const { return HasFlag(UNIT_FIELD_FLAGS, flags); }
-    void SetUnitFlag(UnitFlags flags) { SetFlag(UNIT_FIELD_FLAGS, flags); }
-    void RemoveUnitFlag(UnitFlags flags) { RemoveFlag(UNIT_FIELD_FLAGS, flags); }
-    void ReplaceAllUnitFlags(UnitFlags flags) { SetUInt32Value(UNIT_FIELD_FLAGS, flags); }
+    bool HasUnitFlag(UnitFlags flags) const { return HasFlag(UNIT_FIELD_FLAGS, flags); }   /// @brief UnitFlags available in UnitDefines.h
+    void SetUnitFlag(UnitFlags flags) { SetFlag(UNIT_FIELD_FLAGS, flags); }   /// @brief UnitFlags available in UnitDefines.h
+    void RemoveUnitFlag(UnitFlags flags) { RemoveFlag(UNIT_FIELD_FLAGS, flags); }   /// @brief Remove the Unit flag specify only
+    void ReplaceAllUnitFlags(UnitFlags flags) { SetUInt32Value(UNIT_FIELD_FLAGS, flags); } /// @brief Remove all UnitFlags and set new ones. UnitFlags available in UnitDefines.h
 
     UnitFlags2 GetUnitFlags2() const { return UnitFlags2(GetUInt32Value(UNIT_FIELD_FLAGS_2)); }
     bool HasUnitFlag2(UnitFlags2 flags) const { return HasFlag(UNIT_FIELD_FLAGS_2, flags); }
@@ -1027,13 +1004,12 @@ public:
     [[nodiscard]] bool IsInnkeeper()    const { return HasNpcFlag(UNIT_NPC_FLAG_INNKEEPER); }
     [[nodiscard]] bool IsSpiritHealer() const { return HasNpcFlag(UNIT_NPC_FLAG_SPIRITHEALER); }
     [[nodiscard]] bool IsSpiritGuide()  const { return HasNpcFlag(UNIT_NPC_FLAG_SPIRITGUIDE); }
-    [[nodiscard]] bool IsTabardDesigner()const { return HasNpcFlag(UNIT_NPC_FLAG_TABARDDESIGNER); }
+    [[nodiscard]] bool IsTabardDesigner() const { return HasNpcFlag(UNIT_NPC_FLAG_TABARDDESIGNER); }
     [[nodiscard]] bool IsAuctioner()    const { return HasNpcFlag(UNIT_NPC_FLAG_AUCTIONEER); }
     [[nodiscard]] bool IsArmorer()      const { return HasNpcFlag(UNIT_NPC_FLAG_REPAIR); }
     [[nodiscard]] bool IsServiceProvider() const
     {
-        return HasFlag(UNIT_NPC_FLAGS,
-                       UNIT_NPC_FLAG_VENDOR | UNIT_NPC_FLAG_TRAINER | UNIT_NPC_FLAG_FLIGHTMASTER |
+        return HasNpcFlag(UNIT_NPC_FLAG_VENDOR | UNIT_NPC_FLAG_TRAINER | UNIT_NPC_FLAG_FLIGHTMASTER |
                        UNIT_NPC_FLAG_PETITIONER | UNIT_NPC_FLAG_BATTLEMASTER | UNIT_NPC_FLAG_BANKER |
                        UNIT_NPC_FLAG_INNKEEPER | UNIT_NPC_FLAG_SPIRITHEALER |
                        UNIT_NPC_FLAG_SPIRITGUIDE | UNIT_NPC_FLAG_TABARDDESIGNER | UNIT_NPC_FLAG_AUCTIONEER);
@@ -1632,7 +1608,7 @@ public:
 
     [[nodiscard]] bool IsStopped() const { return !(HasUnitState(UNIT_STATE_MOVING)); }
     void StopMoving();
-    void StopMovingOnCurrentPos();
+    void StopMovingOnCurrentPos();   /// @brief Disable the unit movement by clearing UNIT_STATE_MOVING and stopping the spline.
     virtual void PauseMovement(uint32 timer = 0, uint8 slot = 0); // timer in ms
     void ResumeMovement(uint32 timer = 0, uint8 slot = 0);
 

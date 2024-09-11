@@ -260,7 +260,7 @@ public:
 
         void KilledUnit(Unit* victim) override
         {
-            if (victim->GetTypeId() != TYPEID_PLAYER)
+            if (!victim->IsPlayer())
                 return;
 
             int32 textId = 0;
@@ -349,7 +349,7 @@ class spell_wailing_souls_periodic_aura : public AuraScript
             {
                 t->SetControlled(false, UNIT_STATE_ROOT);
                 t->DisableRotate(false);
-                if (t->GetTypeId() == TYPEID_UNIT)
+                if (t->IsCreature())
                     t->ToCreature()->SetReactState(REACT_AGGRESSIVE);
                 if (t->GetVictim())
                 {

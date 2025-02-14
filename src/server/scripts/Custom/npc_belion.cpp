@@ -24,8 +24,8 @@ struct BuffData
 
 BuffData vvData[] =
 {
-	{ 46587, 20, "Берсерк", "Повышает скорость атаки на 30% и урона на 20% на 1 час" },
-	{ 26035, 15, "Счастливый", "+10% ко всем характеристикам на 30 мин" }
+	{ 46587, 15, "Берсерк", "Повышает скорость атаки на 30% и урона на 20% на 1 час" },
+	{ 26035, 10, "Счастливый", "+10% ко всем характеристикам на 30 мин" }
 };
 
 /* выводим количество VP на акке у игрока */
@@ -132,7 +132,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 		//	AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Achievement_pvp_o_05:25:25:-20:0|tОбменять Доступ-Карты|r", GOSSIP_SENDER_MAIN, 16);
 			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Trade_engineering:25:25:-20:0|tИзменить персонажа", GOSSIP_SENDER_MAIN, 17);
 			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|tОбмен очков голосования", GOSSIP_SENDER_MAIN, 2);
-			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|tОбмен очков пожертвования", GOSSIP_SENDER_MAIN, 11);
+		//	AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|tОбмен очков пожертвования", GOSSIP_SENDER_MAIN, 11);
             AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|t[Монета Donate] -> [Vote-Token]", GOSSIP_SENDER_MAIN, 154);
             player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), creature->GetGUID());
             return true;
@@ -177,10 +177,10 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 								<< "В данном меню вы сможете обменять ваши бонусы на [Vote-Token].\nВыберите нужный вам пункт:";
 
 							ClearGossipMenuFor(player);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_05:25:25:-20:0|t5 бонусов на [Vote-Token]x5", GOSSIP_SENDER_MAIN, 5);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 бонусов на [Vote-Token]x50", GOSSIP_SENDER_MAIN, 6);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 бонусов на [Vote-Token]x100", GOSSIP_SENDER_MAIN, 7);
-                            AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t[Vote-Token]x10 - Перевести в ЛК", GOSSIP_SENDER_MAIN, 88, "Токены будут переведены на баланс ЛК.\n Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_05:25:25:-20:0|t5 бонусов на [Vote-Token]x5", GOSSIP_SENDER_MAIN, 5, "Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 бонусов на [Vote-Token]x50", GOSSIP_SENDER_MAIN, 6, "Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 бонусов на [Vote-Token]x100", GOSSIP_SENDER_MAIN, 7, "Вы уверены?", 0, false);
+                            //AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t[Vote-Token]x10 - Перевести в ЛК", GOSSIP_SENDER_MAIN, 88, "Токены будут переведены на баланс ЛК.\n Вы уверены?", 0, false);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:25:25:-20:0|tНазад", GOSSIP_SENDER_MAIN, 4);
                             player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), creature->GetGUID());
 				}
@@ -196,9 +196,9 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 							    << "Выберите нужный вам пункт:";
 
 							ClearGossipMenuFor(player);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_05:25:25:-20:0|t10 DP на 10 бонусов", GOSSIP_SENDER_MAIN, 8, "Вы уверены?", 0, false);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 DP на 50 бонусов", GOSSIP_SENDER_MAIN, 9, "Вы уверены?", 0, false);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 DP на 100 бонусов", GOSSIP_SENDER_MAIN, 10, "Вы уверены?", 0, false);
+							//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_05:25:25:-20:0|t10 DP на 10 бонусов", GOSSIP_SENDER_MAIN, 8, "Вы уверены?", 0, false);
+							//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 DP на 50 бонусов", GOSSIP_SENDER_MAIN, 9, "Вы уверены?", 0, false);
+							//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 DP на 100 бонусов", GOSSIP_SENDER_MAIN, 10, "Вы уверены?", 0, false);
                             AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_06:25:25:-20:0|t100 DP на [Монета-Donate]x100", GOSSIP_SENDER_MAIN, 122, "Вы уверены?", 0, false);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_06:25:25:-20:0|t500 DP на [Монета-Donate]x500", GOSSIP_SENDER_MAIN, 12, "Вы уверены?", 0, false);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_04:25:25:-20:0|t1000 DP на [Монета-Donate]x1000", GOSSIP_SENDER_MAIN, 13, "Вы уверены?", 0, false);

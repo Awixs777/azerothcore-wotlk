@@ -45,6 +45,7 @@
 #include "TargetedMovementGenerator.h"
 #include "Tokenize.h"
 #include "WeatherMgr.h"
+#include "WorldSessionMgr.h"
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -280,7 +281,7 @@ public:
                 break;
             }
 
-            if (plr->isUsingLfg())
+            if (plr->IsUsingLfg())
             {
                 error = 4;
                 break;
@@ -1992,8 +1993,8 @@ public:
         uint32 mapId;
         uint32 areaId;
         uint32 phase            = 0;
-        char const* areaName    = nullptr;
-        char const* zoneName    = nullptr;
+        std::string areaName    = "";
+        std::string zoneName    = "";
 
         // Guild data print variables defined so that they exist, but are not necessarily used
         uint32 guildId           = 0;
@@ -2337,19 +2338,13 @@ public:
             }
         }
 
-        if (!zoneName)
-        {
+        if (zoneName.empty())
             zoneName = handler->GetAcoreString(LANG_UNKNOWN);
-        }
 
-        if (areaName)
-        {
+        if (!areaName.empty())
             handler->PSendSysMessage(LANG_PINFO_CHR_MAP_WITH_AREA, map->name[locale], zoneName, areaName);
-        }
         else
-        {
             handler->PSendSysMessage(LANG_PINFO_CHR_MAP, map->name[locale], zoneName);
-        }
 
         // Output XVII. - XVIX. if they are not empty
         if (!guildName.empty())
@@ -2469,7 +2464,7 @@ public:
 
         // find only player from same account if any
         if (!target)
-            if (WorldSession* session = sWorld->FindSession(accountId))
+            if (WorldSession* session = sWorldSessionMgr->FindSession(accountId))
             {
                 target = session->GetPlayer();
             }
@@ -2575,7 +2570,7 @@ public:
         // find only player from same account if any
         if (!playerTarget)
         {
-            if (WorldSession* session = sWorld->FindSession(accountId))
+            if (WorldSession* session = sWorldSessionMgr->FindSession(accountId))
             {
                 playerTarget = session->GetPlayer();
             }
@@ -2964,7 +2959,7 @@ public:
             return false;
         }
 
-        sWorld->SendGlobalMessage(WorldPackets::Misc::Playsound(soundId).Write());
+        sWorldSessionMgr->SendGlobalMessage(WorldPackets::Misc::Playsound(soundId).Write());
 
         handler->PSendSysMessage(LANG_COMMAND_PLAYED_TO_ALL, soundId);
         return true;
@@ -3034,18 +3029,9 @@ public:
             return false;
         }
 
-        const char* str = sObjectMgr->GetAcoreString(id, locale ? static_cast<LocaleConstant>(*locale) : DEFAULT_LOCALE);
-
-        if (!strcmp(str, "<error>"))
-        {
-            handler->PSendSysMessage(LANG_NO_ACORE_STRING_FOUND, id);
-            return true;
-        }
-        else
-        {
-            handler->SendSysMessage(str);
-            return true;
-        }
+        std::string str = sObjectMgr->GetAcoreString(id, locale ? static_cast<LocaleConstant>(*locale) : DEFAULT_LOCALE);
+        handler->SendSysMessage(str);
+        return true;
     }
 
     static bool HandleOpenDoorCommand(ChatHandler* handler, Optional<float> range)

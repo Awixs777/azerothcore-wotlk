@@ -44,6 +44,7 @@
 #include "SpellMgr.h"
 #include "World.h"
 #include "WorldPacket.h"
+#include "WorldSessionMgr.h"
 
 bool AchievementCriteriaData::IsValid(AchievementCriteriaEntry const* criteria)
 {
@@ -728,7 +729,7 @@ void AchievementMgr::SendAchievementEarned(AchievementEntry const* achievement) 
             data << GetPlayer()->GetGUID();
             data << uint32(achievement->ID);
             data << uint32(0);                                  // display name as plain string in chat (always 0 for guild)
-            sWorld->SendGlobalMessage(&data);
+            sWorldSessionMgr->SendGlobalMessage(&data);
         }
         else
         {
@@ -741,10 +742,10 @@ void AchievementMgr::SendAchievementEarned(AchievementEntry const* achievement) 
             data << uint32(achievement->ID);
             std::size_t linkTypePos = data.wpos();
             data << uint32(1);                                  // display name as clickable link in chat
-            sWorld->SendGlobalMessage(&data, nullptr, teamId);
+            sWorldSessionMgr->SendGlobalMessage(&data, nullptr, teamId);
 
             data.put<uint32>(linkTypePos, 0);                   // display name as plain string in chat
-            sWorld->SendGlobalMessage(&data, nullptr, teamId == TEAM_ALLIANCE ? TEAM_HORDE : TEAM_ALLIANCE);
+            sWorldSessionMgr->SendGlobalMessage(&data, nullptr, teamId == TEAM_ALLIANCE ? TEAM_HORDE : TEAM_ALLIANCE);
         }
     }
     // if player is in world he can tell his friends about new achievement
@@ -2438,7 +2439,7 @@ bool AchievementMgr::HasAchieved(uint32 achievementId) const
 
 bool AchievementMgr::CanUpdateCriteria(AchievementCriteriaEntry const* criteria, AchievementEntry const* achievement)
 {
-    if (DisableMgr::IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, criteria->ID, nullptr))
+    if (sDisableMgr->IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, criteria->ID, nullptr))
         return false;
 
     if (achievement->mapID != -1 && GetPlayer()->GetMapId() != uint32(achievement->mapID))
@@ -2917,7 +2918,7 @@ void AchievementGlobalMgr::LoadAchievementCriteriaData()
                 continue;
         }
 
-        if (!GetCriteriaDataSet(criteria) && !DisableMgr::IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, entryId, nullptr))
+        if (!GetCriteriaDataSet(criteria) && !sDisableMgr->IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, entryId, nullptr))
             LOG_ERROR("sql.sql", "Table `achievement_criteria_data` does not have expected data for criteria (Entry: {} Type: {}) for achievement {}.", criteria->ID, criteria->requiredType, criteria->referredAchievement);
     }
 

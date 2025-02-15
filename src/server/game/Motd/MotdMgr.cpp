@@ -145,18 +145,7 @@ WorldPacket MotdMgr::CreateWorldPacket(std::string motd)
     // Create a new WorldPacket for this locale
     WorldPacket data(SMSG_MOTD); // new in 2.0.1
 
-    if (result)
-    {
-        Field* fields = result->Fetch();
-        return fields[0].Get<std::string>();  // Return the main motd if found
-    }
-
-    return ""; // Return empty string if no motd found
-}
-
-void MotdMgr::SetDefaultMotd()
-{
-    motd = "Добро пожаловать на GFY [Game For You]"; // MOTDGFY
+    motd = "Добро пожаловать на Game For You!";
 
     // Tokenize the motd string by '@'
     std::vector<std::string_view> motdTokens = Acore::Tokenize(motd, '@', true);

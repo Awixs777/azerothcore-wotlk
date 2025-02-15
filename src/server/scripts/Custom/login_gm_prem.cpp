@@ -1,6 +1,7 @@
 #include "ScriptPCH.h"
 #include "TicketMgr.h"
 #include "GameTime.h"
+#include "WorldSessionMgr.h"
 
 class gm_login : public PlayerScript
 {
@@ -16,7 +17,7 @@ public:
 				uint32 accid = player->GetSession()->GetAccountId();
 				uint16 gmlvl = player->GetSession()->GetSecurity();
 				std::string gmname = player->GetName();
-				uint32 playeronline = sWorld->GetPlayerCount();
+				uint32 playeronline = sWorldSessionMgr->GetPlayerCount();
 				std::string uptime = secsToTimeString(GameTime::GetUptime().count()).c_str();
 				std::string player_ip = player->GetSession()->GetRemoteAddress();
 				uint16 tickets = sTicketMgr->GetOpenTicketCount();
@@ -38,7 +39,7 @@ public:
 			ChatHandler handler(player->GetSession());
 			uint32 accid = player->GetSession()->GetAccountId();
 			std::string gmname = player->GetName();
-			uint32 playeronline = sWorld->GetPlayerCount();
+			uint32 playeronline = sWorldSessionMgr->GetPlayerCount();
 			std::string uptime = secsToTimeString(GameTime::GetUptime().count()).c_str();
 			std::string player_ip = player->GetSession()->GetRemoteAddress();
 			uint16 tickets = sTicketMgr->GetOpenTicketCount();

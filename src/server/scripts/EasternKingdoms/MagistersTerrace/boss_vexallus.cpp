@@ -38,7 +38,8 @@ enum Spells
     SPELL_ARCANE_SHOCK              = 44319, // Basic attack
     SPELL_SUMMON_PURE_ENERGY_N      = 44322, // Normal mode summon
     SPELL_SUMMON_PURE_ENERGY_H1     = 46154, // Heroic mode summon 1
-    SPELL_SUMMON_PURE_ENERGY_H2     = 46159  // Heroic mode summon 2
+    SPELL_SUMMON_PURE_ENERGY_H2     = 46159,  // Heroic mode summon 2
+    SPELL_SARONITE                  = 633650
 };
 
 struct boss_vexallus : public BossAI

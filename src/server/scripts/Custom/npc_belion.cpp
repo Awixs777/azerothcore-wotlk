@@ -10,6 +10,7 @@
 #include "Chat.h"
 #include "Player.h"
 #include "WorldSession.h"
+#include "WorldSessionMgr.h"
 
 
 using namespace std;
@@ -98,9 +99,9 @@ uint64 GetRespawnTime(Player* player, uint64 guid)
 /* выводим онлайн игроков и выдает бафф */
 void GetBuffOnline(uint32 i)
 {
-	SessionMap const& sessions = sWorld->GetAllSessions();
-	for (SessionMap::const_iterator it = sessions.begin(); it != sessions.end(); ++it)
-	{
+    WorldSessionMgr::SessionMap const& sessions = sWorldSessionMgr->GetAllSessions();
+    for (WorldSessionMgr::SessionMap::const_iterator it = sessions.begin(); it != sessions.end(); ++it)
+    {
 		if (Player* player = it->second->GetPlayer())
 		{
 			if (player->IsInWorld() && !player->GetMap()->IsBattlegroundOrArena())
@@ -479,7 +480,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 
 					CharacterDatabase.Query("UPDATE fusion.account_data SET vp = vp - {} WHERE id = {}", vvData[action].Cost, player->GetSession()->GetAccountId());
 
-					sWorld->SendServerMessage(SERVER_MSG_STRING, message.str().c_str());
+					sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, message.str().c_str());
 					CloseGossipMenuFor(player);
 				}
 			}

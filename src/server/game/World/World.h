@@ -197,13 +197,6 @@ public:
     void SetInitialWorldSettings() override;
     void LoadConfigSettings(bool reload = false) override;
 
-    void SendGlobalMessage(WorldPacket const* packet, WorldSession* self = nullptr, TeamId teamId = TEAM_NEUTRAL) override;
-    void SendGlobalGMMessage(WorldPacket const* packet, WorldSession* self = nullptr, TeamId teamId = TEAM_NEUTRAL) override;
-    bool SendZoneMessage(uint32 zone, WorldPacket const* packet, WorldSession* self = nullptr, TeamId teamId = TEAM_NEUTRAL) override;
-    void SendZoneText(uint32 zone, const char* text, WorldSession* self = nullptr, TeamId teamId = TEAM_NEUTRAL) override;
-    void SendServerMessage(ServerMessageType messageID, std::string stringParam = "", Player* player = nullptr) override;
-
-
     void SendGuildText(uint32 guild, const char* text, WorldSession* self = NULL, uint32 team = 0);
     bool SendGuildMessage(uint32 guild, WorldPacket* packet, WorldSession* self = NULL, uint32 team = 0);
 

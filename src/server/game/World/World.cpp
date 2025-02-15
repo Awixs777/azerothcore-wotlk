@@ -1979,7 +1979,7 @@ void World::SetInitialWorldSettings()
                 if (map)
                 {
                     LOG_INFO("server.loading", ">> Loading All Grids For Map {}", map->GetId());
-                    map->LoadAllCells();
+                    map->LoadAllGrids();
                 }
             }
         }

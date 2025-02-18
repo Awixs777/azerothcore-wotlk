@@ -38,6 +38,7 @@ public:
 					player->learnSpell(202);	// 2H Sword
 					player->learnSpell(227);	// Staves
 					player->learnSpell(2567);	// Thrown
+                    player->learnSpell(1180);	// Кинжалы
 					*/
 
 				case CLASS_PALADIN:
@@ -57,6 +58,8 @@ public:
 					player->learnSpell(197);	// 2H Axe
 					player->learnSpell(199);	// 2H Mace
                     player->SetSkill(762, 4, 300, 300);
+                    player->SetSkill(173, 4, 300, 300); // Кинжалы
+                    player->learnSpell(1180);	// Кинжалы
 					break;
 
 				case CLASS_WARRIOR:
@@ -71,6 +74,8 @@ public:
 					player->learnSpell(227);	// Staves
                     player->learnSpell(2567);
                     player->SetSkill(762, 4, 300, 300);
+                    player->learnSpell(201);	// Swords
+                    player->SetSkill(43, 4, 400, 400);
 					break;
 
 				case CLASS_HUNTER:

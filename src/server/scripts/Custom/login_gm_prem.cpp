@@ -23,12 +23,12 @@ public:
 				uint16 tickets = sTicketMgr->GetOpenTicketCount();
 
 				handler.PSendSysMessage("|cffff0000=================================|r");
-				handler.PSendSysMessage("|cff00ff00Привет,|r %s", gmname.c_str());
-				handler.PSendSysMessage("|cff00ff00Ваш уровень учетной записи:|r %u", gmlvl);
-				handler.PSendSysMessage("|cff00ff00Ваш IP:|r %s", player_ip.c_str());
-				handler.PSendSysMessage("|cff00ff00Сейчас|r %u |cff00ff00игроков онлайн|r", playeronline);
-				handler.PSendSysMessage("|cff00ff00Открытые тикеты:|r %u", tickets);
-				handler.PSendSysMessage("|cff00ff00Время работы сервера:|r %s", uptime.c_str());
+				handler.PSendSysMessage("|cff00ff00Привет,|r {}", gmname.c_str());
+				handler.PSendSysMessage("|cff00ff00Ваш уровень учетной записи:|r {}", gmlvl);
+				handler.PSendSysMessage("|cff00ff00Ваш IP:|r {}", player_ip.c_str());
+				handler.PSendSysMessage("|cff00ff00Сейчас|r {} |cff00ff00игроков онлайн|r", playeronline);
+				handler.PSendSysMessage("|cff00ff00Открытые тикеты:|r {}", tickets);
+				handler.PSendSysMessage("|cff00ff00Время работы сервера:|r {}", uptime.c_str());
 				handler.PSendSysMessage("|cff00ff00Удачи и приятной игры|r");
 				handler.PSendSysMessage("|cffff0000=================================|r");
 				return;
@@ -43,9 +43,9 @@ public:
 			std::string uptime = secsToTimeString(GameTime::GetUptime().count()).c_str();
 			std::string player_ip = player->GetSession()->GetRemoteAddress();
 			uint16 tickets = sTicketMgr->GetOpenTicketCount();
-			handler.PSendSysMessage("|cfffcc141Привет,|r|cff8ab6fc %s|r", gmname.c_str());
-			handler.PSendSysMessage("|cfffcc141Сейчас|r |cff8ab6fc%u|r |cfffcc141игроков онлайн|r", playeronline);
-			handler.PSendSysMessage("|cfffcc141Время работы сервера:|r |cff8ab6fc%s|r", uptime.c_str());
+			handler.PSendSysMessage("|cfffcc141Привет,|r|cff8ab6fc {}|r", gmname.c_str());
+			handler.PSendSysMessage("|cfffcc141Сейчас|r |cff8ab6fc{}|r |cfffcc141игроков онлайн|r", playeronline);
+			handler.PSendSysMessage("|cfffcc141Время работы сервера:|r |cff8ab6fc{}|r", uptime.c_str());
 			handler.PSendSysMessage("|cfffcc141Доступные команды:|r");
 			handler.PSendSysMessage("|cff8ab6fc[.vip bank]|cfffcc141 - открыть банк|r");
 			handler.PSendSysMessage("|cff8ab6fc[.vip mail]|cfffcc141 - открыть почту|r");
@@ -69,7 +69,7 @@ public:
 				uint32 unsetdate = field[0].Get<uint32>();
 				std::string timeStr = secsToTimeString(unsetdate - time(NULL), false);
 				handler.PSendSysMessage("|cff8ab6fc[VIP] |cfffcc141Аккаунт закончится через:|r");
-				handler.PSendSysMessage("|cff8ab6fc%s|r", timeStr.c_str());
+				handler.PSendSysMessage("|cff8ab6fc{}|r", timeStr.c_str());
 			}
 			return;
 		}

@@ -267,13 +267,13 @@ public:
 
         handler->PSendSysMessage("{}", GitRevision::GetFullVersion());
         if (!queuedSessionCount)
-            handler->PSendSysMessage("Подключено игроков: %u. Персонажей в мире: %u.", activeSessionCount, playerCount);
+            handler->PSendSysMessage("Подключено игроков: {}. Персонажей в мире: {}.", activeSessionCount, playerCount);
         else
-            handler->PSendSysMessage("Подключено игроков: %u. Персонажей в мире: %u. Очередь: %u.", activeSessionCount, playerCount, queuedSessionCount);
+            handler->PSendSysMessage("Подключено игроков: {}. Персонажей в мире: {}. Очередь: {}.", activeSessionCount, playerCount, queuedSessionCount);
 
-        handler->PSendSysMessage("Пик соединений: %u.", connPeak);
+        handler->PSendSysMessage("Пик соединений: {}.", connPeak);
         handler->PSendSysMessage(LANG_UPTIME, secsToTimeString(GameTime::GetUptime().count()).c_str());
-        handler->PSendSysMessage("Update time diff: %ums, average: %ums.", sWorldUpdateTime.GetLastUpdateTime(), sWorldUpdateTime.GetAverageUpdateTime());
+        handler->PSendSysMessage("Update time diff: {}ms, average: {}ms.", sWorldUpdateTime.GetLastUpdateTime(), sWorldUpdateTime.GetAverageUpdateTime());
 
         //! Can't use sWorld->ShutdownMsg here in case of console command
         if (sWorld->IsShuttingDown())

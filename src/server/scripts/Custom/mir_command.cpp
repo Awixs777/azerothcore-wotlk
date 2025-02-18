@@ -169,16 +169,16 @@ static bool HandleAllCommand(ChatHandler* handler, char const* /*args*/)
     }
 
 	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0E[Таймер Мировых Боссов]");
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лорд]:|r |CFFE55BB0 %s", RespawnReg1.c_str());
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Иллидан]:|r |CFFE55BB0 %s", RespawnReg2.c_str());
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Эфириал]:|r |CFFE55BB0 %s", RespawnReg3.c_str());
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Инквизитор]:|r |CFFE55BB0 %s", RespawnReg4.c_str());
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Изера]:|r |CFFE55BB0 %s", RespawnReg5.c_str());
-	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Кил'Джеден]:|r |CFFE55BB0 %s", RespawnReg6.c_str());
-    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Повелитель]:|r |CFFE55BB0 %s", RespawnReg7.c_str());
-    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лолита Лейн]:|r |CFFE55BB0 %s", RespawnReg10.c_str());
-    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Вариан]:|r |CFFE55BB0 %s", RespawnReg8.c_str());
-    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Тралл]:|r |CFFE55BB0 %s", RespawnReg9.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лорд]:|r |CFFE55BB0 {}", RespawnReg1.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Иллидан]:|r |CFFE55BB0 {}", RespawnReg2.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Эфириал]:|r |CFFE55BB0 {}", RespawnReg3.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Инквизитор]:|r |CFFE55BB0 {}", RespawnReg4.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Изера]:|r |CFFE55BB0 {}", RespawnReg5.c_str());
+	ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Кил'Джеден]:|r |CFFE55BB0 {}", RespawnReg6.c_str());
+    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Повелитель]:|r |CFFE55BB0 {}", RespawnReg7.c_str());
+    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Лолита Лейн]:|r |CFFE55BB0 {}", RespawnReg10.c_str());
+    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Вариан]:|r |CFFE55BB0 {}", RespawnReg8.c_str());
+    ChatHandler(pPlayer->GetSession()).PSendSysMessage("|CFFFE8A0EВозрождение [Тралл]:|r |CFFE55BB0 {}", RespawnReg9.c_str());
 	return true;
 }
 

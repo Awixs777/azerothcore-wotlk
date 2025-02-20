@@ -40,7 +40,7 @@ class Donate_Alert : public PlayerScript
 public:
 	Donate_Alert() : PlayerScript("Donate_Alert") {}
 
-	void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea)
+	void OnPlayerUpdateZone(Player* player, uint32 newZone, uint32 newArea)
 	{
 		Battleground* bg = player->GetBattleground();
 		if (bg && player->GetMap()->IsBattlegroundOrArena() && bg->GetStatus() == STATUS_WAIT_JOIN)

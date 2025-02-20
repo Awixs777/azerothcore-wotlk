@@ -7,12 +7,12 @@ public:
 	CloseZone() : PlayerScript("CloseZone") {}
 
 	/* запрет входа на событие */
-	void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea)
+	void OnPlayerUpdateZone(Player* player, uint32 newZone, uint32 newArea)
 	{
 		if ((newArea == 4179 || newArea == 4987))
 		{
-			if (sGameEventMgr->IsActiveEvent(120) && player->GetLevel() >= 200 || player->IsGameMaster())
-				ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Событие]:|r Добро пожаловать на Событие [Изумрудка]|r");
+            if ((sGameEventMgr->IsActiveEvent(120) && player->GetLevel() >= 200) || player->IsGameMaster())
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Событие]:|r Добро пожаловать на Событие [Изумрудка]|r");
 			else
 			{
 				if (player->GetTeamId() == TEAM_HORDE)
@@ -31,18 +31,17 @@ public:
         }
 
         // Кач
-        if (player->GetZoneId() == 268)
+        if (player->GetZoneId() == 557)
         {
-            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rНе забудь одеть экипировку 80-го и 130-го уровня!|r");
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Путеводитель]:|rВы не получаете опыта за убийство - это нормально.\nПосле выполнения квеста, Вы, получите предмет для повышения уровня.!|r");
         }
 
         // Лолита Лейн
-        if (player->GetAreaId() == 3547 && player->GetLevel() < 229)
+        if (player->GetAreaId() == 3547 && player->GetLevel() < 230 && !player->IsGameMaster())
         {
             player->TeleportTo(571, 6236.229980f, 5768.240234f, -5.373631f, 0.736042f);
-            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|rНеобходим 230-й уровень!|r");
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Необходим 230-й уровень!|r");
         }
-
 	}
 };
 

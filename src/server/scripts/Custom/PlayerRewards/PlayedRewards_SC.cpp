@@ -11,13 +11,13 @@ class PS_PlayedRewards : public PlayerScript
 public:
     PS_PlayedRewards() : PlayerScript("PS_PlayedRewards") { }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
         if (sPlayedRewards->IsEnabled())
             sPlayedRewards->LoadRewardedMap(player);
     }
 
-    void OnLogout(Player* player) override
+    void OnPlayerLogout(Player* player) override
     {
         if (sPlayedRewards->IsEnabled())
             sPlayedRewards->SaveRewardedMap(player);

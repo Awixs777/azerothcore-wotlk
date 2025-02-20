@@ -37,6 +37,7 @@ EndScriptData */
 #include "SecretMgr.h"
 #include "StringConvert.h"
 #include "TOTP.h"
+#include "WorldSessionMgr.h"
 #include <unordered_map>
 
 #if AC_COMPILER == AC_COMPILER_GNU
@@ -71,13 +72,13 @@ void static UpdateLevel(Player* player)
             {
                 if (gLevel == maxlvl)
                 {
-                    snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла максимального уровня.");
-                    sWorld->SendGuildText(guild, msg);
+                   // snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла максимального уровня.");
+                   // sWorld->SendGuildText(guild, msg);
                 }
                 else
                 {
-                    snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла  {}-го уровня.", gLevel);
-                    sWorld->SendGuildText(guild, msg);
+                   // snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла  {}-го уровня.", gLevel);
+                   // sWorld->SendGuildText(guild, msg);
                 }
             }
             CharacterDatabase.Query("UPDATE guild_level SET level =  {} WHERE guild =  {}", gLevel, guild);
@@ -1001,7 +1002,7 @@ public:
 
 //GuildLevel
 
-/*
+
 class npc_guild_level : public CreatureScript
 
 {
@@ -1019,7 +1020,7 @@ public:
             return false;
         }
 
-        QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
         if (result) {
             Field* fields = result->Fetch();
             uint16 level = fields[0].Get<uint16>();
@@ -1032,7 +1033,7 @@ public:
             std::stringstream buffer1;
             buffer1 << "                  Опыт: " << "|cFF680a67" << xp << "|r";
 
-            QueryResult result1 = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = %u", level);
+            QueryResult result1 = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = {}", level);
             if (result1) {
                 Field* fields = result1->Fetch();
                 uint32 reqXp = fields[0].Get<uint32>();
@@ -1104,7 +1105,7 @@ public:
     {
         player->PlayerTalkClass->ClearMenus();
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, gold, number FROM guild_level_invested WHERE gold > 0 AND guild = %u ORDER BY gold DESC LIMIT 10", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, gold, number FROM guild_level_invested WHERE gold > 0 AND guild = {} ORDER BY gold DESC LIMIT 10", guild);
         if (result)
         {
             std::string name;
@@ -1140,7 +1141,7 @@ public:
     {
         player->PlayerTalkClass->ClearMenus();
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, token, number FROM guild_level_invested WHERE token > 0 AND guild = %u ORDER BY token DESC LIMIT 10", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, token, number FROM guild_level_invested WHERE token > 0 AND guild = {} ORDER BY token DESC LIMIT 10", guild);
         if (result)
         {
             std::string name;
@@ -1177,7 +1178,7 @@ public:
     {
         player->PlayerTalkClass->ClearMenus();
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, honor, number FROM guild_level_invested WHERE honor > 0 AND guild = %u ORDER BY honor DESC LIMIT 10", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, honor, number FROM guild_level_invested WHERE honor > 0 AND guild = {} ORDER BY honor DESC LIMIT 10", guild);
         if (result)
         {
             std::string name;
@@ -1213,7 +1214,7 @@ public:
         player->PlayerTalkClass->ClearMenus();
         AddGossipItemFor(player,GOSSIP_ICON_TALK, "<= Назад", GOSSIP_SENDER_MAIN, 9911);
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, honor, number FROM guild_level_invested WHERE honor > 0 AND guild = %u ORDER BY honor DESC", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, honor, number FROM guild_level_invested WHERE honor > 0 AND guild = {} ORDER BY honor DESC", guild);
         if (result) {
             std::string name;
             uint32 honor;
@@ -1249,7 +1250,7 @@ public:
     {
         player->PlayerTalkClass->ClearMenus();
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, arena, number FROM guild_level_invested WHERE arena > 0 AND guild = %u ORDER BY arena DESC LIMIT 10", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, arena, number FROM guild_level_invested WHERE arena > 0 AND guild = {} ORDER BY arena DESC LIMIT 10", guild);
         if (result)
         {
             std::string name;
@@ -1285,7 +1286,7 @@ public:
         player->PlayerTalkClass->ClearMenus();
         AddGossipItemFor(player,GOSSIP_ICON_TALK, "<= Назад", GOSSIP_SENDER_MAIN, 9913);
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT name, arena, number FROM guild_level_invested WHERE arena > 0 AND guild = %u ORDER BY arena DESC", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT name, arena, number FROM guild_level_invested WHERE arena > 0 AND guild = {} ORDER BY arena DESC", guild);
         if (result) {
             std::string name;
             uint32 arena;
@@ -1321,18 +1322,18 @@ public:
 
     void UpdateLevelCost(Player* player) {
         uint32 guild = player->GetGuildId();
-        QueryResult result10 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+        QueryResult result10 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
         if (result10) {
             Field* fields = result10->Fetch();
             uint16 level = fields[0].Get<uint16>();
             uint32 xp = fields[1].Get<uint32>();
 
-            QueryResult knowLevel = CharacterDatabase.Query("SELECT level FROM guild_xp_table WHERE xp > %u", xp);
+            QueryResult knowLevel = CharacterDatabase.Query("SELECT level FROM guild_xp_table WHERE xp > {}", xp);
             if (knowLevel)
             {
                 Field* fs = knowLevel->Fetch();
                 uint16 gLevel = fs[0].Get<uint16>();
-                CharacterDatabase.Query("UPDATE guild_level SET level = %u WHERE guild = %u", gLevel, guild);
+                CharacterDatabase.Query("UPDATE guild_level SET level = {} WHERE guild = {}", gLevel, guild);
             }
 
         }
@@ -1357,15 +1358,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1382,9 +1383,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1418,15 +1419,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1443,9 +1444,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1479,15 +1480,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1504,9 +1505,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1540,15 +1541,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1565,9 +1566,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1601,15 +1602,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1626,9 +1627,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1662,15 +1663,15 @@ public:
                 if (number == action) {
                     // learn spell
 
-                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                    QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                     if (result2) {
-                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                        QueryResult result15 = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                         if (result15) {
                             Field* fields = result15->Fetch();
                             uint16 level = fields[0].Get<uint16>();
                             uint32 xp = fields[1].Get<uint32>();
                             if (xp >= cost) {
-                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-%u WHERE guild = %u", cost, guild);
+                                CharacterDatabase.Query("UPDATE guild_level SET xp = xp-{} WHERE guild = {}", cost, guild);
 
                                 UpdateLevelCost(player);
                             }
@@ -1687,9 +1688,9 @@ public:
                             if (Player* onlinePlayer = ObjectAccessor::FindPlayer(guid)) {
                                 onlinePlayer->learnSpell(spell);
                             }
-                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES (%u, %u, 1, 0)", guid, spell);
+                            else CharacterDatabase.Query("REPLACE INTO character_spell (guid, spell, active, disabled) VALUES ({}, {}, 1, 0)", guid.GetRawValue(), spell);
 
-                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES (%u, %u)", guild, spell);
+                            CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spell) VALUES ({}, {})", guild, spell);
 
 
                         } while (result2->NextRow());
@@ -1725,22 +1726,22 @@ public:
         switch (color)
         {
         case 1:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFF0000' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFF0000' WHERE guild = {}", player->GetGuildId());
             break;
         case 2:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff0000FF' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff0000FF' WHERE guild = {}", player->GetGuildId());
             break;
         case 3:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff000000' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff000000' WHERE guild = {}", player->GetGuildId());
             break;
         case 4:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFFFFFF' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFFFFFF' WHERE guild = {}", player->GetGuildId());
             break;
         case 5:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff00FF00' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cff00FF00' WHERE guild = {}", player->GetGuildId());
             break;
         case 6:
-            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFFFF00' WHERE guild = %u", player->GetGuildId());
+            CharacterDatabase.Execute("UPDATE guild_level SET color = '|cffFFFF00' WHERE guild = {}", player->GetGuildId());
             break;
 
         }
@@ -1950,7 +1951,7 @@ public:
         AddGossipItemFor(player,GOSSIP_ICON_TALK, "Доступные уровни заклинаний:", GOSSIP_SENDER_MAIN, 9905);
         uint32 guild = player->GetGuildId();
         uint16 level;
-        QueryResult result = CharacterDatabase.Query("SELECT level FROM guild_level WHERE guild = %u", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT level FROM guild_level WHERE guild = {}", guild);
         if (result) {
             Field* fields = result->Fetch();
             level = fields[0].Get<uint16>();
@@ -2066,13 +2067,13 @@ public:
                 Field* fields = result->Fetch();
                 guild = fields[0].Get<uint32>();
                 level = fields[1].Get<uint16>();
-                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = %u", guild);
+                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = {}", guild);
                 if (result3) {
                     Field* fields = result3->Fetch();
                     name = fields[0].Get<std::string>();
                     leaderguid = fields[1].Get<uint64>();
                 }
-                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u", leaderguid);
+                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = {}", leaderguid);
                 if (result4) {
                     Field* fields = result4->Fetch();
                     gleader = fields[0].Get<std::string>();
@@ -2114,13 +2115,13 @@ public:
                 Field* fields = result->Fetch();
                 guild = fields[0].Get<uint32>();
                 level = fields[1].Get<uint16>();
-                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = %u", guild);
+                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = {}", guild);
                 if (result3) {
                     Field* fields = result3->Fetch();
                     name = fields[0].Get<std::string>();
                     leaderguid = fields[1].Get<uint64>();
                 }
-                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u", leaderguid);
+                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = {}", leaderguid);
                 if (result4) {
                     Field* fields = result4->Fetch();
                     gleader = fields[0].Get<std::string>();
@@ -2162,13 +2163,13 @@ public:
                 Field* fields = result->Fetch();
                 guild = fields[0].Get<uint32>();
                 level = fields[1].Get<uint16>();
-                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = %u", guild);
+                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = {}", guild);
                 if (result3) {
                     Field* fields = result3->Fetch();
                     name = fields[0].Get<std::string>();
                     leaderguid = fields[1].Get<uint64>();
                 }
-                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u", leaderguid);
+                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = {}", leaderguid);
                 if (result4) {
                     Field* fields = result4->Fetch();
                     gleader = fields[0].Get<std::string>();
@@ -2209,13 +2210,13 @@ public:
                 Field* fields = result->Fetch();
                 guild = fields[0].Get<uint32>();
                 level = fields[1].Get<uint16>();
-                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = %u", guild);
+                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = {}", guild);
                 if (result3) {
                     Field* fields = result3->Fetch();
                     name = fields[0].Get<std::string>();
                     leaderguid = fields[1].Get<uint64>();
                 }
-                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u", leaderguid);
+                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = {}", leaderguid);
                 if (result4) {
                     Field* fields = result4->Fetch();
                     gleader = fields[0].Get<std::string>();
@@ -2256,13 +2257,13 @@ public:
                 Field* fields = result->Fetch();
                 guild = fields[0].Get<uint32>();
                 level = fields[1].Get<uint16>();
-                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = %u", guild);
+                QueryResult result3 = CharacterDatabase.Query("SELECT name, leaderguid FROM guild WHERE guildid = {}", guild);
                 if (result3) {
                     Field* fields = result3->Fetch();
                     name = fields[0].Get<std::string>();
                     leaderguid = fields[1].Get<uint64>();
                 }
-                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = %u", leaderguid);
+                QueryResult result4 = CharacterDatabase.Query("SELECT name FROM characters WHERE guid = {}", leaderguid);
                 if (result4) {
                     Field* fields = result4->Fetch();
                     gleader = fields[0].Get<std::string>();
@@ -2338,16 +2339,16 @@ public:
 
         if (player->GetMoney() >= goldx)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, %u, 0, 0)", guild, name.c_str(), gold);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, {}, 0, 0)", guild, name.c_str(), gold);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `gold`=`gold`+'%u' WHERE `guild`='%u' AND `name`='%s'", gold, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `gold`=`gold`+'{}' WHERE `guild`='{}' AND `name`='{}'", gold, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyMoney(-goldx);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u золота и полули %u опыта!", gold, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} золота и полули {} опыта!", gold, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно золота!");
@@ -2370,16 +2371,16 @@ public:
 
         if (player->GetArenaPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, %u, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, {}, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyArenaPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков арены и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
@@ -2402,16 +2403,16 @@ public:
 
         if (player->GetArenaPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, %u, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, {}, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyArenaPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков арены и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
@@ -2434,16 +2435,16 @@ public:
 
         if (player->GetArenaPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, %u, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, {}, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyArenaPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков арены и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
@@ -2466,16 +2467,16 @@ public:
 
         if (player->GetArenaPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, %u, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, {}, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `arena`=`arena`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyArenaPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков арены и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков арены и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков арены!");
@@ -2498,16 +2499,16 @@ public:
 
         if (player->GetHonorPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', %u, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', {}, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyHonorPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков чести и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
@@ -2530,16 +2531,16 @@ public:
 
         if (player->GetHonorPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', %u, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', {}, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyHonorPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков чести и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
@@ -2562,16 +2563,16 @@ public:
 
         if (player->GetHonorPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', %u, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', {}, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyHonorPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков чести и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
@@ -2594,16 +2595,16 @@ public:
 
         if (player->HasItemCount(90651, count))
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, 0, 0, %u)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, 0, 0, {})", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->DestroyItemCount(90651, count, true);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} эмблем и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
@@ -2626,16 +2627,16 @@ public:
 
         if (player->HasItemCount(90651, count))
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, 0, 0, %u)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, 0, 0, {})", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->DestroyItemCount(90651, count, true);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} эмблем и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
@@ -2658,16 +2659,16 @@ public:
 
         if (player->HasItemCount(90651, count))
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, 0, 0, %u)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, 0, 0, {})", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->DestroyItemCount(90651, count, true);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} эмблем и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
@@ -2690,16 +2691,16 @@ public:
 
         if (player->HasItemCount(90651, count))
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, 0, 0, %u)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, 0, 0, {})", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `token`=`token`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->DestroyItemCount(90651, count, true);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u эмблем и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} эмблем и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно эмблем!");
@@ -2720,21 +2721,21 @@ public:
             return;
         }
         uint32 guild = player->GetGuildId();
-        CharacterDatabase.Query("UPDATE guild_level SET xp = xp+10 WHERE guild = %u", guild);
+        CharacterDatabase.Query("UPDATE guild_level SET xp = xp+10 WHERE guild = {}", guild);
 
         std::string name = player->GetName();
         QueryResult result4 = CharacterDatabase.Query("SELECT name FROM guild_level_invested");
-        if (!result4) CharacterDatabase.Query("REPLACE INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, 10000, 0, 0, 0)", guild, name.c_str());
+        if (!result4) CharacterDatabase.Query("REPLACE INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, 10000, 0, 0, 0)", guild, name.c_str());
 
-        QueryResult result3 = CharacterDatabase.Query("SELECT name FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+        QueryResult result3 = CharacterDatabase.Query("SELECT name FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
         uint32 number;
         QueryResult result2 = CharacterDatabase.Query("SELECT MAX(number) FROM guild_level_invested");
         if (result2) {
             Field* fields = result2->Fetch();
             number = fields[0].Get<uint32>();
-            if (!result3) CharacterDatabase.Query("REPLACE INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', 0, 0, %u, 0)", guild, name.c_str(), number + 1);
+            if (!result3) CharacterDatabase.Query("REPLACE INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', 0, 0, {}, 0)", guild, name.c_str(), number + 1);
         }
-        CharacterDatabase.Query("UPDATE guild_level_invested SET svitok = svitok+50 WHERE guild = %u AND name = '%s'", guild, name.c_str());
+        CharacterDatabase.Query("UPDATE guild_level_invested SET svitok = svitok+50 WHERE guild = {} AND name = '{}'", guild, name.c_str());
         player->DestroyItemCount(18228, 50, true);
         UpdateLevel(player);
         player->GetSession()->SendAreaTriggerMessage("Пожертвование прошло успешно!");
@@ -2757,16 +2758,16 @@ public:
 
         if (player->GetHonorPoints() >= count)
         {
-            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = %u AND name = '%s'", guild, name.c_str());
+            QueryResult result4 = CharacterDatabase.Query("SELECT * FROM guild_level_invested WHERE guild = {} AND name = '{}'", guild, name.c_str());
             if (!result4)
-                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES (%u, '%s', %u, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
+                CharacterDatabase.Query("INSERT INTO guild_level_invested (guild, name, honor, arena, number, gold, svitok, token) VALUES ({}, '{}', {}, 0, 10000, 0, 0, 0)", guild, name.c_str(), count);
             else
-                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'%u' WHERE `guild`='%u' AND `name`='%s'", count, guild, name.c_str());
+                CharacterDatabase.Execute("UPDATE `guild_level_invested` SET `honor`=`honor`+'{}' WHERE `guild`='{}' AND `name`='{}'", count, guild, name.c_str());
 
-            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+%u WHERE guild = %u", exp, guild);
+            CharacterDatabase.Query("UPDATE guild_level SET xp = xp+{} WHERE guild = {}", exp, guild);
             player->ModifyHonorPoints(-count);
             UpdateLevel(player);
-            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали %u очков чести и полули %u опыта!", count, exp);
+            ChatHandler(player->GetSession()).PSendSysMessage("Пожертвование прошло успешно, вы отдали {} очков чести и полули {} опыта!", count, exp);
         }
         else
             ChatHandler(player->GetSession()).SendNotification("У вас недостаточно очков чести!");
@@ -2799,22 +2800,22 @@ public:
             return;
         }
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
         if (result) {
             Field* fields = result->Fetch();
             uint16 level = fields[0].Get<uint16>();
             uint32 xp = fields[1].Get<uint32>();
 
             ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25e[Прогресс Гильдии]:|r");
-            ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eУровень вашей гильдии:|r |cfffcedbb%u|r", level);
-            ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eПрогресс уровня вашей гильдии:|r |cfffcedbb%u|r", xp);
+            ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eУровень вашей гильдии:|r |cfffcedbb{}|r", level);
+            ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eПрогресс уровня вашей гильдии:|r |cfffcedbb{}|r", xp);
 
-            QueryResult result1 = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = %u", level);
+            QueryResult result1 = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = {}", level);
             if (result1) {
                 Field* fields = result1->Fetch();
                 uint32 reqXp = fields[0].Get<uint32>();
                 uint32 ReqXp = reqXp - xp;
-                if (level < 5) ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eДо %u-го уровня гильдии осталось накопить:|r |cfffcedbb%u опыта|r", level + 1, ReqXp);
+                if (level < 5) ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eДо {}-го уровня гильдии осталось накопить:|r |cfffcedbb{} опыта|r", level + 1, ReqXp);
                 else ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eВаша гильдия имеет максимальный уровень!|r");
 
             }
@@ -3026,7 +3027,7 @@ public:
         uint32 number;
         const char* name;
 
-        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, number FROM guild_level_spell WHERE isSpell = %u", isSpell);
+        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, number FROM guild_level_spell WHERE isSpell = {}", isSpell);
         if (result)
         {
             do
@@ -3071,7 +3072,7 @@ public:
         uint32 level;
         uint32 number;
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, level, number FROM guild_level_spell WHERE isSpell = %u AND level = %u", IsSpell, action);
+        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, level, number FROM guild_level_spell WHERE isSpell = {} AND level = {}", IsSpell, action);
         if (result)
         {
             Field* fields = result->Fetch();
@@ -3083,7 +3084,7 @@ public:
             if (number == action)
             {
                 // learn spell
-                QueryResult knowLevel = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = %u", guild);
+                QueryResult knowLevel = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
                 if (knowLevel)
                 {
                     Field* fs = knowLevel->Fetch();
@@ -3092,7 +3093,7 @@ public:
                     if (gLevel < level) player->GetSession()->SendAreaTriggerMessage("Недостаточный уровень!");
                     else {
 
-                        QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = %u", guild);
+                        QueryResult result2 = CharacterDatabase.Query("SELECT guid FROM guild_member WHERE guildid = {}", guild);
                         if (result2)
                         {
 
@@ -3112,7 +3113,7 @@ public:
                                     else onlinePlayer->SetTitle(sCharTitlesStore.LookupEntry(spell));
                                 }
 
-                                CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spellortitle, isSpell) VALUES (%u, %u, %u)", guild, spell, IsSpell);
+                                CharacterDatabase.Query("REPLACE INTO guild_learn_spell (guild, spellortitle, isSpell) VALUES ({}, {}, {})", guild, spell, IsSpell);
 
                             } while (result2->NextRow());
 
@@ -3162,14 +3163,14 @@ class Login_spellguild : public PlayerScript
 {
 public:
     Login_spellguild() : PlayerScript("Login_spellguild") { }
-    void OnLogin(Player* player/*, bool firstLogin)
+    void OnLogin(Player* player, bool firstLogin)
     {
         uint32 guild = player->GetGuildId();
 
         if (!guild)
             return;
 
-        QueryResult result = CharacterDatabase.Query("SELECT spellortitle FROM guild_learn_spell WHERE guild = %u And isSpell = 1", guild);
+        QueryResult result = CharacterDatabase.Query("SELECT spellortitle FROM guild_learn_spell WHERE guild = {} And isSpell = 1", guild);
         if (result)
         {
             do
@@ -3194,7 +3195,7 @@ public:
             }
         }
 
-        QueryResult result3 = CharacterDatabase.Query("SELECT spellortitle FROM guild_learn_spell WHERE guild = %u And isSpell = 0", guild);
+        QueryResult result3 = CharacterDatabase.Query("SELECT spellortitle FROM guild_learn_spell WHERE guild = {} And isSpell = 0", guild);
         if (result3)
         {
             do
@@ -3230,19 +3231,19 @@ class guildMasterChat : public PlayerScript
 public:
     guildMasterChat() : PlayerScript("guildMasterChat") {}
 
-    void OnChat(Player* player, uint32 /*type, uint32 lang, std::string& msg, Guild* guild)
+    void OnPlayerChat(Player* player, uint32 type, uint32 lang, std::string& msg, Guild* guild)
     {
         if (player->GetRank() == 0) msg = "|cFFFFD700" + msg + "|r";
     }
 
-}; */
+}; 
 //GuildLevel END// 
 
 void AddSC_account_commandscript()
 {
     new account_commandscript();
-   // new npc_guild_level();
-  //  new npc_guildspell();
-  //  new Login_spellguild();
-   // new guildMasterChat();
+    new npc_guild_level();
+    new npc_guildspell();
+    new Login_spellguild();
+    new guildMasterChat();
 }

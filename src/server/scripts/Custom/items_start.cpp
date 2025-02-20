@@ -3,7 +3,7 @@ class New_Character : public PlayerScript
 public:
 	New_Character() : PlayerScript("New_Character") {}
 
-	void OnLogin(Player* player)
+	void OnPlayerLogin(Player* player)
 	{
         
 		if (player->GetTotalPlayedTime() < 1)

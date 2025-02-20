@@ -7,7 +7,7 @@ public:
     CloseInst() : PlayerScript("CloseInst") {}
 
     /* запрет входа в инсты */
-    void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea)
+    void OnPlayerUpdateZone(Player* player, uint32 newZone, uint32 newArea)
     {
         // Проверка в ТМ
         if (player->GetMapId() == 585)

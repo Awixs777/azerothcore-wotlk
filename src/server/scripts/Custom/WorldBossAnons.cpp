@@ -6,7 +6,7 @@ class worldboss_killanons : public PlayerScript
 public:
 	worldboss_killanons() : PlayerScript("worldboss_killanons") {}
 
-	void OnCreatureKill(Player * killer, Creature* killed)
+	void OnPlayerCreatureKill(Player * killer, Creature* killed)
 	{
 		if (killed->GetEntry() == 50023)
 		{

@@ -8,7 +8,7 @@ class gm_login : public PlayerScript
 public:
 	gm_login() : PlayerScript("gm_login") { }
 
-	void OnLogin(Player* player)
+	void OnPlayerLogin(Player* player)
 	{
 		{
 			if (player->GetSession()->GetSecurity() >= SEC_MODERATOR)

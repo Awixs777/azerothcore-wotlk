@@ -7,7 +7,7 @@
     public:
         announce_login() : PlayerScript("announce_login") { }
      
-        void OnLogin(Player* player)
+        void OnPlayerLogin(Player* player)
         {
             if (!player->IsGameMaster())
             {

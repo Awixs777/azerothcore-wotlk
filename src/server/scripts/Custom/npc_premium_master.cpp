@@ -43,28 +43,28 @@
 enum Trainers
 {
     // Alliance
-    DRUID_A = 5504,
-    HUNTER_A = 5515,
-    MAGE_A = 5497,
-    PALADIN_A = 928,
-    PRIEST_A = 376,
-    ROGUE_A = 918,
-    SHAMAN_A = 20407,
-    WARLOCK_A = 461,
-    WARRIOR_A = 5479,
+    DRUID_A = 40077,
+    HUNTER_A = 40075,
+    MAGE_A = 40071,
+    PALADIN_A = 40070,
+    PRIEST_A = 40073,
+    ROGUE_A = 40076,
+    SHAMAN_A = 40072,
+    WARLOCK_A = 40078,
+    WARRIOR_A = 40074,
 
     // Horde
-    DRUID_H = 3033,
-    HUNTER_H = 3406,
-    MAGE_H = 5883,
-    PALADIN_H = 23128,
-    PRIEST_H = 3045,
-    ROGUE_H = 3401,
-    SHAMAN_H = 3344,
-    WARLOCK_H = 3324,
-    WARRIOR_H = 3354,
+    DRUID_H = 40077,
+    HUNTER_H = 40075,
+    MAGE_H = 40071,
+    PALADIN_H = 40070,
+    PRIEST_H = 40073,
+    ROGUE_H = 40076,
+    SHAMAN_H = 40072,
+    WARLOCK_H = 40078,
+    WARRIOR_H = 40074,
 
-    DEATHKNIGHT_AH = 28472
+    DEATHKNIGHT_AH = 40079
 };
 
 class npc_premium_master : public CreatureScript

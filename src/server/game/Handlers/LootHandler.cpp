@@ -15,12 +15,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Config.h"
 #include "Corpse.h"
 #include "Creature.h"
 #include "GameObject.h"
 #include "Group.h"
-#include "Chat.h"
 #include "LootItemStorage.h"
 #include "LootMgr.h"
 #include "Object.h"
@@ -85,69 +83,14 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
     {
         Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
 
-        if (!player->GetGroup() && creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true) &&
-            (player->GetMapId() == 624 || player->GetMapId() == 230 ||
-                player->GetAreaId() == 35 || player->GetZoneId() == 268 || player->GetZoneId() == 2817 ||
-                player->GetAreaId() == 279 || player->GetAreaId() == 3749));
-				
         bool lootAllowed = creature && creature->IsAlive() == (player->IsClass(CLASS_ROGUE, CLASS_CONTEXT_ABILITY) && creature->loot.loot_type == LOOT_PICKPOCKETING);
         if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
         {
-            int i = 0;
-            float range = 30.0f;
-            Creature * c = nullptr;
-            std::vector<Creature*> creaturedie;
-            player->GetDeadCreatureListInGrid(creaturedie, range);
-            for (std::vector<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-                 {
-                c = *itr;
-                loot = &c->loot;
-                
-                    uint8 maxSlot = loot->GetMaxSlotInLootFor(player);
-                for (i = 0; i < maxSlot; ++i)
-                     {
-                    if (LootItem* item = loot->LootItemInSlot(i, player))
-                         {
-                        if (player->AddItem(item->itemid, item->count))
-                             {
-                            player->SendNotifyLootItemRemoved(lootSlot);
-                            player->SendLootRelease(player->GetLootGUID());
-                            }
-                         else
-                             {
-                            player->SendItemRetrievalMail(item->itemid, item->count);
-                            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[AutoLoot]:|r Вещи были отправлены вам на почту.|r");
-                            }
-                         }
-                     }
-                
-                                    // This if covers a issue with skinning being infinite by Aokromes
-                    if (!creature->IsAlive())
-                     {
-                    creature->AllLootRemovedFromCorpse();
-                    }
-                
-                    loot->clear();
-                
-                    if (loot->isLooted() && loot->empty())
-                     {
-                    c->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
-                    c->AllLootRemovedFromCorpse();
-                    }
-                 }
-            
+            player->SendLootError(lguid, lootAllowed ? LOOT_ERROR_TOO_FAR : LOOT_ERROR_DIDNT_KILL);
+            return;
         }
-         else
-             {
-            bool lootAllowed = creature && creature->IsAlive() == (player->getClass() == CLASS_ROGUE && creature->loot.loot_type == LOOT_PICKPOCKETING);
-            if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
-                 {
-                player->SendLootError(lguid, lootAllowed ? LOOT_ERROR_TOO_FAR : LOOT_ERROR_DIDNT_KILL);
-                return;
-                }
-            
-                loot = &creature->loot;
-        }
+
+        loot = &creature->loot;
     }
 
     sScriptMgr->OnPlayerAfterCreatureLoot(player);
@@ -182,56 +125,56 @@ void WorldSession::HandleLootMoneyOpcode(WorldPacket& /*recvData*/)
 
     switch (guid.GetHigh())
     {
-        case HighGuid::GameObject:
-            {
-                GameObject* go = GetPlayer()->GetMap()->GetGameObject(guid);
+    case HighGuid::GameObject:
+    {
+        GameObject* go = GetPlayer()->GetMap()->GetGameObject(guid);
 
-                // do not check distance for GO if player is the owner of it (ex. fishing bobber)
-                if (go && ((go->GetOwnerGUID() == player->GetGUID() || go->IsWithinDistInMap(player))))
-                {
-                    loot = &go->loot;
-                }
+        // do not check distance for GO if player is the owner of it (ex. fishing bobber)
+        if (go && ((go->GetOwnerGUID() == player->GetGUID() || go->IsWithinDistInMap(player))))
+        {
+            loot = &go->loot;
+        }
 
-                break;
-            }
-        case HighGuid::Corpse:                               // remove insignia ONLY in BG
-            {
-                Corpse* bones = ObjectAccessor::GetCorpse(*player, guid);
+        break;
+    }
+    case HighGuid::Corpse:                               // remove insignia ONLY in BG
+    {
+        Corpse* bones = ObjectAccessor::GetCorpse(*player, guid);
 
-                if (bones && bones->IsWithinDistInMap(player, INTERACTION_DISTANCE))
-                {
-                    loot = &bones->loot;
-                    shareMoney = false;
-                }
+        if (bones && bones->IsWithinDistInMap(player, INTERACTION_DISTANCE))
+        {
+            loot = &bones->loot;
+            shareMoney = false;
+        }
 
-                break;
-            }
-        case HighGuid::Item:
-            {
-                if (Item* item = player->GetItemByGuid(guid))
-                {
-                    loot = &item->loot;
-                    shareMoney = false;
-                }
-                break;
-            }
-        case HighGuid::Unit:
-        case HighGuid::Vehicle:
-            {
-                Creature* creature = player->GetMap()->GetCreature(guid);
-                bool lootAllowed = creature && creature->IsAlive() == (player->IsClass(CLASS_ROGUE, CLASS_CONTEXT_ABILITY) && creature->loot.loot_type == LOOT_PICKPOCKETING);
-                if (lootAllowed && creature->IsWithinDistInMap(player, INTERACTION_DISTANCE))
-                {
-                    loot = &creature->loot;
-                    if (creature->IsAlive())
-                        shareMoney = false;
-                }
-                else
-                    player->SendLootError(guid, lootAllowed ? LOOT_ERROR_TOO_FAR : LOOT_ERROR_DIDNT_KILL);
-                break;
-            }
-        default:
-            return;                                         // unlootable type
+        break;
+    }
+    case HighGuid::Item:
+    {
+        if (Item* item = player->GetItemByGuid(guid))
+        {
+            loot = &item->loot;
+            shareMoney = false;
+        }
+        break;
+    }
+    case HighGuid::Unit:
+    case HighGuid::Vehicle:
+    {
+        Creature* creature = player->GetMap()->GetCreature(guid);
+        bool lootAllowed = creature && creature->IsAlive() == (player->IsClass(CLASS_ROGUE, CLASS_CONTEXT_ABILITY) && creature->loot.loot_type == LOOT_PICKPOCKETING);
+        if (lootAllowed && creature->IsWithinDistInMap(player, INTERACTION_DISTANCE))
+        {
+            loot = &creature->loot;
+            if (creature->IsAlive())
+                shareMoney = false;
+        }
+        else
+            player->SendLootError(guid, lootAllowed ? LOOT_ERROR_TOO_FAR : LOOT_ERROR_DIDNT_KILL);
+        break;
+    }
+    default:
+        return;                                         // unlootable type
     }
 
     if (loot)
@@ -268,27 +211,6 @@ void WorldSession::HandleLootMoneyOpcode(WorldPacket& /*recvData*/)
         }
         else
         {
-            ObjectGuid lguid = player->GetLootGUID();
-            Creature * creature = GetPlayer()->GetMap()->GetCreature(lguid);
-            if (creature && sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true))
-                 {
-                if (!player->GetGroup())
-                     {
-                    float range = 30.0f;
-                    uint32 gold = 0;
-                    Creature * c = nullptr;
-                    std::vector<Creature*> creaturedie;
-                    player->GetDeadCreatureListInGrid(creaturedie, range);
-                    for (std::vector<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-                         {
-                        c = *itr;
-                        loot = &c->loot;
-                        gold += loot->gold;
-                        loot->gold = 0;
-                        }
-                     loot->gold = gold;
-                    }
-                 }
             sScriptMgr->OnPlayerAfterCreatureLootMoney(player);
             player->ModifyMoney(loot->gold);
             player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LOOT_MONEY, loot->gold);
@@ -347,8 +269,8 @@ void WorldSession::HandleLootReleaseOpcode(WorldPacket& recvData)
 
 void WorldSession::DoLootRelease(ObjectGuid lguid)
 {
-    Player*  player = GetPlayer();
-    Loot*    loot;
+    Player* player = GetPlayer();
+    Loot* loot;
 
     player->SetLootGUID(ObjectGuid::Empty);
     player->SendLootRelease(lguid);

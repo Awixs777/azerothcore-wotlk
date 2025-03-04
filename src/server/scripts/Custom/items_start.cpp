@@ -5,7 +5,6 @@ public:
 
 	void OnPlayerLogin(Player* player)
 	{
-        
 		if (player->GetTotalPlayedTime() < 1)
 		{
            // Стартовый КВ

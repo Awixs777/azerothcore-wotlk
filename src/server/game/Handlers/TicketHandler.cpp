@@ -267,11 +267,11 @@ void WorldSession::HandleReportLag(WorldPacket& recv_data)
 
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_LAG_REPORT);
     stmt->SetData(0, GetPlayer()->GetGUID().GetCounter());
-    stmt->SetData (1, lagType);
+    stmt->SetData(1, lagType);
     stmt->SetData(2, mapId);
-    stmt->SetData (3, x);
-    stmt->SetData (4, y);
-    stmt->SetData (5, z);
+    stmt->SetData(3, x);
+    stmt->SetData(4, y);
+    stmt->SetData(5, z);
     stmt->SetData(6, GetLatency());
     stmt->SetData(7, GameTime::GetGameTime().count());
     CharacterDatabase.Execute(stmt);

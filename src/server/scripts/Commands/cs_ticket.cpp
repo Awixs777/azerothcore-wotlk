@@ -15,12 +15,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* ScriptData
-Name: ticket_commandscript
-%Complete: 100
-Comment: All ticket related commands
-Category: commandscripts
-EndScriptData */
+ /* ScriptData
+ Name: ticket_commandscript
+ %Complete: 100
+ Comment: All ticket related commands
+ Category: commandscripts
+ EndScriptData */
 
 #include "AccountMgr.h"
 #include "Chat.h"
@@ -35,7 +35,7 @@ using namespace Acore::ChatCommands;
 class ticket_commandscript : public CommandScript
 {
 public:
-    ticket_commandscript() : CommandScript("ticket_commandscript") { }
+    ticket_commandscript() : CommandScript("ticket_commandscript") {}
 
     ChatCommandTable GetCommands() const override
     {
@@ -64,7 +64,7 @@ public:
             { "togglesystem",   HandleToggleGMTicketSystem,             SEC_ADMINISTRATOR,  Console::Yes },
             { "unassign",       HandleGMTicketUnAssignCommand,          SEC_GAMEMASTER,     Console::Yes },
             { "viewid",         HandleGMTicketGetByIdCommand,           SEC_GAMEMASTER,     Console::Yes },
-          //  { "viewname",       HandleGMTicketGetByNameCommand,         SEC_GAMEMASTER,     Console::Yes }
+            { "viewname",       HandleGMTicketGetByNameCommand,         SEC_GAMEMASTER,     Console::Yes }
         };
         static ChatCommandTable commandTable =
         {
@@ -376,7 +376,7 @@ public:
         sTicketMgr->UpdateLastChange(ticket);
 
         std::string msg = ticket->FormatMessageString(*handler, nullptr, assignedTo.c_str(),
-                          handler->GetSession() ? handler->GetSession()->GetPlayer()->GetName().c_str() : "Console", nullptr);
+            handler->GetSession() ? handler->GetSession()->GetPlayer()->GetName().c_str() : "Console", nullptr);
         handler->SendGlobalGMSysMessage(msg.c_str());
 
         return true;

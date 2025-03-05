@@ -40,11 +40,11 @@ protected:
 public:
     [[nodiscard]] bool IsDatabaseBound() const override { return false; }
 
-    virtual void OnTicketCreate(GmTicket* /*ticket*/) { }
-    virtual void OnTicketUpdateLastChange(GmTicket* /*ticket*/) { }
-    virtual void OnTicketClose(GmTicket* /*ticket*/) { }
-    virtual void OnTicketStatusUpdate(GmTicket* /*ticket*/) { }
-    virtual void OnTicketResolve(GmTicket* /*ticket*/) { }
+    virtual void OnTicketCreate(GmTicket* /*ticket*/) {}
+    virtual void OnTicketUpdateLastChange(GmTicket* /*ticket*/) {}
+    virtual void OnTicketClose(GmTicket* /*ticket*/) {}
+    virtual void OnTicketStatusUpdate(GmTicket* /*ticket*/) {}
+    virtual void OnTicketResolve(GmTicket* /*ticket*/) {}
 };
 
 #endif

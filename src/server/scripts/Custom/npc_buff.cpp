@@ -81,7 +81,6 @@ class buff : public CreatureScript
                 CloseGossipMenuFor(player);
             }
             else {
-                // Наложение Защита Нелтариона(Доработано)
                 player->CastSpell(player, 90400, true);
                 player->ModifyMoney(-CONST_MONEY);
                 CloseGossipMenuFor(player);

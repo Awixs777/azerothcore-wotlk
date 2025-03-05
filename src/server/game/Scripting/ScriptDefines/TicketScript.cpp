@@ -45,7 +45,7 @@ void ScriptMgr::OnTicketResolve(GmTicket* ticket)
 }
 
 TicketScript::TicketScript(char const* name, std::vector<uint16> enabledHooks)
-: ScriptObject(name, TICKETHOOK_END)
+    : ScriptObject(name, TICKETHOOK_END)
 {
     // If empty - enable all available hooks.
     if (enabledHooks.empty())

@@ -44,12 +44,13 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Необходим 230-й уровень!|r");
         }
 
-        // Повелитель
+        /* Повелитель
         if (player->GetAreaId() == 3615 && player->GetLevel() < 230 && !player->IsGameMaster())
         {
             player->TeleportTo(571, 6236.229980f, 5768.240234f, -5.373631f, 0.736042f);
             ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ Запрещен]:|r Необходим 230-й уровень!|r");
         }
+        */
 
         // Помощь Стратхольму
         if (player->GetAreaId() == 4100)

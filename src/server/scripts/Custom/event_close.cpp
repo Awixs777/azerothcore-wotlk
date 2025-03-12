@@ -57,20 +57,34 @@ public:
             // Список квестов
             std::array<uint32_t, 7> questIds = { 20551, 20057, 20058, 20059, 20060, 20061, 20062 };
 
+            // Флаг, чтобы отправить сообщение только один раз
+            bool questsAdded = false;
+
             // Проходим по всем квестам
             for (uint32_t questId : questIds)
             {
+                // Получаем квест из базы данных
                 Quest const* quest = sObjectMgr->GetQuestTemplate(questId);
 
                 // Проверка наличия квеста и его статуса
-                if (quest && (!player->GetQuestRewardStatus(questId) || player->IsActiveQuest(questId)))
+                if (quest)
                 {
-                    player->AddQuest(quest, player);
+                    bool questAlreadyAdded = player->HasQuest(questId);
+
+                    // Квест можно добавить, если он еще не был выдан или активен
+                    if (!questAlreadyAdded && (!player->GetQuestRewardStatus(questId) || player->IsActiveQuest(questId)))
+                    {
+                        player->AddQuest(quest, player);
+                        questsAdded = true;  // Устанавливаем флаг, что хотя бы один квест был выдан
+                    }
                 }
             }
 
             // Сообщение об успешной выдаче квестов
-            ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ ТМ]:|r Выданы квесты необходимые для получения доступа к ТМ|r");
+            if (questsAdded)
+            {
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffff6060[Доступ ТМ]:|r Выданы квесты необходимые для получения доступа к ТМ|r");
+            }
         }
 	}
 };

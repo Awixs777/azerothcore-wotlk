@@ -32,31 +32,32 @@ BuffData vvData[] =
 /* выводим количество VP на акке у игрока */
 uint32 GetBonus(Player* player)
 {
-	uint32 accId = player->GetSession()->GetAccountId();
-	QueryResult result = CharacterDatabase.Query("SELECT vp FROM fusion.account_data WHERE id = {}", accId);
-	Field *field = result->Fetch();
-     if (!result)
+    uint32 accId = player->GetSession()->GetAccountId();
+    QueryResult result = CharacterDatabase.Query("SELECT vp FROM fusion.account_data WHERE id = {}", accId);
+
+    if (!result)  // Проверка на успешность запроса
     {
         player->GetSession()->SendAreaTriggerMessage("Ошибка! Сообщите Администратору!");
-        return false;
+        return 0;  // Возвращаем 0 в случае ошибки
     }
-    else  
-    return field[0].Get<uint32>();
+    Field* field = result->Fetch();  // Получаем данные из результата запроса
+    return field[0].Get<uint32>();   // Возвращаем значение VP
 }
+
 
 /* выводим количество DP на акке у игрока */
 uint32 GetBonusDP(Player* player)
 {
-	uint32 accId = player->GetSession()->GetAccountId();
-	QueryResult result = CharacterDatabase.Query("SELECT dp FROM fusion.account_data WHERE id = {}", accId);
-	Field *field = result->Fetch();
-    if (!result)
+    uint32 accId = player->GetSession()->GetAccountId();
+    QueryResult result = CharacterDatabase.Query("SELECT dp FROM fusion.account_data WHERE id = {}", accId);
+
+    if (!result)  // Проверка на успешность запроса
     {
         player->GetSession()->SendAreaTriggerMessage("Ошибка! Сообщите Администратору!");
-        return false;
-    } 
-    else
-	return field[0].Get<uint32>();
+        return 0;  // Возвращаем 0 в случае ошибки
+    }
+    Field* field = result->Fetch();  // Получаем данные из результата запроса
+    return field[0].Get<uint32>();   // Возвращаем значение DP
 }
 
 void DelBonus(Player* player, uint32 bonus)
@@ -146,29 +147,58 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 			{
 				switch (action)
 				{
-				case 1: /* Таймер мировых боссов */
-				{
-							std::ostringstream femb;
-							time_t current_time = time(0);
-							int time_stamp = int(current_time);
+                    case 1: /* Таймер мировых боссов */
+                    {
+                        std::ostringstream announce;
+                        time_t current_time = time(0);
+                        int time_stamp = int(current_time);
 
-							std::string resp_1 = GetRespawnTime(player, 4360017) == 0 ? "|cff02A4B1[Лорд]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Лорд]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4360017) - time_stamp);
-							std::string resp_2 = GetRespawnTime(player, 4660737) == 0 ? "|cff02A4B1[Иллидан]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Иллидан]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4660737) - time_stamp);
-							std::string resp_3 = GetRespawnTime(player, 3932621) == 0 ? "|cff02A4B1[Эфириал]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Эфириал]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 3932621) - time_stamp);
-							std::string resp_4 = GetRespawnTime(player, 2376962) == 0 ? "|cff02A4B1[Инквизитор]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Инквизитор]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 2376962) - time_stamp);
-							std::string resp_5 = GetRespawnTime(player, 4352959) == 0 ? "|cff02A4B1[Изера]|CFFE55BB0 Жива. Вперед, убейте её!" : "|cff02A4B1[Изера]|CFFE55BB0 мертва, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4352959) - time_stamp);
-							std::string resp_6 = GetRespawnTime(player, 4763736) == 0 ? "|cff02A4B1[Кил'Джеден]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Кил'Джеден]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4763736) - time_stamp);
-                            std::string resp_7 = GetRespawnTime(player, 4763931) == 0 ? "|cff02A4B1[Повелитель]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Повелитель]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4763931) - time_stamp);
-                            std::string resp_10 = GetRespawnTime(player, 4764200) == 0 ? "|cff02A4B1[Лолита Лейн]|CFFE55BB0 Жива. Вперед, убейте ее!" : "|cff02A4B1[Лолита Лейн]|CFFE55BB0 мертва, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4764200) - time_stamp);
-                            std::string resp_8 = GetRespawnTime(player, 10495) == 0 ? "|cff02A4B1[Вариан]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Вариан]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 10495) - time_stamp);
-                            std::string resp_9 = GetRespawnTime(player, 4770) == 0 ? "|cff02A4B1[Тралл]|CFFE55BB0 Жив. Вперед, убейте его!" : "|cff02A4B1[Тралл]|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(GetRespawnTime(player, 4770) - time_stamp);
+                        // Список GUID мировых боссов
+                        std::vector<uint64> bosses = { 4360017, 4660737, 3932621, 2376962, 4352959, 4763736, 4763931, 4764200, 10495, 4770 };
+                        std::vector<std::string> boss_names = {
+                            "[Лорд]", "[Иллидан]", "[Эфириал]", "[Инквизитор]", "[Изера]", "[Кил'Джеден]", "[Повелитель]",
+                            "[Лолита Лейн]", "[Вариан]", "[Тралл]"
+                        };
 
-							std::ostringstream announce;
-							announce << "|cff02A4B1[Таймер Боссов]\n" << resp_1 << "\n" << resp_2 << "\n" << resp_3 << "\n" << resp_4 << "\n" << resp_5 << "\n" << resp_6 << "\n" << resp_7 <<  "\n" << resp_10 << "\n" << resp_8 << "\n" << resp_9;
-							ChatHandler(player->GetSession()).PSendSysMessage(announce.str().c_str());
-							CloseGossipMenuFor(player);
-				}
-					break;
+                        // Формируем строки для каждого босса
+                        std::string announce_message = "|cff02A4B1[Таймер Боссов]\n";  // Начальная строка
+
+                        for (size_t i = 0; i < bosses.size(); ++i)
+                        {
+                            uint64 guid = bosses[i];
+                            std::string boss_name = boss_names[i];
+
+                            uint64 respawn_time = GetRespawnTime(player, guid);
+
+                            // Проверка, если босс жив (respawn_time == 0)
+                            if (respawn_time == 0)
+                            {
+                                announce_message += "|cff02A4B1" + boss_name + "|CFFE55BB0 Жив. Вперед, убейте его!\n";
+                            }
+                            else
+                            {
+                                // Проверка на адекватное значение времени респауна
+                                int time_diff = respawn_time - time_stamp;
+                                if (time_diff <= 0)
+                                {
+                                    announce_message += "|cff02A4B1" + boss_name + "|CFFE55BB0 Жив. Вперед, убейте его!\n";
+                                }
+                                else if (time_diff > 2147483647)  // Это большое значение, больше чем максимальный int
+                                {
+                                    announce_message += "|cff02A4B1" + boss_name + "|CFFE55BB0 Жив. Вперед, убейте его!\n";
+                                }
+                                else
+                                {
+                                    announce_message += "|cff02A4B1" + boss_name + "|CFFE55BB0 мертв, реснется через |cff02A4B1" + secsToTimeString(time_diff) + "\n";
+                                }
+                            }
+                        }
+
+                        // Отправляем сообщение с таймерами
+                        ChatHandler(player->GetSession()).PSendSysMessage(announce_message.c_str());
+                        CloseGossipMenuFor(player);
+                    }
+                    break;
 
 				case 2: /* Обменик бонусов */
 				{

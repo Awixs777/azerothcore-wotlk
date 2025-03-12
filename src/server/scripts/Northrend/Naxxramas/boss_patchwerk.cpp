@@ -63,9 +63,12 @@ public:
     struct boss_patchwerkAI : public BossAI
     {
         explicit boss_patchwerkAI(Creature* c) : BossAI(c, BOSS_PATCHWERK)
-        {}
+        {
+            pInstance = me->GetInstanceScript();
+        }
 
         EventMap events;
+        InstanceScript* pInstance;
 
         void Reset() override
         {
@@ -79,9 +82,13 @@ public:
                 return;
 
             if (!urand(0, 3))
+            {
                 Talk(SAY_SLAY);
-
-            instance->StorePersistentData(PERSISTENT_DATA_IMMORTAL_FAIL, 1);
+            }
+            if (pInstance)
+            {
+                pInstance->SetData(DATA_IMMORTAL_FAIL, 0);
+            }
         }
 
         void JustDied(Unit*  killer) override
@@ -98,7 +105,10 @@ public:
             events.ScheduleEvent(EVENT_HATEFUL_STRIKE, 1500ms);
             events.ScheduleEvent(EVENT_BERSERK, 6min);
             events.ScheduleEvent(EVENT_HEALTH_CHECK, 1s);
-            instance->DoStartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_EVENT, ACHIEV_TIMED_START_EVENT);
+            if (pInstance)
+            {
+                pInstance->DoStartTimedAchievement(ACHIEVEMENT_TIMED_TYPE_EVENT, ACHIEV_TIMED_START_EVENT);
+            }
         }
 
         void UpdateAI(uint32 diff) override

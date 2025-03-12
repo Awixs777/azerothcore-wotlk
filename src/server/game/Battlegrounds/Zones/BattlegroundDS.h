@@ -101,7 +101,7 @@ public:
 
     void HandleAreaTrigger(Player* player, uint32 trigger) override;
     bool SetupBattleground() override;
-    void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet) override;
+    void FillInitialWorldStates(WorldPacket& d) override;
     bool HandlePlayerUnderMap(Player* player) override;
 
 private:

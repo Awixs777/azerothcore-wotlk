@@ -64,10 +64,10 @@ void BattlegroundNA::HandleAreaTrigger(Player* player, uint32 trigger)
     }
 }
 
-void BattlegroundNA::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
+void BattlegroundNA::FillInitialWorldStates(WorldPacket& data)
 {
-    packet.Worldstates.emplace_back(0xa11, 1); // BATTLEGROUND_NAGRAND_ARENA_SHOW
-    Arena::FillInitialWorldStates(packet);
+    data << uint32(0xa11) << uint32(1);           // 9
+    Arena::FillInitialWorldStates(data);
 }
 
 bool BattlegroundNA::SetupBattleground()

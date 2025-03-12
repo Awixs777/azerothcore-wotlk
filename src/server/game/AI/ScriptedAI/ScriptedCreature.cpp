@@ -633,7 +633,6 @@ void BossAI::_Reset()
     me->ResetLootMode();
     events.Reset();
     scheduler.CancelAll();
-    me->m_Events.KillAllEvents(false);
     summons.DespawnAll();
     ClearUniqueTimedEventsDone();
     _healthCheckEvents.clear();
@@ -786,20 +785,6 @@ void BossAI::ScheduleHealthCheckEvent(std::initializer_list<uint8> healthPct, st
     }
 
     _nextHealthCheck = _healthCheckEvents.front();
-}
-
-void BossAI::ScheduleEnrageTimer(uint32 spellId, Milliseconds timer, uint8 textId /*= 0*/)
-{
-    me->m_Events.AddEventAtOffset([this, spellId, textId]
-    {
-        if (!me->IsAlive())
-            return;
-
-        if (textId)
-            Talk(textId);
-
-        DoCastSelf(spellId, true);
-    }, timer);
 }
 
 // WorldBossAI - for non-instanced bosses

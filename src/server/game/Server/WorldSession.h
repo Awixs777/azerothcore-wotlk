@@ -322,7 +322,7 @@ protected:
 struct PacketCounter
 {
     time_t lastReceiveTime;
-    uint16 amountCounter;
+    uint32 amountCounter;
 };
 
 /// Player session in the World
@@ -1105,21 +1105,22 @@ protected:
     {
         friend class World;
     public:
-        enum class Policy
+        DosProtection(WorldSession* s);
+        bool EvaluateOpcode(WorldPacket& p, time_t time) const;
+    protected:
+        enum Policy
         {
-            Process,
-            Kick,
-            Ban,
-            Log,
-            BlockingThrottle,
-            DropPacket
+            POLICY_LOG,
+            POLICY_KICK,
+            POLICY_BAN
         };
 
-        DosProtection(WorldSession* s);
-        Policy EvaluateOpcode(WorldPacket const& p, time_t const time) const;
-    protected:
+        uint32 GetMaxPacketCounterAllowed(uint16 opcode) const;
+
         WorldSession* Session;
+
     private:
+        Policy _policy;
         typedef std::unordered_map<uint16, PacketCounter> PacketThrottlingMap;
         // mark this member as "mutable" so it can be modified even in const functions
         mutable PacketThrottlingMap _PacketThrottlingMap;

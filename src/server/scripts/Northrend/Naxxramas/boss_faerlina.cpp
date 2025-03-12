@@ -83,6 +83,8 @@ public:
             BossAI::Reset();
             summons.DespawnAll();
             SummonHelpers();
+            if (GameObject* go = me->GetMap()->GetGameObject(instance->GetGuidData(DATA_FAERLINA_WEB)))
+                go->SetGoState(GO_STATE_ACTIVE);
         }
 
         void JustEngagedWith(Unit* who) override
@@ -112,6 +114,9 @@ public:
                 else
                     context.Repeat(30s);
             });
+
+            if (GameObject* go = me->GetMap()->GetGameObject(instance->GetGuidData(DATA_FAERLINA_WEB)))
+                go->SetGoState(GO_STATE_READY);
         }
 
         void MoveInLineOfSight(Unit* who) override
@@ -132,13 +137,15 @@ public:
             if (!urand(0, 3))
                 Talk(SAY_SLAY);
 
-            instance->StorePersistentData(PERSISTENT_DATA_IMMORTAL_FAIL, 1);
+            instance->SetData(DATA_IMMORTAL_FAIL, 0);
         }
 
         void JustDied(Unit*  killer) override
         {
             BossAI::JustDied(killer);
             Talk(SAY_DEATH);
+            if (GameObject* go = me->GetMap()->GetGameObject(instance->GetGuidData(DATA_FAERLINA_WEB)))
+                go->SetGoState(GO_STATE_ACTIVE);
         }
 
         void SpellHit(Unit* caster, SpellInfo const* spell) override

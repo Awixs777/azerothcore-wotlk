@@ -79,10 +79,13 @@ public:
     struct boss_gluthAI : public BossAI
     {
         explicit boss_gluthAI(Creature* c) : BossAI(c, BOSS_GLUTH), summons(me)
-        {}
+        {
+            pInstance = me->GetInstanceScript();
+        }
 
         EventMap events;
         SummonList summons;
+        InstanceScript* pInstance;
 
         void Reset() override
         {
@@ -135,10 +138,13 @@ public:
         void KilledUnit(Unit* who) override
         {
             if (me->IsAlive() && who->GetEntry() == NPC_ZOMBIE_CHOW)
+            {
                 me->ModifyHealth(int32(me->GetMaxHealth() * 0.05f));
-
-            if (who->IsPlayer())
-                instance->StorePersistentData(PERSISTENT_DATA_IMMORTAL_FAIL, 1);
+            }
+            if (who->IsPlayer() && pInstance)
+            {
+                pInstance->SetData(DATA_IMMORTAL_FAIL, 0);
+            }
         }
 
         void JustDied(Unit*  killer) override

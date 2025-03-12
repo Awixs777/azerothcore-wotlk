@@ -19,11 +19,10 @@
 #include "InstanceMapScript.h"
 #include "InstanceScript.h"
 #include "Player.h"
-#include "SpellScript.h"
 #include "SpellScriptLoader.h"
 #include "WorldPacket.h"
-#include "WorldStatePackets.h"
 #include "ruby_sanctum.h"
+#include "SpellScript.h"
 
 BossBoundaryData const boundaries =
 {
@@ -218,12 +217,11 @@ public:
             return true;
         }
 
-        void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet) override
+        void FillInitialWorldStates(WorldPacket& data) override
         {
-            packet.Worldstates.reserve(3);
-            packet.Worldstates.emplace_back(WORLDSTATE_CORPOREALITY_MATERIAL, 50);
-            packet.Worldstates.emplace_back(WORLDSTATE_CORPOREALITY_TWILIGHT, 50);
-            packet.Worldstates.emplace_back(WORLDSTATE_CORPOREALITY_TOGGLE, 0);
+            data << uint32(WORLDSTATE_CORPOREALITY_MATERIAL) << uint32(50);
+            data << uint32(WORLDSTATE_CORPOREALITY_TWILIGHT) << uint32(50);
+            data << uint32(WORLDSTATE_CORPOREALITY_TOGGLE) << uint32(0);
         }
 
     protected:

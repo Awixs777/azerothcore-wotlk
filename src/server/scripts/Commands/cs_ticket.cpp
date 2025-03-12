@@ -199,7 +199,7 @@ public:
         return true;
     }
 
-    static bool HandleGMTicketCompleteCommand(ChatHandler* handler, uint32 ticketId, std::optional<std::string> response)
+    static bool HandleGMTicketCompleteCommand(ChatHandler* handler, uint32 ticketId)
     {
         GmTicket* ticket = sTicketMgr->GetTicket(ticketId);
         if (!ticket || ticket->IsClosed() || ticket->IsCompleted())
@@ -217,8 +217,9 @@ public:
             return true;
         }
 
+        char* response = strtok(nullptr, "\n");
         if (response)
-            ticket->AppendResponse(response.value());
+            ticket->AppendResponse(response);
 
         if (Player* player2 = ticket->GetPlayer())
         {

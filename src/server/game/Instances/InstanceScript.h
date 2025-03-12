@@ -23,7 +23,6 @@
 #include "TaskScheduler.h"
 #include "World.h"
 #include "ZoneScript.h"
-#include "WorldStatePackets.h"
 #include <set>
 
 #define OUT_SAVE_INST_DATA             LOG_DEBUG("scripts.ai", "Saving Instance Data for Instance {} (Map {}, Instance Id {})", instance->GetMapName(), instance->GetId(), instance->GetInstanceId())
@@ -261,7 +260,7 @@ public:
 
     void SendEncounterUnit(uint32 type, Unit* unit = nullptr, uint8 param1 = 0, uint8 param2 = 0);
 
-    virtual void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& /*packet*/) { }
+    virtual void FillInitialWorldStates(WorldPacket& /*data*/) {}
 
     uint32 GetEncounterCount() const { return bosses.size(); }
 

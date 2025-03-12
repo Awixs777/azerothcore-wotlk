@@ -62,9 +62,11 @@ public:
     {
         explicit boss_loathebAI(Creature* c) : BossAI(c, BOSS_LOATHEB), summons(me)
         {
+            pInstance = me->GetInstanceScript();
             me->SetHomePosition(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), me->GetOrientation());
         }
 
+        InstanceScript* pInstance;
         uint8 doomCounter;
         EventMap events;
         SummonList summons;
@@ -75,6 +77,14 @@ public:
             events.Reset();
             summons.DespawnAll();
             doomCounter = 0;
+            if (pInstance)
+            {
+                pInstance->SetData(BOSS_LOATHEB, NOT_STARTED);
+                if (GameObject* go = me->GetMap()->GetGameObject(pInstance->GetGuidData(DATA_LOATHEB_GATE)))
+                {
+                    go->SetGoState(GO_STATE_ACTIVE);
+                }
+            }
         }
 
         void JustSummoned(Creature* cr) override
@@ -85,13 +95,18 @@ public:
 
         void SummonedCreatureDies(Creature*  /*cr*/, Unit*) override
         {
-            instance->SetData(DATA_SPORE_KILLED, 0);
+            if (pInstance)
+            {
+                pInstance->SetData(DATA_SPORE_KILLED, 0);
+            }
         }
 
         void KilledUnit(Unit* who) override
         {
-            if (who->IsPlayer())
-                instance->StorePersistentData(PERSISTENT_DATA_IMMORTAL_FAIL, 1);
+            if (who->IsPlayer() && pInstance)
+            {
+                pInstance->SetData(DATA_IMMORTAL_FAIL, 0);
+            }
         }
 
         void JustEngagedWith(Unit* who) override
@@ -103,12 +118,24 @@ public:
             events.ScheduleEvent(EVENT_INEVITABLE_DOOM, 2min);
             events.ScheduleEvent(EVENT_SUMMON_SPORE, 15s);
             events.ScheduleEvent(EVENT_BERSERK, 12min);
+            if (pInstance)
+            {
+                pInstance->SetData(BOSS_LOATHEB, IN_PROGRESS);
+                if (GameObject* go = me->GetMap()->GetGameObject(pInstance->GetGuidData(DATA_LOATHEB_GATE)))
+                {
+                    go->SetGoState(GO_STATE_READY);
+                }
+            }
         }
 
         void JustDied(Unit* killer) override
         {
             BossAI::JustDied(killer);
             summons.DespawnAll();
+            if (pInstance)
+            {
+                pInstance->SetData(BOSS_LOATHEB, DONE);
+            }
         }
 
         void UpdateAI(uint32 diff) override

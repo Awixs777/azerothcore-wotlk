@@ -393,7 +393,7 @@ void WorldSession::HandlePageTextQueryOpcode(WorldPacket& recvData)
                     ObjectMgr::GetLocaleString(player->Text, loc_idx, Text);
 
             data << Text;
-            data << pageText->NextPage;
+            data << uint32(pageText->NextPage);
             pageID = pageText->NextPage;
         }
         SendPacket(&data);

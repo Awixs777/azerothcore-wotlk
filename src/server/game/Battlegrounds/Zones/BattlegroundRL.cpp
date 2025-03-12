@@ -91,10 +91,10 @@ void BattlegroundRL::HandleAreaTrigger(Player* player, uint32 trigger)
     }
 }
 
-void BattlegroundRL::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
+void BattlegroundRL::FillInitialWorldStates(WorldPacket& data)
 {
-    packet.Worldstates.emplace_back(0xbba, 1); // BATTELGROUND_RUINS_OF_LORDAERNON_SHOW
-    Arena::FillInitialWorldStates(packet);
+    data << uint32(0xbba) << uint32(1);           // 9
+    Arena::FillInitialWorldStates(data);
 }
 
 bool BattlegroundRL::SetupBattleground()

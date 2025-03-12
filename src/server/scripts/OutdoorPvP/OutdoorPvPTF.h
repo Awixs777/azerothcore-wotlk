@@ -132,7 +132,7 @@ public:
 
     void SendChangePhase() override;
 
-    void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet) override;
+    void FillInitialWorldStates(WorldPacket& data) override;
 
     // used when player is activated/inactivated in the area
     bool HandlePlayerEnter(Player* player) override;
@@ -144,6 +144,7 @@ public:
 
 protected:
     OutdoorPvPTF_TowerType m_TowerType;
+
     uint32 m_TowerState;
 };
 
@@ -159,7 +160,7 @@ public:
 
     bool Update(uint32 diff) override;
 
-    void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet) override;
+    void FillInitialWorldStates(WorldPacket& data) override;
 
     void SendRemoveWorldStates(Player* player) override;
 

@@ -7,13 +7,42 @@ class Exchanger_NPC : public CreatureScript
 public:
     Exchanger_NPC() : CreatureScript("Exchanger_NPC") { }
 
+    std::string GetItemDetails(Player* player, uint32 itemId)
+    {
+        std::string playerName = player->GetName();
+        QueryResult result = CharacterDatabase.Query(
+            "SELECT it.name, COUNT(*) AS amount, CASE WHEN ii.count > 1 THEN ii.count ELSE NULL END AS stackAmount "
+            "FROM item_instance ii "
+            "INNER JOIN world_new.item_template it ON ii.itemEntry = it.entry "
+            "INNER JOIN characters ch ON ch.guid = ii.owner_guid "
+            "WHERE ch.name = '{}' AND ii.itemEntry = {} "
+            "GROUP BY it.name", playerName, itemId
+        );
+
+        if (!result)  // Проверка на успешность запроса
+        {
+            player->GetSession()->SendAreaTriggerMessage("Ошибка! Сообщите Администратору!");
+            return "Ошибка при получении данных!";
+        }
+
+        Field* field = result->Fetch();  // Получаем данные из результата запроса
+        std::ostringstream details;
+
+        // Если количество в стеке больше 1, добавляем информацию о стеке
+        if (!field[2].IsNull())
+            details << field[2].Get<uint32>();
+
+        return details.str();  // Возвращаем строку с деталями предмета
+    }
+
     bool OnGossipHello(Player *player, Creature *_creature)
 	{
+        player->SaveToDB(false, false);
         std::string name = player->GetName();
         std::ostringstream info;
 
         ClearGossipMenuFor(player);
-        info << "Приветствую, " << name << "\nЯ могу обменять твои вещи на [Монета-Donate] в том же количестве.\n" << "Стоимость обмена: |cff065961[Монета-Donate]x100|r\n" ;
+        info << "Приветствую, " << name << "\n\nНа вашем счете: |cff065961" << GetItemDetails(player, 90033) << "|r Монета-Donate.\n" << "\nЯ могу обменять твои предметы на [Монета-Donate] в том же количестве.\n" << "Стоимость обмена: |cff065961100 монет|r\n";
 
         AddGossipItemFor(player,5, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|tПерейти к обмену", GOSSIP_SENDER_MAIN, 777);
         AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:25:25:-20:0|tВыйти", GOSSIP_SENDER_MAIN, 444);
@@ -62,6 +91,12 @@ public:
                 AddGossipItemFor(player, 5, "[Extreme Neck Сила] х1", GOSSIP_SENDER_MAIN, 50, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Extreme Neck Ловкость] х1", GOSSIP_SENDER_MAIN, 51, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Extreme Neck Интеллект] х1", GOSSIP_SENDER_MAIN, 52, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Extreme Диадема-ДД] х1", GOSSIP_SENDER_MAIN, 180, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Extreme Диадема-РДД] х1", GOSSIP_SENDER_MAIN, 181, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Extreme Диадема-СПД] х1", GOSSIP_SENDER_MAIN, 182, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Unique Диадема-ДД] х1", GOSSIP_SENDER_MAIN, 183, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Unique Диадема-РДД] х1", GOSSIP_SENDER_MAIN, 184, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Unique Диадема-СПД] х1", GOSSIP_SENDER_MAIN, 185, "Вы уверены?", 0, false);
                 player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), _creature->GetGUID());
                 break;
             case 149:
@@ -84,6 +119,7 @@ public:
                 AddGossipItemFor(player, 5, "[Unique Mace] х1", GOSSIP_SENDER_MAIN, 591, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Extreme Axe] х1", GOSSIP_SENDER_MAIN, 592, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Unique Axe] х1", GOSSIP_SENDER_MAIN, 593, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Unique Жезл] х1", GOSSIP_SENDER_MAIN, 170, "Вы уверены?", 0, false);
                 player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), _creature->GetGUID());
                 break;
             case 150:
@@ -100,6 +136,9 @@ public:
                 AddGossipItemFor(player, 5, "[Mega Сумка Скорость-Сила] х1", GOSSIP_SENDER_MAIN, 155, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Mega Сумка Скорость-Ловкость] х1", GOSSIP_SENDER_MAIN, 156, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Mega Сумка Скорость-Интеллект] х1", GOSSIP_SENDER_MAIN, 157, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Mythic Скорость-ДД] х1", GOSSIP_SENDER_MAIN, 161, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Mythic Скорость-РДД] х1", GOSSIP_SENDER_MAIN, 162, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Mythic Скорость-СПД] х1", GOSSIP_SENDER_MAIN, 163, "Все вещи из сумки пропадут!!! Вы уверены?", 0, false);
                 player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), _creature->GetGUID());
                 break;
             case 590:
@@ -326,6 +365,102 @@ public:
                     return false;
                 }
                 break;
+            case 180:
+                if (player->HasItemCount(500100, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500100, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 181:
+                if (player->HasItemCount(500101, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500101, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 182:
+                if (player->HasItemCount(500102, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500102, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 183:
+                if (player->HasItemCount(500103, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500103, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 184:
+                if (player->HasItemCount(500104, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500104, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 185:
+                if (player->HasItemCount(500105, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500105, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
             case 155:
                 if (player->HasItemCount(500062, 1, false))
                 {
@@ -380,6 +515,70 @@ public:
                     CloseGossipMenuFor(player);
                     player->DestroyItemCount(90033, 100, true, false);
                     player->DestroyItemCount(500040, 1, true, false);
+                    player->AddItem(90033, 7000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 161:
+                if (player->HasItemCount(500065, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500065, 1, true, false);
+                    player->AddItem(90033, 20000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 162:
+                if (player->HasItemCount(500066, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500066, 1, true, false);
+                    player->AddItem(90033, 20000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 163:
+                if (player->HasItemCount(500067, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500067, 1, true, false);
+                    player->AddItem(90033, 20000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+            case 170:
+                if (player->HasItemCount(500090, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500090, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
                 }

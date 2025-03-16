@@ -29,8 +29,6 @@ void AddSC_New_Character();
 void AddSC_announce_login();
 void AddSC_gm_login();
 void AddSC_buff();
-//void AddSC_PlayedRewards();
-void AddSC_PlayedTimeRewards();
 void AddSC_Donate_Alert_System();
 void AddSC_worldboss_killanons();
 void AddSC_boss_commandscript();
@@ -68,8 +66,6 @@ void AddCustomScripts()
     AddSC_announce_login();
     AddSC_gm_login();
     AddSC_buff();
-  //  AddSC_PlayedRewards();
-    AddSC_PlayedTimeRewards();
     AddSC_Donate_Alert_System();
     AddSC_worldboss_killanons();
     AddSC_Arzhara_Fun_boss_1();

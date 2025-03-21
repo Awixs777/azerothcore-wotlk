@@ -133,9 +133,10 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_valentinesboxofchocolates02:25:25:-20:0|tБаффнуть всех -|cff065961 ОНЛАЙН|r", GOSSIP_SENDER_MAIN, 3);
 		//	AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Achievement_pvp_o_05:25:25:-20:0|tОбменять Доступ-Карты|r", GOSSIP_SENDER_MAIN, 16);
 			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Trade_engineering:25:25:-20:0|tИзменить персонажа", GOSSIP_SENDER_MAIN, 17);
-			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|tОбмен очков голосования", GOSSIP_SENDER_MAIN, 2);
-			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|tОбмен очков пожертвования", GOSSIP_SENDER_MAIN, 11);
+			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|tПеревод ЛК -> [Vote-Token]", GOSSIP_SENDER_MAIN, 2);
+			AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|tПеревод ЛК -> [Монета Donate]", GOSSIP_SENDER_MAIN, 11);
             AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|t[Монета Donate] -> [Vote-Token]", GOSSIP_SENDER_MAIN, 154);
+            AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_17:25:25:-20:0|t[Монета Donate] -> Баланс ЛК", GOSSIP_SENDER_MAIN, 200, "Вы уверены, что хотите перевести все монеты в ЛК?", 0, false);
             player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), creature->GetGUID());
             return true;
 		}
@@ -145,8 +146,73 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 			ClearGossipMenuFor(player);
 			if (sender == GOSSIP_SENDER_MAIN)
 			{
+                // Можно объявить глобально или статически: в реальном коде вынесите в отдельный .cpp/.h
+                static std::unordered_map<uint64, uint64> s_PlayerCooldown;
+
+                // Проверка кулдауна (2 сек = 2000 мс)
+                uint64 currentTime = getMSTime(); // TrinityCore: время в мс с момента старта сервера
+                uint64& nextUseTime = s_PlayerCooldown[player->GetGUID().GetRawValue()];
 				switch (action)
 				{
+                case 200:
+                {
+                    if (currentTime < nextUseTime)
+                    {
+                        ChatHandler(player->GetSession()).PSendSysMessage("|cffFF0000Подождите пару секунд прежде, чем снова использовать эту опцию!|r");
+                        CloseGossipMenuFor(player);
+                        break;
+                    }
+
+                    // Устанавливаем новый кулдаун
+                    nextUseTime = currentTime + 5000; // 3 сек в миллисекундах
+
+                    // ищем id аккаунта
+                    uint32 account_id = player->GetSession()->GetAccountId();
+                    // проверяем текущий баланс ЛК и кол-во валюты
+                    uint32 balans_before = GetBonusDP(player);
+                    uint32 coinCount = player->GetItemCount(90033, false);
+
+                    if (coinCount == 0)
+                    {
+                        ChatHandler(player->GetSession()).PSendSysMessage("|cffFF0000У вас нет Монета Donate!|r");
+                        CloseGossipMenuFor(player);
+                        break;
+                    }
+
+                    player->DestroyItemCount(90033, coinCount, true, false);
+                    // Рассчитываем сумму для зачисления: 80% от coinCount
+                    uint32 dpToAdd = coinCount * 80 / 100;
+
+                    // Добавляем бонусные очки (на баланс ЛК)
+                    AddBonusDP(player, dpToAdd);
+
+                    ChatHandler(player->GetSession()).PSendSysMessage(
+                        "Вы успешно перевели [{}] Монета-Donate на баланс ЛК.\nПолучив за это [{}] очков пожертвования.",
+                        uint32(coinCount), uint32(dpToAdd)
+                    );
+
+                    // проверяем баланс после зачисления DP
+                    uint32 balans_after = GetBonusDP(player);
+
+                    // пишем логи
+                    CharacterDatabase.Query(
+                        "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate) "
+                        "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP)",
+                        account_id,
+                        player->GetName(),
+                        balans_before,
+                        dpToAdd,
+                        balans_after
+                    );
+
+                    // Создаем транзакцию для сохранения инвентаря и золота
+                    CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+                    player->SaveInventoryAndGoldToDB(trans);
+                    CharacterDatabase.CommitTransaction(trans);
+
+                    CloseGossipMenuFor(player);
+                }
+                break;
                     case 1: /* Таймер мировых боссов */
                     {
                         std::ostringstream announce;
@@ -231,9 +297,9 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 							//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_03:25:25:-20:0|t50 DP на 50 бонусов", GOSSIP_SENDER_MAIN, 9, "Вы уверены?", 0, false);
 							//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|t100 DP на 100 бонусов", GOSSIP_SENDER_MAIN, 10, "Вы уверены?", 0, false);
                             AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_06:25:25:-20:0|t100 DP на [Монета-Donate]x100", GOSSIP_SENDER_MAIN, 122, "Вы уверены?", 0, false);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_06:25:25:-20:0|t500 DP на [Монета-Donate]x500", GOSSIP_SENDER_MAIN, 12, "Вы уверены?", 0, false);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_04:25:25:-20:0|t1000 DP на [Монета-Donate]x1000", GOSSIP_SENDER_MAIN, 13, "Вы уверены?", 0, false);
-							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|t2000 DP на [Монета-Donate]x2000", GOSSIP_SENDER_MAIN, 14, "Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_06:25:25:-20:0|t400 DP на [Монета-Donate]x500", GOSSIP_SENDER_MAIN, 12, "Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_04:25:25:-20:0|t800 DP на [Монета-Donate]x1000", GOSSIP_SENDER_MAIN, 13, "Вы уверены?", 0, false);
+							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_02:25:25:-20:0|t1600 DP на [Монета-Donate]x2000", GOSSIP_SENDER_MAIN, 14, "Вы уверены?", 0, false);
 							AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:25:25:-20:0|tНазад", GOSSIP_SENDER_MAIN, 4);
                             player->PlayerTalkClass->SendGossipMenu(info.str().c_str(), creature->GetGUID());
 				}
@@ -314,25 +380,66 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 				}
 					break;
                 case 122:
-				case 12:
-				case 13:
-				case 14:
-				{
-						   uint32 need = action == 122 ? 100 : action == 12 ? 500 : action == 13 ? 1000 : 2000;
-						   
-						   if (GetBonusDP(player) < need)
-						   {
-							   ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно {}", need);
-						   }
-						   else
-						   {
-							   DelBonusDP(player, need);
-							   player->AddItem(90033, need);
-							   ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [{}] Монета-Donate.\nПотратив на это [{}] очков пожертвования.", need, need);
-						   }
-						   CloseGossipMenuFor(player);
-				}
-					break;
+                case 12:
+                case 13:
+                case 14:
+                case 144:
+                {
+                    uint32 dpCost = 0;
+                    uint32 coinReward = 0;
+
+                    // Определяем стоимость в DP и количество выдаваемых монет в зависимости от выбранного действия
+                    switch (action)
+                    {
+                    case 122:
+                        dpCost = 100;   // 100 DP
+                        coinReward = 100; // 100 монет
+                        break;
+                    case 12:
+                        dpCost = 400;   // 400 DP
+                        coinReward = 500; // 500 монет
+                        break;
+                    case 13:
+                        dpCost = 800;   // 800 DP
+                        coinReward = 1000; // 1000 монет
+                        break;
+                    case 14:
+                        dpCost = 1600;  // 1600 DP
+                        coinReward = 2000; // 2000 монет
+                        break;
+                    }
+
+                    // Проверяем, хватает ли у игрока DP
+                    if (GetBonusDP(player) < dpCost)
+                    {
+                        ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает очков пожертвования.\nНужно {}", dpCost);
+                    }
+                    else
+                    {
+                        uint32 balans_before = GetBonusDP(player);
+                        DelBonusDP(player, dpCost);
+                        player->AddItem(90033, coinReward);
+                        ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [{}] Монета-Donate.\nПотратив на это [{}] очков пожертвования.", coinReward, dpCost);
+                        uint32 balans_after = GetBonusDP(player);
+
+                        // Ищем id аккаунта
+                        uint32 account_id = player->GetSession()->GetAccountId();
+
+                        // Записываем лог обмена
+                        CharacterDatabase.Query(
+                            "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                            "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
+                            account_id,
+                            player->GetName(),
+                            balans_before,
+                            dpCost,
+                            balans_after,
+                            "DP -> ITEM"
+                        );
+                    }
+                    CloseGossipMenuFor(player);
+                }
+                break;
 				case 15:
 				{
 						   if (player->HasItemCount(100502, 1) && player->HasItemCount(100503, 1) && player->HasItemCount(100504, 1))

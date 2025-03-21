@@ -7,7 +7,7 @@ class Exchanger_NPC : public CreatureScript
 public:
     Exchanger_NPC() : CreatureScript("Exchanger_NPC") { }
 
-    std::string GetItemDetails(Player* player, uint32 itemId)
+    /*std::string GetItemDetails(Player* player, uint32 itemId)
     {
         std::string playerName = player->GetName();
         QueryResult result = CharacterDatabase.Query(
@@ -19,10 +19,11 @@ public:
             "GROUP BY it.name", playerName, itemId
         );
 
-        if (!result)  // Проверка на успешность запроса
+        if (!result)
         {
-            player->GetSession()->SendAreaTriggerMessage("Ошибка! Сообщите Администратору!");
-            return "Ошибка при получении данных!";
+            //player->GetSession()->SendAreaTriggerMessage("Ошибка! Сообщите Администратору!");
+            //return "Ошибка при получении данных!";
+            return "0";
         }
 
         Field* field = result->Fetch();  // Получаем данные из результата запроса
@@ -33,16 +34,16 @@ public:
             details << field[2].Get<uint32>();
 
         return details.str();  // Возвращаем строку с деталями предмета
-    }
+    }*/
 
     bool OnGossipHello(Player *player, Creature *_creature)
 	{
-        player->SaveToDB(false, false);
+        uint64 coinCount = player->GetItemCount(90033, false);
         std::string name = player->GetName();
         std::ostringstream info;
 
         ClearGossipMenuFor(player);
-        info << "Приветствую, " << name << "\n\nНа вашем счете: |cff065961" << GetItemDetails(player, 90033) << "|r Монета-Donate.\n" << "\nЯ могу обменять твои предметы на [Монета-Donate] в том же количестве.\n" << "Стоимость обмена: |cff065961100 монет|r\n";
+        info << "Приветствую, " << name << "\n\nНа вашем счете: |cff065961" << coinCount << "|r Монета-Donate.\n" << "\nЯ могу обменять твои предметы на [Монета-Donate] в том же количестве.\n" << "Стоимость обмена: |cff065961100 монет|r\n";
 
         AddGossipItemFor(player,5, "|TInterface/ICONS/Inv_misc_coin_01:25:25:-20:0|tПерейти к обмену", GOSSIP_SENDER_MAIN, 777);
         AddGossipItemFor(player, GOSSIP_ICON_DOT, "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:25:25:-20:0|tВыйти", GOSSIP_SENDER_MAIN, 444);
@@ -115,7 +116,7 @@ public:
                 AddGossipItemFor(player, 5, "[Unique Wand] х1", GOSSIP_SENDER_MAIN, 25, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Extreme Bow] х1", GOSSIP_SENDER_MAIN, 58, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Unique Bow] х1", GOSSIP_SENDER_MAIN, 59, "Вы уверены?", 0, false);
-                AddGossipItemFor(player, 5, "[Exreme Mace] х1", GOSSIP_SENDER_MAIN, 590, "Вы уверены?", 0, false);
+                AddGossipItemFor(player, 5, "[Extreme Mace] х1", GOSSIP_SENDER_MAIN, 590, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Unique Mace] х1", GOSSIP_SENDER_MAIN, 591, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Extreme Axe] х1", GOSSIP_SENDER_MAIN, 592, "Вы уверены?", 0, false);
                 AddGossipItemFor(player, 5, "[Unique Axe] х1", GOSSIP_SENDER_MAIN, 593, "Вы уверены?", 0, false);
@@ -149,6 +150,15 @@ public:
                     player->DestroyItemCount(500041, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    CharacterDatabase.Query(
+                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
+                        player->GetName(),
+                        500041,
+                        3500
+                    );
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -165,6 +175,15 @@ public:
                     player->DestroyItemCount(500042, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    CharacterDatabase.Query(
+                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
+                        player->GetName(),
+                        500042,
+                        7000
+                    );
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -181,6 +200,15 @@ public:
                     player->DestroyItemCount(500043, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    CharacterDatabase.Query(
+                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
+                        player->GetName(),
+                        500043,
+                        3500
+                    );
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -197,6 +225,15 @@ public:
                     player->DestroyItemCount(500044, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    CharacterDatabase.Query(
+                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
+                        player->GetName(),
+                        500044,
+                        7000
+                    );
+                    player->SaveToDB(false, false);
                 }
                 else
                 {

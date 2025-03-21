@@ -11,6 +11,9 @@ public:
 	void OnPlayerLogin(Player* player)
 	{
 		{
+            // Временный дебаф
+            player->removeSpell(90001, SPEC_MASK_ALL, false);
+            player->RemoveAurasDueToSpell(90001);
 			if (player->GetSession()->GetSecurity() >= SEC_MODERATOR)
 			{
 				ChatHandler handler(player->GetSession());
@@ -56,7 +59,7 @@ public:
             handler.PSendSysMessage("|cfffcc141[Рейты:] Опыт: х2, Репутация: х2");
 			handler.PSendSysMessage("|cfffcc141Приятной игры.|r|TInterface/ICONS/Achievement_bg_tophealer_wsg:15|t");
             player->CastSpell(player, 90000, true);
-            player->CastSpell(player, 90001, true);
+          //player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
             if (!player->HasItemCount(34104, 1))
             {

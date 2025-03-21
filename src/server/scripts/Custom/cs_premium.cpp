@@ -99,7 +99,7 @@ public:
         if (handler->GetSession()->IsPremium())
         {
             player->CastSpell(player, 90000, true);
-            player->CastSpell(player, 90001, true);
+         //   player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
         }
         else

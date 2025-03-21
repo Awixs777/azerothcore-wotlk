@@ -407,7 +407,7 @@ public:
 		case 6999: // Power Word Fortitude
             CloseGossipMenuFor(player);
             player->CastSpell(player, 90000, true);
-            player->CastSpell(player, 90001, true);
+         //   player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
             creature->CastSpell(player, 38588, false); // Healing effect
 			break;

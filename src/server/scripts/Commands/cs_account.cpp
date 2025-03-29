@@ -50,48 +50,85 @@ void static UpdateLevel(Player* player)
 {
     char msg[2048];
     uint32 guild = player->GetGuildId();
-    QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild =  {}", guild);
-    if (result)
+    QueryResult result = CharacterDatabase.Query("SELECT level, xp FROM guild_level WHERE guild = {}", guild);
+    if (!result)
+        return;
+
+    Field* fields = result->Fetch();
+    uint16 currentLevel = fields[0].Get<uint16>();
+    uint32 xp = fields[1].Get<uint32>();
+
+    // Получаем максимальный уровень из таблицы уровней гильдии
+    QueryResult maxlevelResult = CharacterDatabase.Query("SELECT max(level) FROM guild_xp_table");
+    if (!maxlevelResult)
+        return;
+    uint16 maxLevel = maxlevelResult->Fetch()->Get<uint16>();
+
+    uint16 newLevel = currentLevel;
+
+    // Повышаем уровень, если опыта хватает для следующего уровня
+    while (newLevel < maxLevel)
     {
-        Field* fields = result->Fetch();
-        uint16 level = fields[0].Get<uint16>();
-        uint32 xp = fields[1].Get<uint32>();
-
-        QueryResult maxlevel = CharacterDatabase.Query("SELECT max(level) FROM guild_xp_table");
-        uint32 maxlvl = maxlevel->Fetch()->Get<uint32>();
-        QueryResult maxexp = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level =  {}", maxlvl);
-        uint32 maxxp = maxexp->Fetch()->Get<uint32>();
-
-        QueryResult knowLevel = CharacterDatabase.Query("SELECT level FROM guild_xp_table WHERE xp >  {}", xp);
-        if (knowLevel)
+        uint16 nextLevel = newLevel + 1;
+        QueryResult nextXpResult = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = {}", nextLevel);
+        if (!nextXpResult)
         {
-            Field* fs = knowLevel->Fetch();
-            uint16 gLevel = fs[0].Get<uint16>();
-
-            if (level < gLevel)
-            {
-                if (gLevel == maxlvl)
-                {
-                   // snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла максимального уровня.");
-                   // sWorld->SendGuildText(guild, msg);
-                }
-                else
-                {
-                   // snprintf(msg, 250, "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла  {}-го уровня.", gLevel);
-                   // sWorld->SendGuildText(guild, msg);
-                }
-            }
-            CharacterDatabase.Query("UPDATE guild_level SET level =  {} WHERE guild =  {}", gLevel, guild);
+            // Нет записи для следующего уровня — выходим из цикла
+            break;
         }
+        uint32 requiredXp = nextXpResult->Fetch()->Get<uint32>();
 
-        if (xp > maxxp)
-            CharacterDatabase.Query("UPDATE `guild_level` SET `xp`= {} WHERE (`guild`= {})", maxxp, guild);
+        // Можно добавить отладочное логирование, например:
+        // printf("Проверка: текущий уровень %u, уровень %u требует %u XP, текущий XP: %u\n", newLevel, nextLevel, requiredXp, xp);
+
+        if (xp >= requiredXp)
+        {
+            newLevel = nextLevel;
+        }
         else
-            CharacterDatabase.Query("UPDATE `guild_level` SET `xp`= {} WHERE (`guild`= {})", xp, guild);
+        {
+            break;
+        }
     }
 
-    //sGuildMgr->LoadGuilds();
+    // Если уровень изменился, отправляем сообщение и обновляем запись
+    if (newLevel > currentLevel)
+    {
+        if (newLevel == maxLevel)
+        {
+            ChatHandler(player->GetSession()).SendSysMessage("|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла максимального уровня.");
+        }
+        else
+        {
+            snprintf(msg, sizeof(msg), "|cffff0000[Новый уровень гильдии]:|r |cff6C8CD5Гильдия достигла %u-го уровня.", newLevel);
+            ChatHandler(player->GetSession()).SendSysMessage(msg);
+        }
+        // Обновляем уровень гильдии в базе
+        CharacterDatabase.Query("UPDATE guild_level SET level = {} WHERE guild = {}", newLevel, guild);
+    }
+    else
+    {
+        // Для отладки можно отправить сообщение, что уровень не изменился:
+        // ChatHandler(player->GetSession()).SendSysMessage("Уровень гильдии не изменился.");
+    }
+
+    // Обновляем XP в базе: если XP больше, чем для максимального уровня, ограничиваем его
+    QueryResult maxexpResult = CharacterDatabase.Query("SELECT xp FROM guild_xp_table WHERE level = {}", maxLevel);
+    if (!maxexpResult)
+        return;
+    uint32 maxXp = maxexpResult->Fetch()->Get<uint32>();
+    if (xp > maxXp)
+        CharacterDatabase.Query("UPDATE guild_level SET xp = {} WHERE guild = {}", maxXp, guild);
+    else
+        CharacterDatabase.Query("UPDATE guild_level SET xp = {} WHERE guild = {}", xp, guild);
+
+    // Проверьте, не затирает ли вызов LoadGuilds() обновления.
+    // Возможно, стоит убрать или переместить этот вызов.
+    sGuildMgr->LoadGuilds();
 }
+
+
+
 
 class account_commandscript : public CommandScript
 {
@@ -1062,8 +1099,8 @@ public:
                     AddGossipItemFor(player,10, buffer3.str(), GOSSIP_SENDER_MAIN, 41);
                     AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, femb.str(), GOSSIP_SENDER_MAIN, 37);
                     AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, gld.str(), GOSSIP_SENDER_MAIN, 200, "Введите сумму, которую хотите пожертвовать\n|cfff4b25e[Пожертвование] 1000 золота = 10 опыта|r", 0, true);
-                    AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, hnr.str(), GOSSIP_SENDER_MAIN, 1);
-                    AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, arn.str(), GOSSIP_SENDER_MAIN, 2);
+                 //   AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, hnr.str(), GOSSIP_SENDER_MAIN, 1);
+                 //   AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, arn.str(), GOSSIP_SENDER_MAIN, 2);
                 }
                 else
                     ChatHandler(player->GetSession()).PSendSysMessage("|cfff4b25eВаша гильдия имеет максимальный уровень!|r");
@@ -1075,7 +1112,7 @@ public:
         {
             std::ostringstream clr;
             clr << "|TInterface/ICONS/Spell_Magic_ManaGain:20|tИзменить цвет названия";
-            AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, clr.str(), GOSSIP_SENDER_MAIN, 24);
+         //   AddGossipItemFor(player,GOSSIP_ICON_MONEY_BAG, clr.str(), GOSSIP_SENDER_MAIN, 24);
         }
         std::ostringstream gsr;
         gsr << "|TInterface/ICONS/Spell_Shadow_Fumble:20|t[ТОП] Гильдий";
@@ -1094,10 +1131,10 @@ public:
 
     void InvestedRoster(Player* player, Creature* creature) {
         player->PlayerTalkClass->ClearMenus();
-        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_frostemblem_01:25:25:-18:0|tТОП 10 вложивших эмблем", GOSSIP_SENDER_MAIN, 9918);
-        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_BG_kill_flag_carrierEOS:25:25:-18:0|tТОП 10 вложивших очков чести", GOSSIP_SENDER_MAIN, 9915);
-        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Arena_2v2_1:25:25:-18:0|tТОП 10 вложивших очков арены", GOSSIP_SENDER_MAIN, 9916);
-        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Arena_2v2_2:25:25:-18:0|tТОП 10 вложивших в гильдию золота", GOSSIP_SENDER_MAIN, 9000);
+        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Arena_2v2_1:25:25:-18:0|tТОП 10 вложивших эмблем", GOSSIP_SENDER_MAIN, 9918);
+       // AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_BG_kill_flag_carrierEOS:25:25:-18:0|tТОП 10 вложивших очков чести", GOSSIP_SENDER_MAIN, 9915);
+      //  AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Arena_2v2_1:25:25:-18:0|tТОП 10 вложивших очков арены", GOSSIP_SENDER_MAIN, 9916);
+        AddGossipItemFor(player,GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Arena_2v2_2:25:25:-18:0|tТОП 10 вложивших золото", GOSSIP_SENDER_MAIN, 9000);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
     }
 
@@ -3002,19 +3039,23 @@ class npc_guildspell : public CreatureScript
 public:
     npc_guildspell() : CreatureScript("npc_guildspell") { }
 
-    uint8 IsSpell;
+    uint8 IsSpell = 0;
+
+    bool isPlayerGuildLeader(Player *player)
+    {
+        return (player->GetRank() == 0) && (player->GetGuildId() != 0);
+    }
 
     bool OnGossipHello(Player* player, Creature* creature)
     {
         player->PlayerTalkClass->ClearMenus();
-        if (player->GetRankFromDB(player->GetGUID()) == 0 && player->GetGuildId())
+        if (isPlayerGuildLeader(player))
         {
             AddGossipItemFor(player,GOSSIP_ICON_BATTLE, "|TInterface/ICONS/Achievement_reputation_knightsoftheebonblade:25|tПриобрести [Заклинание-Гильдии]", GOSSIP_SENDER_MAIN, 99000);
             AddGossipItemFor(player,GOSSIP_ICON_BATTLE, "|TInterface/ICONS/Inv_shield_66:25|tПриобрести [Вещи-Гильдии]", GOSSIP_SENDER_MAIN, GOSSIP_OPTION_VENDOR);
         }
         SendGossipMenuFor(player, 200172, creature->GetGUID());
         return true;
-
     }
 
     void BuySpellOrTitle(Player* player, Creature* creature, uint8 isSpell)
@@ -3072,8 +3113,8 @@ public:
         uint32 level;
         uint32 number;
         uint32 guild = player->GetGuildId();
-        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, level, number FROM guild_level_spell WHERE isSpell = {} AND level = {}", IsSpell, action);
-        if (result)
+        QueryResult result = CharacterDatabase.Query("SELECT spellortitle, cost, level, number FROM guild_level_spell WHERE isSpell = {} AND number = {}", IsSpell, action);
+
         {
             Field* fields = result->Fetch();
             spell = fields[0].Get<uint32>();
@@ -3100,7 +3141,7 @@ public:
                             if (!player->HasItemCount(90651, cost))
                             {
                                 CloseGossipMenuFor(player);
-                                ChatHandler(player->GetSession()).SendNotification("Недостаточно эмблем!");
+                                ChatHandler(player->GetSession()).PSendSysMessage("Недостаточно [Гильдейский токен]");
                                 return;
                             }
 

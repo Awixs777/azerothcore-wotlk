@@ -26,7 +26,7 @@ struct BuffData
 BuffData vvData[] =
 {
 	{ 46587, 15, "Берсерк", "Повышает скорость атаки на 30% и урона на 20% на 1 час" },
-	{ 26035, 10, "Счастливый", "+10% ко всем характеристикам на 30 мин" }
+	{ 26035, 10, "Счастливый", "+10% ко всем характеристикам на 60 мин" }
 };
 
 /* выводим количество VP на акке у игрока */
@@ -113,7 +113,7 @@ void GetBuffOnline(uint32 i)
 
 std::string GetNameSpell(uint8 i)
 {
-	std::string str = vvData[i].Name + " - стоймость|cff065961 " + std::to_string(vvData[i].Cost) + "|r бонусов\n|cff065961" + vvData[i].SubName;
+	std::string str = vvData[i].Name + " - стоимость|cff065961 " + std::to_string(vvData[i].Cost) + "|r Vote-Token\n|cff065961" + vvData[i].SubName;
 	return str;
 }
 
@@ -196,13 +196,14 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 
                     // пишем логи
                     CharacterDatabase.Query(
-                        "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate) "
-                        "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP)",
+                        "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                        "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
                         account_id,
                         player->GetName(),
                         balans_before,
                         dpToAdd,
-                        balans_after
+                        balans_after,
+                        "Moneta-Donate -> LK"
                     );
 
                     // Создаем транзакцию для сохранения инвентаря и золота
@@ -311,8 +312,8 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 							std::ostringstream info;
 
 							ClearGossipMenuFor(player);
-							info << "Приветствую, " << name << "\n\nНа вашем счету |cff065961" << GetBonus(player)
-								<< "|r бонусов.\n\nВы можете выдать временный бафф всем онлайн игрокам.\n"
+							info << "Приветствую, " << name << "\n\nНа вашем счету |cff065961" << player->GetItemCount(90201)
+								<< "|r Vote-Token.\n\nВы можете выдать временный бафф всем онлайн игрокам.\n"
 								<< "|cff065961Баффы не выдаются игрокам на арене/бг и духам.|r\n\n"
 								<< "Список доступных баффов:";
 
@@ -339,8 +340,29 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 						  }
 						  else
 						  {
+                              // ищем id аккаунта
+                              uint32 account_id = player->GetSession()->GetAccountId();
+                              // проверяем текущий баланс ЛК и кол-во валюты
+                              uint32 balans_before = GetBonus(player);
+
 							  DelBonus(player, need);
 							  player->AddItem(90201, need);
+
+                              // проверяем баланс после зачисления DP
+                              uint32 balans_after = GetBonus(player);
+
+                              // Записываем лог обмена
+                              CharacterDatabase.Query(
+                                  "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                                  "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
+                                  account_id,
+                                  player->GetName(),
+                                  balans_before,
+                                  need,
+                                  balans_after,
+                                  "VP -> Vote-Token"
+                              );
+
 							  ChatHandler(player->GetSession()).PSendSysMessage("Вы успешно получили [Vote-Token] x{}\nПотратив на это {} бонусов.", need, need);
 						  }
 						  CloseGossipMenuFor(player);
@@ -434,7 +456,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
                             balans_before,
                             dpCost,
                             balans_after,
-                            "DP -> ITEM"
+                            "DP -> Moneta-Donate"
                         );
                     }
                     CloseGossipMenuFor(player);
@@ -480,8 +502,29 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
                     if (player->HasItemCount(90033, 10))
                     {
                         CloseGossipMenuFor(player);
+                        // ищем id аккаунта
+                        uint32 account_id = player->GetSession()->GetAccountId();
+                        // проверяем текущий баланс 
+                        uint32 balans_before = player->GetItemCount(90033, false);
+
                         player->DestroyItemCount(90033, 10, true, false);
                         player->AddItem(90201, 10);
+
+                        // проверяем баланс после зачисления DP
+                        uint32 balans_after = player->GetItemCount(90033, false);
+
+                        // Записываем лог обмена
+                        CharacterDatabase.Query(
+                            "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                            "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
+                            account_id,
+                            player->GetName(),
+                            balans_before,
+                            10,
+                            balans_after,
+                            "MD -> Vote-Token"
+                        );
+
                         ChatHandler(player->GetSession()).PSendSysMessage("Вы получили [10] Vote-Token.\nПотратив на это [10] Moнета-Donate.");
                     }
                     else
@@ -496,8 +539,28 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
                     if (player->HasItemCount(90033, 50))
                     {
                         CloseGossipMenuFor(player);
+                        // ищем id аккаунта
+                        uint32 account_id = player->GetSession()->GetAccountId();
+                        // проверяем текущий баланс 
+                        uint32 balans_before = player->GetItemCount(90033, false);
+
                         player->DestroyItemCount(90033, 50, true, false);
                         player->AddItem(90201, 50);
+
+                        // проверяем баланс после 
+                        uint32 balans_after = player->GetItemCount(90033, false);
+
+                        // Записываем лог обмена
+                        CharacterDatabase.Query(
+                            "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                            "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
+                            account_id,
+                            player->GetName(),
+                            balans_before,
+                            50,
+                            balans_after,
+                            "MD -> VT"
+                        );
                         ChatHandler(player->GetSession()).PSendSysMessage("Вы получили [50] Vote-Token.\nПотратив на это [50] Moнета-Donate.");
                     }
                     else
@@ -512,8 +575,28 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
                     if (player->HasItemCount(90033, 100))
                     {
                         CloseGossipMenuFor(player);
+                        // ищем id аккаунта
+                        uint32 account_id = player->GetSession()->GetAccountId();
+                        // проверяем текущий баланс 
+                        uint32 balans_before = player->GetItemCount(90033, false);
+
                         player->DestroyItemCount(90033, 100, true, false);
                         player->AddItem(90201, 100);
+
+                        // проверяем баланс после 
+                        uint32 balans_after = player->GetItemCount(90033, false);
+
+                        // Записываем лог обмена
+                        CharacterDatabase.Query(
+                            "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                            "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
+                            account_id,
+                            player->GetName(),
+                            balans_before,
+                            100,
+                            balans_after,
+                            "MD -> VT"
+                        );
                         ChatHandler(player->GetSession()).PSendSysMessage("Вы получили [100] Vote-Token.\nПотратив на это [100] Moнета-Donate.");
                     }
                     else
@@ -606,7 +689,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 			}
 			if (sender == GOSSIP_SENDER_MAIN + 1)
 			{
-				if (GetBonus(player) < vvData[action].Cost)
+                if (player->GetItemCount(90201) < vvData[action].Cost)
 					ChatHandler(player->GetSession()).PSendSysMessage("У вас не хватает бонусов.");
 				else
 				{
@@ -615,8 +698,8 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 					message << "|cff5da673[BELION] |CFFE55BB0" << name << "|CFFFE8A0E баффнул всех игроков онлайн баффом [|cffEAF4F5" << vvData[action].Name << "|cff02A4B1]|r";
 					GetBuffOnline(action);
 
-					CharacterDatabase.Query("UPDATE fusion.account_data SET vp = vp - {} WHERE id = {}", vvData[action].Cost, player->GetSession()->GetAccountId());
-
+					//CharacterDatabase.Query("UPDATE fusion.account_data SET vp = vp - {} WHERE id = {}", vvData[action].Cost, player->GetSession()->GetAccountId());
+                    player->DestroyItemCount(90201, vvData[action].Cost, true, false);
 					sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, message.str().c_str());
 					CloseGossipMenuFor(player);
 				}

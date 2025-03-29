@@ -35,6 +35,17 @@ public:
 
         return details.str();  // Возвращаем строку с деталями предмета
     }*/
+    void LogExchange(Player* player, uint32 itemId, uint32 dp)
+    {
+        CharacterDatabase.Query(
+            "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+            "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
+            player->GetName(),
+            itemId,
+            dp
+        );
+        player->SaveToDB(false, false);
+    }
 
     bool OnGossipHello(Player *player, Creature *_creature)
 	{
@@ -151,13 +162,7 @@ public:
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
 
-                    CharacterDatabase.Query(
-                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
-                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
-                        player->GetName(),
-                        500041,
-                        3500
-                    );
+                    LogExchange(player, 500041, 3500);
                     player->SaveToDB(false, false);
                 }
                 else
@@ -176,13 +181,7 @@ public:
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
 
-                    CharacterDatabase.Query(
-                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
-                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
-                        player->GetName(),
-                        500042,
-                        7000
-                    );
+                    LogExchange(player, 500042, 7000);
                     player->SaveToDB(false, false);
                 }
                 else
@@ -192,6 +191,7 @@ public:
                     return false;
                 }
                 break;
+
             case 592:
                 if (player->HasItemCount(500043, 1, false))
                 {
@@ -201,13 +201,7 @@ public:
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
 
-                    CharacterDatabase.Query(
-                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
-                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
-                        player->GetName(),
-                        500043,
-                        3500
-                    );
+                    LogExchange(player, 500043, 3500);
                     player->SaveToDB(false, false);
                 }
                 else
@@ -217,6 +211,7 @@ public:
                     return false;
                 }
                 break;
+
             case 593:
                 if (player->HasItemCount(500044, 1, false))
                 {
@@ -226,13 +221,7 @@ public:
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
 
-                    CharacterDatabase.Query(
-                        "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
-                        "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
-                        player->GetName(),
-                        500044,
-                        7000
-                    );
+                    LogExchange(player, 500044, 7000);
                     player->SaveToDB(false, false);
                 }
                 else
@@ -242,6 +231,7 @@ public:
                     return false;
                 }
                 break;
+
             case 59:
                 if (player->HasItemCount(500034, 1, false))
                 {
@@ -250,6 +240,9 @@ public:
                     player->DestroyItemCount(500034, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500034, 7000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -258,6 +251,7 @@ public:
                     return false;
                 }
                 break;
+
             case 58:
                 if (player->HasItemCount(500033, 1, false))
                 {
@@ -266,6 +260,9 @@ public:
                     player->DestroyItemCount(500033, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500033, 3500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -274,6 +271,7 @@ public:
                     return false;
                 }
                 break;
+
             case 57:
                 if (player->HasItemCount(500039, 1, false))
                 {
@@ -282,6 +280,9 @@ public:
                     player->DestroyItemCount(500039, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500039, 3500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -290,6 +291,7 @@ public:
                     return false;
                 }
                 break;
+
             case 53:
                 if (player->HasItemCount(500035, 1, false))
                 {
@@ -298,6 +300,9 @@ public:
                     player->DestroyItemCount(500035, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500035, 7000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -306,6 +311,7 @@ public:
                     return false;
                 }
                 break;
+
             case 54:
                 if (player->HasItemCount(500038, 1, false))
                 {
@@ -314,6 +320,9 @@ public:
                     player->DestroyItemCount(500038, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500038, 7000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -322,6 +331,7 @@ public:
                     return false;
                 }
                 break;
+
             case 55:
                 if (player->HasItemCount(500036, 1, false))
                 {
@@ -330,6 +340,9 @@ public:
                     player->DestroyItemCount(500036, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500036, 3500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -338,6 +351,7 @@ public:
                     return false;
                 }
                 break;
+
             case 56:
                 if (player->HasItemCount(500037, 1, false))
                 {
@@ -346,6 +360,9 @@ public:
                     player->DestroyItemCount(500037, 1, true, false);
                     player->AddItem(90033, 3500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500037, 3500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -354,6 +371,7 @@ public:
                     return false;
                 }
                 break;
+
             case 50:
                 if (player->HasItemCount(90250, 1, false))
                 {
@@ -362,6 +380,9 @@ public:
                     player->DestroyItemCount(90250, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 90250, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -370,6 +391,7 @@ public:
                     return false;
                 }
                 break;
+
             case 51:
                 if (player->HasItemCount(90251, 1, false))
                 {
@@ -378,6 +400,9 @@ public:
                     player->DestroyItemCount(90251, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 90251, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -386,6 +411,7 @@ public:
                     return false;
                 }
                 break;
+
             case 52:
                 if (player->HasItemCount(90252, 1, false))
                 {
@@ -394,6 +420,9 @@ public:
                     player->DestroyItemCount(90252, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 90252, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -402,6 +431,7 @@ public:
                     return false;
                 }
                 break;
+
             case 180:
                 if (player->HasItemCount(500100, 1, false))
                 {
@@ -410,6 +440,9 @@ public:
                     player->DestroyItemCount(500100, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500100, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -418,6 +451,7 @@ public:
                     return false;
                 }
                 break;
+
             case 181:
                 if (player->HasItemCount(500101, 1, false))
                 {
@@ -426,6 +460,9 @@ public:
                     player->DestroyItemCount(500101, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500101, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -434,6 +471,7 @@ public:
                     return false;
                 }
                 break;
+
             case 182:
                 if (player->HasItemCount(500102, 1, false))
                 {
@@ -442,6 +480,9 @@ public:
                     player->DestroyItemCount(500102, 1, true, false);
                     player->AddItem(90033, 2500);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500102, 2500);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -450,6 +491,7 @@ public:
                     return false;
                 }
                 break;
+
             case 183:
                 if (player->HasItemCount(500103, 1, false))
                 {
@@ -458,6 +500,9 @@ public:
                     player->DestroyItemCount(500103, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500103, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -466,6 +511,7 @@ public:
                     return false;
                 }
                 break;
+
             case 184:
                 if (player->HasItemCount(500104, 1, false))
                 {
@@ -474,6 +520,9 @@ public:
                     player->DestroyItemCount(500104, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500104, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -482,6 +531,7 @@ public:
                     return false;
                 }
                 break;
+
             case 185:
                 if (player->HasItemCount(500105, 1, false))
                 {
@@ -490,6 +540,9 @@ public:
                     player->DestroyItemCount(500105, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500105, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -498,6 +551,7 @@ public:
                     return false;
                 }
                 break;
+
             case 155:
                 if (player->HasItemCount(500062, 1, false))
                 {
@@ -506,6 +560,9 @@ public:
                     player->DestroyItemCount(500062, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500062, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -514,6 +571,7 @@ public:
                     return false;
                 }
                 break;
+
             case 156:
                 if (player->HasItemCount(500063, 1, false))
                 {
@@ -522,6 +580,9 @@ public:
                     player->DestroyItemCount(500063, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500063, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -530,6 +591,7 @@ public:
                     return false;
                 }
                 break;
+
             case 157:
                 if (player->HasItemCount(500064, 1, false))
                 {
@@ -538,6 +600,9 @@ public:
                     player->DestroyItemCount(500064, 1, true, false);
                     player->AddItem(90033, 5000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500064, 5000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -546,6 +611,7 @@ public:
                     return false;
                 }
                 break;
+
             case 158:
                 if (player->HasItemCount(500040, 1, false))
                 {
@@ -554,6 +620,9 @@ public:
                     player->DestroyItemCount(500040, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500040, 7000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -562,6 +631,7 @@ public:
                     return false;
                 }
                 break;
+
             case 161:
                 if (player->HasItemCount(500065, 1, false))
                 {
@@ -570,6 +640,9 @@ public:
                     player->DestroyItemCount(500065, 1, true, false);
                     player->AddItem(90033, 20000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500065, 20000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -578,6 +651,7 @@ public:
                     return false;
                 }
                 break;
+
             case 162:
                 if (player->HasItemCount(500066, 1, false))
                 {
@@ -586,6 +660,8 @@ public:
                     player->DestroyItemCount(500066, 1, true, false);
                     player->AddItem(90033, 20000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500066, 20000);
                 }
                 else
                 {
@@ -594,6 +670,7 @@ public:
                     return false;
                 }
                 break;
+
             case 163:
                 if (player->HasItemCount(500067, 1, false))
                 {
@@ -602,6 +679,9 @@ public:
                     player->DestroyItemCount(500067, 1, true, false);
                     player->AddItem(90033, 20000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500067, 20000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -610,6 +690,7 @@ public:
                     return false;
                 }
                 break;
+
             case 170:
                 if (player->HasItemCount(500090, 1, false))
                 {
@@ -618,6 +699,9 @@ public:
                     player->DestroyItemCount(500090, 1, true, false);
                     player->AddItem(90033, 7000);
                     _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+
+                    LogExchange(player, 500090, 7000);
+                    player->SaveToDB(false, false);
                 }
                 else
                 {
@@ -629,327 +713,386 @@ public:
             case 444:
                 CloseGossipMenuFor(player);
                 break;
-                    case 1:
-                        if (player->HasItemCount(500000, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500000, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 2:
-                        if (player->HasItemCount(500001, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500001, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 3:
-                        if (player->HasItemCount(500002, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500002, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
 
-                    case 4:
-                        if (player->HasItemCount(500003, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500003, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 5:
-                        if (player->HasItemCount(5000011, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(5000011, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 6:
-                        if (player->HasItemCount(500004, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500004, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 7:
-                        if (player->HasItemCount(500055, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500055, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 8:
-                        if (player->HasItemCount(500056, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500056, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 9:
-                        if (player->HasItemCount(500057, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500057, 1, true, false);
-                            player->AddItem(90033, 1500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 10:
-                        if (player->HasItemCount(500005, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500005, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 11:
-                        if (player->HasItemCount(500006, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500006, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 12:
-                        if (player->HasItemCount(500007, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500007, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 13:
-                        if (player->HasItemCount(500058, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500058, 1, true, false);
-                            player->AddItem(90033, 5000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 14:
-                        if (player->HasItemCount(500059, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500059, 1, true, false);
-                            player->AddItem(90033, 5000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 15:
-                        if (player->HasItemCount(500060, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500060, 1, true, false);
-                            player->AddItem(90033, 5000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 16:
-                        if (player->HasItemCount(90203, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(90203, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 17:
-                        if (player->HasItemCount(90202, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(90202, 1, true, false);
-                            player->AddItem(90033, 2500);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 18:
-                        if (player->HasItemCount(500020, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500020, 1, true, false);
-                            player->AddItem(90033, 7000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 19:
-                        if (player->HasItemCount(27490, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(27490, 1, true, false);
-                            player->AddItem(90033, 7000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
-                    case 20:
-                        if (player->HasItemCount(500008, 1, false))
-                        {
-                            CloseGossipMenuFor(player);
-                            player->DestroyItemCount(90033, 100, true, false);
-                            player->DestroyItemCount(500008, 1, true, false);
-                            player->AddItem(90033, 7000);
-                            _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
-                        }
-                        else
-                        {
-                            CloseGossipMenuFor(player);
-                            _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
-                            return false;
-                        }
-                        break;
+            case 1:
+                if (player->HasItemCount(500000, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500000, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500000, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 2:
+                if (player->HasItemCount(500001, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500001, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500001, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 3:
+                if (player->HasItemCount(500002, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500002, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500002, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 4:
+                if (player->HasItemCount(500003, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500003, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500003, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 5:
+                if (player->HasItemCount(5000011, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(5000011, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 5000011, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 6:
+                if (player->HasItemCount(500004, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500004, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500004, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 7:
+                if (player->HasItemCount(500055, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500055, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500055, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 8:
+                if (player->HasItemCount(500056, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500056, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500056, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 9:
+                if (player->HasItemCount(500057, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500057, 1, true, false);
+                    player->AddItem(90033, 1500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500057, 1500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 10:
+                if (player->HasItemCount(500005, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500005, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500005, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 11:
+                if (player->HasItemCount(500006, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500006, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500006, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 12:
+                if (player->HasItemCount(500007, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500007, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500007, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 13:
+                if (player->HasItemCount(500058, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500058, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500058, 5000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 14:
+                if (player->HasItemCount(500059, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500059, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500059, 5000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 15:
+                if (player->HasItemCount(500060, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500060, 1, true, false);
+                    player->AddItem(90033, 5000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500060, 5000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 16:
+                if (player->HasItemCount(90203, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(90203, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 90203, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 17:
+                if (player->HasItemCount(90202, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(90202, 1, true, false);
+                    player->AddItem(90033, 2500);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 90202, 2500);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 18:
+                if (player->HasItemCount(500020, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500020, 1, true, false);
+                    player->AddItem(90033, 7000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500020, 7000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 19:
+                if (player->HasItemCount(27490, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(27490, 1, true, false);
+                    player->AddItem(90033, 7000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 27490, 7000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
+
+            case 20:
+                if (player->HasItemCount(500008, 1, false))
+                {
+                    CloseGossipMenuFor(player);
+                    player->DestroyItemCount(90033, 100, true, false);
+                    player->DestroyItemCount(500008, 1, true, false);
+                    player->AddItem(90033, 7000);
+                    _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                    LogExchange(player, 500008, 7000);
+                    player->SaveToDB(false, false);
+                }
+                else
+                {
+                    CloseGossipMenuFor(player);
+                    _creature->Whisper("Вы не владеете этой вещью!", LANG_UNIVERSAL, player);
+                    return false;
+                }
+                break;
                     case 21:
                         player->PlayerTalkClass->ClearMenus();
                         AddGossipItemFor(player, 5, "[Воин] х1-> 2500 Монет", GOSSIP_SENDER_MAIN, 30, "Вы уверены?", 0, false);
@@ -982,6 +1125,8 @@ public:
                             player->DestroyItemCount(500010, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500010, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -990,6 +1135,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 31:
                         if (player->HasItemCount(500011, 1, false))
                         {
@@ -998,6 +1144,8 @@ public:
                             player->DestroyItemCount(500011, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500011, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1006,6 +1154,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 32:
                         if (player->HasItemCount(500012, 1, false))
                         {
@@ -1014,6 +1163,8 @@ public:
                             player->DestroyItemCount(500012, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500012, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1022,6 +1173,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 33:
                         if (player->HasItemCount(500013, 1, false))
                         {
@@ -1030,6 +1182,8 @@ public:
                             player->DestroyItemCount(500013, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500013, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1038,6 +1192,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 34:
                         if (player->HasItemCount(500014, 1, false))
                         {
@@ -1046,6 +1201,8 @@ public:
                             player->DestroyItemCount(500014, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500014, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1054,6 +1211,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 35:
                         if (player->HasItemCount(500015, 1, false))
                         {
@@ -1062,6 +1220,8 @@ public:
                             player->DestroyItemCount(500015, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500015, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1070,6 +1230,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 36:
                         if (player->HasItemCount(500016, 1, false))
                         {
@@ -1078,6 +1239,8 @@ public:
                             player->DestroyItemCount(500016, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500016, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1086,6 +1249,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 37:
                         if (player->HasItemCount(500017, 1, false))
                         {
@@ -1094,6 +1258,8 @@ public:
                             player->DestroyItemCount(500017, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500017, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1102,6 +1268,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 38:
                         if (player->HasItemCount(500018, 1, false))
                         {
@@ -1110,6 +1277,8 @@ public:
                             player->DestroyItemCount(500018, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500018, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1118,6 +1287,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 39:
                         if (player->HasItemCount(500019, 1, false))
                         {
@@ -1126,6 +1296,8 @@ public:
                             player->DestroyItemCount(500019, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500019, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1134,6 +1306,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 300:
                         if (player->HasItemCount(500080, 1, false))
                         {
@@ -1142,6 +1315,8 @@ public:
                             player->DestroyItemCount(500080, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500080, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1150,6 +1325,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 310:
                         if (player->HasItemCount(500081, 1, false))
                         {
@@ -1158,6 +1334,8 @@ public:
                             player->DestroyItemCount(500081, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500081, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1166,6 +1344,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 320:
                         if (player->HasItemCount(500082, 1, false))
                         {
@@ -1174,6 +1353,8 @@ public:
                             player->DestroyItemCount(500082, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500082, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1182,6 +1363,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 330:
                         if (player->HasItemCount(500083, 1, false))
                         {
@@ -1190,6 +1372,8 @@ public:
                             player->DestroyItemCount(500083, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500083, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1198,6 +1382,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 340:
                         if (player->HasItemCount(500084, 1, false))
                         {
@@ -1206,6 +1391,8 @@ public:
                             player->DestroyItemCount(500084, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500084, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1214,6 +1401,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 350:
                         if (player->HasItemCount(500085, 1, false))
                         {
@@ -1222,6 +1410,8 @@ public:
                             player->DestroyItemCount(500085, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500085, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1230,6 +1420,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 360:
                         if (player->HasItemCount(500086, 1, false))
                         {
@@ -1238,6 +1429,8 @@ public:
                             player->DestroyItemCount(500086, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500086, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1246,6 +1439,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 370:
                         if (player->HasItemCount(500087, 1, false))
                         {
@@ -1254,6 +1448,8 @@ public:
                             player->DestroyItemCount(500087, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500087, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1262,6 +1458,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 380:
                         if (player->HasItemCount(500088, 1, false))
                         {
@@ -1270,6 +1467,8 @@ public:
                             player->DestroyItemCount(500088, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500088, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1278,6 +1477,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 390:
                         if (player->HasItemCount(500089, 1, false))
                         {
@@ -1286,6 +1486,8 @@ public:
                             player->DestroyItemCount(500089, 1, true, false);
                             player->AddItem(90033, 5000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500089, 5000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1294,6 +1496,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 22:
                         if (player->HasItemCount(500024, 1, false))
                         {
@@ -1302,6 +1505,8 @@ public:
                             player->DestroyItemCount(500024, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500024, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1310,6 +1515,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 23:
                         if (player->HasItemCount(500025, 1, false))
                         {
@@ -1318,6 +1524,8 @@ public:
                             player->DestroyItemCount(500025, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500025, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1326,6 +1534,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 24:
                         if (player->HasItemCount(500026, 1, false))
                         {
@@ -1334,6 +1543,8 @@ public:
                             player->DestroyItemCount(500026, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500026, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1342,6 +1553,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 25:
                         if (player->HasItemCount(500030, 1, false))
                         {
@@ -1350,6 +1562,8 @@ public:
                             player->DestroyItemCount(500030, 1, true, false);
                             player->AddItem(90033, 7000);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500030, 7000);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1358,6 +1572,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 26:
                         if (player->HasItemCount(500031, 1, false))
                         {
@@ -1366,6 +1581,8 @@ public:
                             player->DestroyItemCount(500031, 1, true, false);
                             player->AddItem(90033, 3500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500031, 3500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1374,6 +1591,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 40:
                         if (player->HasItemCount(500032, 1, false))
                         {
@@ -1382,6 +1600,8 @@ public:
                             player->DestroyItemCount(500032, 1, true, false);
                             player->AddItem(90033, 3500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500032, 3500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1390,6 +1610,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 27:
                         if (player->HasItemCount(500027, 1, false))
                         {
@@ -1398,6 +1619,8 @@ public:
                             player->DestroyItemCount(500027, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500027, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1406,6 +1629,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 28:
                         if (player->HasItemCount(500028, 1, false))
                         {
@@ -1414,6 +1638,8 @@ public:
                             player->DestroyItemCount(500028, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500028, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {
@@ -1422,6 +1648,7 @@ public:
                             return false;
                         }
                         break;
+
                     case 29:
                         if (player->HasItemCount(500029, 1, false))
                         {
@@ -1430,6 +1657,8 @@ public:
                             player->DestroyItemCount(500029, 1, true, false);
                             player->AddItem(90033, 2500);
                             _creature->Whisper("Вы совершили обмен!", LANG_UNIVERSAL, player);
+                            LogExchange(player, 500029, 2500);
+                            player->SaveToDB(false, false);
                         }
                         else
                         {

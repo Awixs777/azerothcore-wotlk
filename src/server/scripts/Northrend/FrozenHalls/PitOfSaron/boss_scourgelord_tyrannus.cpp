@@ -120,6 +120,7 @@ public:
                 DoZoneInCombat();
                 me->CastSpell(me, 43979, true);
                 Talk(SAY_AGGRO);
+                DoCast(me, SPELL_SARONITE);
                 events.Reset();
                 events.RescheduleEvent(EVENT_SPELL_FORCEFUL_SMASH, 14s, 16s);
                 events.RescheduleEvent(EVENT_SPELL_OVERLORDS_BRAND, 4s, 6s);
@@ -130,7 +131,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
+            
             if (!UpdateVictim())
                 return;
 

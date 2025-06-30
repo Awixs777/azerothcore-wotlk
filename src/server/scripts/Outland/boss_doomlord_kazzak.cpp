@@ -73,6 +73,7 @@ public:
         void JustEngagedWith(Unit* /*who*/) override
         {
             Talk(SAY_AGGRO);
+            DoCast(me, SPELL_SARONITE);
             scheduler.Schedule(6s, 10s, [this](TaskContext context)
             {
                 DoCastVictim(SPELL_SHADOW_VOLLEY);
@@ -134,8 +135,6 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
-
             if (!UpdateVictim())
                 return;
 

@@ -72,7 +72,6 @@ struct boss_murmur : public BossAI
         me->SetHealth(me->CountPctFromMaxHealth(40));
         me->ResetPlayerDamageReq();
         CastSuppressionOOC();
-		DoCast(me, SPELL_SARONITE);
     }
 
     void CastSuppressionOOC()
@@ -134,7 +133,7 @@ struct boss_murmur : public BossAI
         {
             _JustEngagedWith();
         }
-
+        DoCast(me, SPELL_SARONITE);
         scheduler.Schedule(28s, [this](TaskContext context)
         {
             Talk(EMOTE_SONIC_BOOM);

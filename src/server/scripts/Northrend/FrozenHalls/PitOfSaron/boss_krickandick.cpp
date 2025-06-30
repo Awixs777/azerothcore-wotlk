@@ -102,6 +102,7 @@ public:
             if (Creature* k = GetKrick())
                 k->AI()->Talk(SAY_AGGRO);
             DoZoneInCombat();
+            DoCast(me, SPELL_SARONITE);
             events.Reset();
             events.RescheduleEvent(EVENT_SPELL_TOXIC_WASTE, 3s, 5s);
             events.RescheduleEvent(EVENT_SPELL_MIGHTY_KICK, 10s, 20s);
@@ -156,7 +157,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
+            
             if (!UpdateVictim())
                 return;
 
@@ -329,6 +330,7 @@ public:
                     break;
                 case 1:
                   //  Talk(SAY_OUTRO_KRICK_1);
+                    DoCast(me, SPELL_SARONITE);
                     if (pInstance)
                     {
                         if (Creature* c = pInstance->instance->GetCreature(pInstance->GetGuidData(DATA_LEADER_FIRST_GUID)))

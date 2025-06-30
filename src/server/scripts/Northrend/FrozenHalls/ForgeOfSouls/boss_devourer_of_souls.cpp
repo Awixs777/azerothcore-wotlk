@@ -122,6 +122,7 @@ public:
         {
             Talk(SAY_FACE_AGGRO);
             DoZoneInCombat();
+            DoCast(me, SPELL_SARONITE);
             events.Reset();
             events.RescheduleEvent(EVENT_SPELL_PHANTOM_BLAST, 5s);
             events.RescheduleEvent(EVENT_SPELL_MIRRORED_SOUL, 9s);
@@ -171,7 +172,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
+            
             if (!UpdateVictim())
                 return;
 

@@ -99,6 +99,7 @@ struct boss_ambassador_hellmaw : public BossAI
             return;
         }
         Talk(SAY_AGGRO);
+        DoCast(me, SPELL_SARONITE);
         scheduler.Schedule(23050ms, 30350ms, [this](TaskContext context)
         {
             DoCastVictim(SPELL_CORROSIVE_ACID);
@@ -214,7 +215,7 @@ struct boss_ambassador_hellmaw : public BossAI
 
     void UpdateAI(uint32 diff) override
     {
-		DoCast(me, SPELL_SARONITE);
+	//	DoCast(me, SPELL_SARONITE);
         if (!UpdateVictim())
             return;
 

@@ -79,6 +79,7 @@ struct boss_blackheart_the_inciter : public BossAI
     void JustEngagedWith(Unit* /*who*/) override
     {
         Talk(SAY_AGGRO);
+        DoCast(me, SPELL_SARONITE);
         _JustEngagedWith();
         me->CallForHelp(100.0f);
         scheduler.Schedule(24s, [this](TaskContext context)
@@ -133,7 +134,7 @@ struct boss_blackheart_the_inciter : public BossAI
 
     void UpdateAI(uint32 diff) override
     {
-		DoCast(me, SPELL_SARONITE);
+	//	DoCast(me, SPELL_SARONITE);
         if (!UpdateVictim() && !InciteChaos)
             return;
 

@@ -88,13 +88,13 @@ public:
             if (a == 1)
             {
                 Talk(SAY_AGGRO);
+                DoCast(me, SPELL_SARONITE);
                 startFightTimer = 8000;
             }
         }
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, 633650);
             if (startFightTimer)
             {
                 if (startFightTimer <= diff)

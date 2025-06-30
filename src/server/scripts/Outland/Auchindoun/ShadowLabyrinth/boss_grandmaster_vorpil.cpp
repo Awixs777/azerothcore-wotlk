@@ -148,6 +148,7 @@ struct boss_grandmaster_vorpil : public BossAI
     void JustEngagedWith(Unit* /*who*/) override
     {
         Talk(SAY_AGGRO);
+        DoCast(me, SPELL_SARONITE);
         summonPortals();
         scheduler.Schedule(9700ms, 20s, [this](TaskContext context)
         {
@@ -248,7 +249,6 @@ struct npc_voidtraveler : public ScriptedAI
 
     void UpdateAI(uint32 diff) override
     {
-		DoCast(me, SPELL_SARONITE);
         _scheduler.Update(diff);
     }
 

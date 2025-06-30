@@ -113,6 +113,7 @@ public:
 
             Talk(SAY_AGGRO);
             DoZoneInCombat();
+            DoCast(me, SPELL_SARONITE);
             events.RescheduleEvent(EVENT_SPELL_THROW_SARONITE, 5000ms, 7500ms);
 
             if (pInstance)
@@ -207,7 +208,7 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
-            DoCast(me, SPELL_SARONITE);
+            
             if (!UpdateVictim())
                 return;
 

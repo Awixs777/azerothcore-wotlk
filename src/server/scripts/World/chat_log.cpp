@@ -59,8 +59,8 @@ public:
                 return;
         }
 
-        LOG_INFO(logType, "Player {} {} (language {}): {}",
-            player->GetName(), chatType, lang, msg);
+        LOG_INFO(logType, "Player {} {}: {}",
+            player->GetName(), chatType, msg);
     }
 
     void OnPlayerChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Player* receiver) override

@@ -654,4 +654,18 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<uint32>(CONFIG_SUNSREACH_COUNTER_MAX, "Sunsreach.CounterMax", 10000);
 
     SetConfigValue<std::string>(CONFIG_NEW_CHAR_STRING, "PlayerStart.String", "");
+
+    // Custom Premium Rates
+    SetConfigValue<float>(RATE_XP_KILL_PREMIUM, "Rate.XP.Kill.Premium", 1.0f);
+    SetConfigValue<float>(RATE_XP_QUEST_PREMIUM, "Rate.XP.Quest.Premium", 1.0f);
+    SetConfigValue<float>(RATE_XP_EXPLORE_PREMIUM, "Rate.XP.Explore.Premium", 1.0f);
+    SetConfigValue<float>(RATE_REPUTATION_PREMIUM, "Rate.Reputation.Premium", 1.0f);
+    SetConfigValue<float>(RATE_HONOR_PREMIUM, "Rate.Honor.Premium", 1.0f);
+
+    // Custom Premium Commands
+    SetConfigValue<bool>(COMMAND_BANK_PREMIUM, "Command.Bank.Premium", false);
+    SetConfigValue<bool>(COMMAND_MAIL_PREMIUM, "Command.Mail.Premium", false);
+
+    // Custom other
+    SetConfigValue<uint32>(CONFIG_DISABLE_FATIGUE, "DisableFatigue", true); //Disable Fatigue
 }

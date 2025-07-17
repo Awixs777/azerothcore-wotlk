@@ -262,7 +262,7 @@ public:
 			}
 			break;
 		case 9500: // NPC-Title
-			if (player->GetSession()->IsPremium())
+			if (player->GetSession()->IsPremium() || player->GetSession()->IsGMAccount())
 			{
 				CloseGossipMenuFor(player);
 				CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(178);

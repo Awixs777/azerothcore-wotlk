@@ -6472,16 +6472,9 @@ void Player::_LoadSpells(PreparedQueryResult result)
     if (result)
     {
         do
-        {
-            Field* fields = result->Fetch();
-            uint32 spellId = fields[0].Get<uint32>();
-            uint8 specMask = fields[1].Get<uint8>();
-
-            if (CheckSkillLearnedBySpell(spellId))
-                addSpell(spellId, specMask, true);
-            else
-                removeSpell(spellId, SPEC_MASK_ALL, false);
-        } while (result->NextRow());
+            // xinef: checked
+            addSpell((*result)[0].Get<uint32>(), (*result)[1].Get<uint8>(), true);
+        while (result->NextRow());
     }
 }
 

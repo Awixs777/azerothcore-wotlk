@@ -13520,22 +13520,14 @@ LootItem* Player::StoreLootItem(uint8 lootSlot, Loot* loot, InventoryResult& msg
     msg = EQUIP_ERR_OK;
 
     LootItem* item = loot->LootItemInSlot(lootSlot, this, &qitem, &ffaitem, &conditem);
-if (!item || item->is_looted)
-{
-    // Проверяем, включен ли AOE лут
-    bool aoeLootEnabled = sConfigMgr->GetOption<bool>("AOE.LOOT.enable", true);
-
-    // Если AOE лут включён – просто возвращаемся, не отправляя ошибку
-    if (aoeLootEnabled)
+    if (!item || item->is_looted)
+    {
+        if (!sScriptMgr->OnPlayerCanSendErrorAlreadyLooted(this))
+        {
+            SendEquipError(EQUIP_ERR_ALREADY_LOOTED, nullptr, nullptr);
+        }
         return nullptr;
-
-    // Если AOE лут выключен – даём скриптам возможность заблокировать отправку ошибки
-    if (!sScriptMgr->OnPlayerCanSendErrorAlreadyLooted(this))
-        SendEquipError(EQUIP_ERR_ALREADY_LOOTED, nullptr, nullptr);
-
-    return nullptr;
-}
-
+    }
 
     // Xinef: exploit protection, dont allow to loot normal items if player is not master loot and not below loot threshold
     // Xinef: only quest, ffa and conditioned items

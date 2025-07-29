@@ -287,7 +287,7 @@ void TicketMgr::ResetTickets()
         {
             uint32 ticketId = itr->second->GetId();
             ++itr;
-            sTicketMgr->RemoveTicket(ticketId);
+            RemoveTicket(ticketId);
         }
         else
             ++itr;

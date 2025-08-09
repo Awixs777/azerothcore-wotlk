@@ -262,13 +262,13 @@ struct boss_priestess_lackey_commonAI : public ScriptedAI
 
     void EnterEvadeMode(EvadeReason why) override
     {
-        if (Creature* delrissa = instance->GetCreature(DATA_DELRISSA))
+        /*if (Creature* delrissa = instance->GetCreature(DATA_DELRISSA))
             if (!delrissa->IsAlive())
             {
                 delrissa->Respawn();
                 return;
             }
-        ScriptedAI::EnterEvadeMode(why);
+        ScriptedAI::EnterEvadeMode(why);*/
     }
 
     void JustEngagedWith(Unit* who) override

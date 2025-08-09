@@ -39,6 +39,7 @@ void AddSC_FallEvent();
 void AddSC_CloseInst();
 //void AddSC_BuffInst();
 void AddSC_npc_1v1arena();
+void AddSC_vip_menu();
 
 // WorldBoss
 void AddSC_Arzhara_Fun_boss_1();
@@ -84,4 +85,5 @@ void AddCustomScripts()
     //AddSC_BuffInst();
     AddSC_npc_1v1arena();
     AddSC_mir8();
+    AddSC_vip_menu();
 }

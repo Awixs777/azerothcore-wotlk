@@ -38,7 +38,7 @@ public:
     void LogExchange(Player* player, uint32 itemId, uint32 dp)
     {
         CharacterDatabase.Query(
-            "INSERT INTO `donate_exchange_logs` (nickname, item_id, dp, logdate) "
+            "INSERT INTO `gfy_donate_exchange_logs` (nickname, item_id, dp, logdate) "
             "VALUES ('{}', {}, {}, CURRENT_TIMESTAMP)",
             player->GetName(),
             itemId,

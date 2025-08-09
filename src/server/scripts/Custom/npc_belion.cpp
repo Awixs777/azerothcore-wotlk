@@ -164,7 +164,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
                     }
 
                     // Устанавливаем новый кулдаун
-                    nextUseTime = currentTime + 5000; // 3 сек в миллисекундах
+                    nextUseTime = currentTime + 3000; // 3 сек в миллисекундах
 
                     // ищем id аккаунта
                     uint32 account_id = player->GetSession()->GetAccountId();
@@ -196,7 +196,7 @@ public: npc_bonus_buff() : CreatureScript("npc_bonus_buff") { }
 
                     // пишем логи
                     CharacterDatabase.Query(
-                        "INSERT INTO `belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
+                        "INSERT INTO `gfy_belion_logs` (account_id, nickname, balans_before, perevod, balans_after, logdate, comment) "
                         "VALUES ({}, '{}', {}, {}, {}, CURRENT_TIMESTAMP, '{}')",
                         account_id,
                         player->GetName(),

@@ -32,7 +32,6 @@ public:
 				handler.PSendSysMessage("|cff00ff00Сейчас|r {} |cff00ff00игроков онлайн|r", playeronline);
 				handler.PSendSysMessage("|cff00ff00Открытые тикеты:|r {}", tickets);
 				handler.PSendSysMessage("|cff00ff00Время работы сервера:|r {}", uptime.c_str());
-				handler.PSendSysMessage("|cff00ff00Удачи и приятной игры|r");
 				handler.PSendSysMessage("|cffff0000=================================|r");
 				return;
 			}
@@ -50,21 +49,17 @@ public:
 			handler.PSendSysMessage("|cfffcc141Сейчас|r |cff8ab6fc{}|r |cfffcc141игроков онлайн|r", playeronline);
 			handler.PSendSysMessage("|cfffcc141Время работы сервера:|r |cff8ab6fc{}|r", uptime.c_str());
 			handler.PSendSysMessage("|cfffcc141Доступные команды:|r");
+            handler.PSendSysMessage("|cff8ab6fc[.vip menu]|cfffcc141 - Меню VIP|r");
 			handler.PSendSysMessage("|cff8ab6fc[.vip bank]|cfffcc141 - открыть банк|r");
 			handler.PSendSysMessage("|cff8ab6fc[.vip mail]|cfffcc141 - открыть почту|r");
             handler.PSendSysMessage("|cff8ab6fc[.vip home]|cfffcc141 - телепорт в Столицу|r");
             handler.PSendSysMessage("|cff8ab6fc[.vip buff]|cfffcc141 - Баффы|r");
             handler.PSendSysMessage("|cff8ab6fc[.ins un all]|cfffcc141 - сбросить КД подземелий|r");
             handler.PSendSysMessage("|cff8ab6fc[.mir all|cfffcc141 - таймер Мировых боссов|r");
-            handler.PSendSysMessage("|cfffcc141[Рейты:] Опыт: х2, Репутация: х2");
+            handler.PSendSysMessage("|cfffcc141[Рейты:] Репутация: х2");
 			handler.PSendSysMessage("|cfffcc141Приятной игры.|r|TInterface/ICONS/Achievement_bg_tophealer_wsg:15|t");
             player->CastSpell(player, 90000, true);
-          //player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
-            if (!player->HasItemCount(34104, 1))
-            {
-                player->AddItem(34104, 1);
-            }
 			QueryResult result = LoginDatabase.Query("SELECT unsetdate FROM account_premium WHERE id = {}", accid);
 			if (result)
 			{
@@ -100,7 +95,6 @@ public:
             player->DestroyItemCount(80085, 1, true, false);
 			player->DestroyItemCount(80090, 1, true, false);
             player->DestroyItemCount(300048, 1, true, false);
-            player->DestroyItemCount(34104, 1, true, false);
 			player->removeSpell(300118, SPEC_MASK_ALL, false);
 			player->removeSpell(300048, SPEC_MASK_ALL, false);
 			player->removeSpell(300194, SPEC_MASK_ALL, false);
@@ -112,6 +106,7 @@ public:
             player->RemoveAurasDueToSpell(90002);
 			CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(178);
 			player->SetTitle(titleInfo, true);
+            player->SaveToDB(false, false);
 		}
 	}
 };

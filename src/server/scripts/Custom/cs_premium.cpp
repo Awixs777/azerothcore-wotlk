@@ -4,7 +4,7 @@
 #include "ScriptMgr.h"
 //#include "AuctionHouseMgr.h"
 
-#define EMOTE_NO_VIP "Доступно только VIP игрокам. Приобретается в ЛК."
+#define EMOTE_NO_VIP "|cffff6060[Ошибка]:|r Доступно только для VIP-Аккаунтов!"
 #define EMOTE_ZONE_VIP "На текущий момент команда недоступна! Попробуйте позже."
 using namespace Acore::ChatCommands;
 
@@ -99,7 +99,6 @@ public:
         if (handler->GetSession()->IsPremium())
         {
             player->CastSpell(player, 90000, true);
-         //   player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
         }
         else

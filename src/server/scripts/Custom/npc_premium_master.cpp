@@ -19,7 +19,7 @@
 #define CONST_ARENA_CHANGE_FACTION 0
 #define CONST_ARENA_CHANGE_RACE 0
 
-#define EMOTE_NO_VIP "Извините, доступно только VIP игрокам..."
+#define EMOTE_NO_VIP "|cffff6060[Ошибка]:|r Доступно только для VIP-Аккаунтов!"
 #define EMOTE_COOLDOWN "Не могу сделать это сейчас..."
 #define EMOTE_NO_SICKENSS "У вас нет ауры 'Слабость после воскрешения'!"
 #define EMOTE_NO_DESERTER "У вас нет ауры 'Дезертир'!"

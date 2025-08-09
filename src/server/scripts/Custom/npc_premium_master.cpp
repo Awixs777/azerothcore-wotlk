@@ -100,7 +100,7 @@ public:
 		}
 		player->PlayerTalkClass->ClearMenus();
         AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_note_02:20|t Получить Звание [VIP]", GOSSIP_SENDER_MAIN, 9500);
-		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/spell_shadow_deathscream:20|t Снять [Слабость после воскрешения]", GOSSIP_SENDER_MAIN, 1209);
+		//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/spell_shadow_deathscream:20|t Снять [Слабость после воскрешения]", GOSSIP_SENDER_MAIN, 1209);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/ability_druid_cower:20|t Снять [Дезертир]", GOSSIP_SENDER_MAIN, 1210);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Spell_holy_healingaura:20|t Вылечить персонажа", GOSSIP_SENDER_MAIN, 1202);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Achievement_reputation_08:20|t Сохранить персонажа", GOSSIP_SENDER_MAIN, 1213);
@@ -108,15 +108,15 @@ public:
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Achievement_pvp_o_05:20|t Повысить навыки", GOSSIP_SENDER_MAIN, 1204);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Ability_hunter_ferociousinspiration:20|t ViP-Маунт", GOSSIP_SENDER_MAIN, 1216);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_shoulder_56:20|t ViP-Wings ->", GOSSIP_SENDER_MAIN, 1220);
-		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_book_04:20|t ViP-Бафы ->", GOSSIP_SENDER_MAIN, 6999);
-		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема ->", GOSSIP_SENDER_MAIN, 1231);
+		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_book_04:20|t ViP-Бафы", GOSSIP_SENDER_MAIN, 6999);
+		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема", GOSSIP_SENDER_MAIN, 1231);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Ability_mount_charger:20|t Редкие ездовые животные ->", GOSSIP_SENDER_MAIN, 1208);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Ability_mount_gyrocoptor:20|t Элитные ездовые животные ->", GOSSIP_SENDER_MAIN, 1217);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Ability_mount_hordepvpmount:20|t Прото ездовые животные ->", GOSSIP_SENDER_MAIN, 1218);
-		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_09:20|t Превращения ->", GOSSIP_SENDER_MAIN, 1203);
+		//AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_coin_09:20|t Превращения ->", GOSSIP_SENDER_MAIN, 1203);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Inv_misc_book_07:20|t Заклинания ->", GOSSIP_SENDER_MAIN, 1206);
 		AddGossipItemFor(player,GOSSIP_ICON_DOT, "|TInterface/ICONS/Trade_engineering:20|tИзменить персонажа ->", GOSSIP_SENDER_MAIN, 2000);
-        AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_book_11:20|t Классовый тренер ->", GOSSIP_SENDER_MAIN, 12);
+        //AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_book_11:20|t Классовый тренер ->", GOSSIP_SENDER_MAIN, 12);
         AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/inv_misc_book_04:20|t Профессии ->", GOSSIP_SENDER_MAIN, 13);
         SendGossipMenuFor(player, 200034, creature->GetGUID());
 		return true;
@@ -389,28 +389,50 @@ public:
 			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_vip:20|t ViP-Buff", GOSSIP_SENDER_MAIN, 7000);
             SendGossipMenuFor(player, 200034, creature->GetGUID());
 			break;
-		case 1231: // ViP-Buffs
-			player->PlayerTalkClass->ClearMenus();
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Воин]", GOSSIP_SENDER_MAIN, 1250);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Паладин]", GOSSIP_SENDER_MAIN, 1251);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Охотник]", GOSSIP_SENDER_MAIN, 1252);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Разбойник]", GOSSIP_SENDER_MAIN, 1253);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Жрец]", GOSSIP_SENDER_MAIN, 1254);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Шаман]", GOSSIP_SENDER_MAIN, 1255);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Шаман СПД]", GOSSIP_SENDER_MAIN, 1260);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Маг]", GOSSIP_SENDER_MAIN, 1256);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Чернокнижник]", GOSSIP_SENDER_MAIN, 1257);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Друид]", GOSSIP_SENDER_MAIN, 1258);
-			AddGossipItemFor(player,5, "|TInterface/ICONS/icon_roga:20|t ViP-Диадема [Рыцарь Смерти]", GOSSIP_SENDER_MAIN, 1259);
+        case 1231: // ViP-Buffs
+        {
+            player->PlayerTalkClass->ClearMenus();
+            uint32 itemId = 0;
+            switch (player->getClass())
+            {
+            case CLASS_WARRIOR:     itemId = 80052; break; // Воин
+            case CLASS_PALADIN:     itemId = 80053; break; // Паладин
+            case CLASS_HUNTER:      itemId = 80055; break; // Охотник
+            case CLASS_ROGUE:       itemId = 80058; break; // Разбойник
+            case CLASS_PRIEST:      itemId = 80059; break; // Жрец
+            case CLASS_SHAMAN:      itemId = 80057; break; // Шаман
+            case CLASS_MAGE:        itemId = 80060; break; // Маг
+            case CLASS_WARLOCK:     itemId = 80061; break; // Чернокнижник
+            case CLASS_DRUID:       itemId = 80056; break; // Друид (две вещи)
+            { player->AddItem(80062, 1); }
+            break;
+            case CLASS_DEATH_KNIGHT:itemId = 80054; break; // Рыцарь Смерти
+            default: break;
+            }
+
+            if (!itemId)
+            {
+                ChatHandler(player->GetSession()).PSendSysMessage("Вашему классу нет ViP-Диадемы.");
+            }
+            else if (player->HasItemCount(itemId, 1))
+            {
+                ChatHandler(player->GetSession()).PSendSysMessage(EMOTE_ALREADY_ITEM);
+            }
+            else
+            {
+                player->AddItem(itemId, 1);
+                ChatHandler(player->GetSession()).PSendSysMessage("ViP-Диадема выдана.");
+            }
             SendGossipMenuFor(player, 200034, creature->GetGUID());
+        }
 			break;
-		case 6999: // Power Word Fortitude
-            CloseGossipMenuFor(player);
+        case 6999: // Power Word Fortitude
+                   CloseGossipMenuFor(player);
             player->CastSpell(player, 90000, true);
-         //   player->CastSpell(player, 90001, true);
+            //   player->CastSpell(player, 90001, true);
             player->CastSpell(player, 90002, true);
             creature->CastSpell(player, 38588, false); // Healing effect
-			break;
+            break;
 		case 7003: // 36 Slot Bag
 			if (player->HasItemCount(68912, 1))
 			{

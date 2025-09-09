@@ -2,7 +2,7 @@
 #include "ScriptMgr.h"
 
 #define MSG_GOSSIP_TEXT_GETTING_STARTED "Приветствую! У меня ты можешь приобрести себе звание."
-#define MSG_GOSSIP_TEXT_GETTING_STARTED1 "Каждое из них стоит: [Ивент-Токен]x30 . Выбирай скорей!"
+#define MSG_GOSSIP_TEXT_GETTING_STARTED1 "Каждое из них стоит: [Ивент-Токен]x30"
 
 #define MSG_ERR_ARENA_POINT "Недостаточно Ивент-Токен!"
 #define MSG_ERR_TITLE "У тебя уже есть такое звание!"
@@ -114,7 +114,7 @@ public:
         std::ostringstream info;
 
         ClearGossipMenuFor(player);
-        info << "Приветствую, " << name << "\nХочешь крутое звание?\n" << "Каждое из них стоит: |cff065961[Ивент-Токен]x30|r\nВыбирай скорей!";
+        info << "Приветствую, " << name << "\nХочешь крутое звание?\n" << "Каждое из них стоит: |cff065961[Ивент-Токен]x30|r";
 
 		AddGossipItemFor(player,GOSSIP_ICON_TRAINER, MSG_GOSSIP_TEXT_144, GOSSIP_SENDER_MAIN, 2);
 		AddGossipItemFor(player,GOSSIP_ICON_TRAINER, MSG_GOSSIP_TEXT_62, GOSSIP_SENDER_MAIN, 3);
